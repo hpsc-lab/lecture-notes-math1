@@ -81,11 +81,11 @@ Differenz $A \setminus B := \lbrace x \mid x \in A \text{ und } x\notin B\rbrace
 """
 
 # ╔═╡ d2de929f-f14d-4ef5-a4c9-fbdfd6ddb602
-RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/blob/main/assets/mengen.svg", "../assets/mengen.svg")
+RobustLocalResource("https://raw.githubusercontent.com/hpsc-lab/lecture-notes-math1/5adcedfe62e071fdc1f229f820503475b6235da3/assets/mengen.svg", "../assets/mengen.svg")
 
 # ╔═╡ b4cc522e-9673-4fd3-8b7f-2a47732ba78e
 md"""
-„Rechenregeln“, seien $A, B$ und $C$ Mengen
+"Rechenregeln", seien $A, B$ und $C$ Mengen
  1.  Allgemein
      * $A \setminus \emptyset = A$
      * $A\cup\emptyset = A$
@@ -162,7 +162,7 @@ Eine (beliebige) Teilmenge $R$ des Produkts $A\times B$ heißt _Relation_ zwisch
 md"""
 ##### Beispiele:
  
-1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/blob/main/assets/bsp-mengen.svg","../assets/bsp-mengen.svg", :width=>200)) durch obigen Graphen lässt sich die folgende Relation beschreiben
+1. $(RobustLocalResource("https://raw.githubusercontent.com/hpsc-lab/lecture-notes-math1/5adcedfe62e071fdc1f229f820503475b6235da3/assets/bsp-mengen.svg","../assets/bsp-mengen.svg", :width=>200)) durch obigen Graphen lässt sich die folgende Relation beschreiben
 |   |$a$|$b$|$c$|
 |:-:|:-:|:-:|:-:|
 |$a$| × | × |   |
@@ -205,7 +205,7 @@ md"""
 |  b  |   | × | × |        |  b  |   | × |   |
 |  c  |   |   | × |        |  c  |   | × | × |
 
-Welche „Ordnung/Reihenfolge“ für $A$ erzeugt $R_1$ bzw. $R_2$?
+Welche "Ordnung/Reihenfolge" für $A$ erzeugt $R_1$ bzw. $R_2$?
 
  $R_1$: $\quad a\,R_1\,b,\quad a\,R_1\,c,\quad b\,R_1\,c\quad\Rightarrow a,b,c$
 
