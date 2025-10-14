@@ -4,6 +4,18 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    #! format: off
+    return quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+    #! format: on
+end
+
 # ╔═╡ 7591351c-557a-43f3-81bc-bf1ebab82c8a
 begin
 	using PlutoTeachingTools
@@ -81,7 +93,7 @@ Differenz $A \setminus B := \lbrace x \mid x \in A \text{ und } x\notin B\rbrace
 """
 
 # ╔═╡ d2de929f-f14d-4ef5-a4c9-fbdfd6ddb602
-RobustLocalResource("https://raw.githubusercontent.com/hpsc-lab/lecture-notes-math1/5adcedfe62e071fdc1f229f820503475b6235da3/assets/mengen.svg", "../assets/mengen.svg")
+RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c6214b008ebfecce9f3350b6609d3fcdfbf70778/notebooks/assets/mengen.svg", "./assets/mengen.svg")
 
 # ╔═╡ b4cc522e-9673-4fd3-8b7f-2a47732ba78e
 md"""
@@ -162,7 +174,7 @@ Eine (beliebige) Teilmenge $R$ des Produkts $A\times B$ heißt _Relation_ zwisch
 md"""
 ##### Beispiele:
  
-1. $(RobustLocalResource("https://raw.githubusercontent.com/hpsc-lab/lecture-notes-math1/5adcedfe62e071fdc1f229f820503475b6235da3/assets/bsp-mengen.svg","../assets/bsp-mengen.svg", :width=>200)) durch obigen Graphen lässt sich die folgende Relation beschreiben
+1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c6214b008ebfecce9f3350b6609d3fcdfbf70778/notebooks/assets/bsp-mengen.svg","./assets/bsp-mengen.svg", :width=>200)) durch obigen Graphen lässt sich die folgende Relation beschreiben
 |   |$a$|$b$|$c$|
 |:-:|:-:|:-:|:-:|
 |$a$| × | × |   |
@@ -194,6 +206,52 @@ Eine Relation $R$ auf der Menge $A$ heißt (Total-)Ordnungsrelation, falls gilt 
  4. für alle $x,y\in A$ gilt entweder $x\,R\,y$ oder $y\,R\,x$ (Totalität)
 """
 
+# ╔═╡ 523a6731-5542-4131-88ff-3a9887c29751
+@bind values PlutoUI.combine() do Child
+	md"""
+	mit den folgenden Auswahlschaltflächen lassen sich Eigenschaften der folgenden Relation fordern: Reflexivität:
+	$(Child(CheckBox())) Symmetrie: $(Child(CheckBox())) Transitivität: $(Child(CheckBox()))
+	"""
+end
+
+# ╔═╡ 120a5b13-6413-471a-a01a-41c4a35dfce5
+let
+	using LinearAlgebra
+	mark(x) = x == 1 ? "×" : "";
+    A = zeros(8,8)
+	A[3,1] = 1
+	A[3,5] = 1
+	A[7,4] = 1
+	A[4,2] = 1
+	A[5,8] = 1
+
+	if values[1]
+		A .= clamp.(A .+ diagm(ones(8)), 0, 1)
+	end
+	if values[2]
+		A .= clamp.(A + A', 0, 1)
+	end
+	if values[3]
+		AA = clamp.(A + A * A, 0, 1)
+		A4 = clamp.(A + AA * AA, 0, 1)
+		A .= clamp.(A + A4 * A4, 0, 1)
+	end
+	t = [mark(A[i,j]) for i=1:8, j=1:8]
+	
+	md"""
+	|   |$1$|$2$|$3$|$4$|$5$|$6$|$7$|$8$|
+	|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+	|$1$|$(t[1,1])|$(t[1,2])|$(t[1,3])|$(t[1,4])|$(t[1,5])|$(t[1,6])|$(t[1,7])|$(t[1,8])|
+	|$2$|$(t[2,1])|$(t[2,2])|$(t[2,3])|$(t[2,4])|$(t[2,5])|$(t[2,6])|$(t[2,7])|$(t[2,8])|
+	|$3$|$(t[3,1])|$(t[3,2])|$(t[3,3])|$(t[3,4])|$(t[3,5])|$(t[3,6])|$(t[3,7])|$(t[3,8])|
+	|$4$|$(t[4,1])|$(t[4,2])|$(t[4,3])|$(t[4,4])|$(t[4,5])|$(t[4,6])|$(t[4,7])|$(t[4,8])|
+	|$5$|$(t[5,1])|$(t[5,2])|$(t[5,3])|$(t[5,4])|$(t[5,5])|$(t[5,6])|$(t[5,7])|$(t[5,8])|
+	|$6$|$(t[6,1])|$(t[6,2])|$(t[6,3])|$(t[6,4])|$(t[6,5])|$(t[6,6])|$(t[6,7])|$(t[6,8])|
+	|$7$|$(t[7,1])|$(t[7,2])|$(t[7,3])|$(t[7,4])|$(t[7,5])|$(t[7,6])|$(t[7,7])|$(t[7,8])|
+	|$8$|$(t[8,1])|$(t[8,2])|$(t[8,3])|$(t[8,4])|$(t[8,5])|$(t[8,6])|$(t[8,7])|$(t[8,8])|
+	"""
+end
+
 # ╔═╡ 349ac35e-10c9-4586-8517-f5b2739da6de
 md"""
 ##### Beispiel:
@@ -224,9 +282,91 @@ Eine Relation $R$ auf der Menge $A$ heißt Äquivalenzrelation, falls gilt ($x,y
  2. Wir schreiben $x\,R\,y$ als $x\sim y$
 """
 
+# ╔═╡ d2c4c84f-2591-466e-9aa5-ac5c70ce48e7
+md"""
+##### Beispiel 1:
+ $A = \lbrace \Delta, \square, \nabla, \lozenge\rbrace$, Relation ist "Ähnlichkeit", d.h. gleiche Anzahl Ecken
+
+|          |$\Delta$|$\square$|$\nabla$|$\lozenge$|
+|:--------:|:------:|:-------:|:------:|:--------:|
+| $\Delta$ |  ×     |         |   ×    |          |
+|$\square$ |        |   ×     |        |    ×     |
+| $\nabla$ |  ×     |         |    ×   |          |
+|$\lozenge$|        |    ×    |        |    ×     |
+##### Beispiel 2:
+ $A = \lbrace 1,2,3,4,5,6 \rbrace$
+
+|   |$1$|$2$|$3$|$4$|$5$|$6$|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|$1$| × |   |   | × |   |   |
+|$2$|   | × |   |   | × |   |
+|$3$|   |   | × |   |   | × |
+|$4$| × |   |   | × |   |   |
+|$5$|   | × |   |   | × |   |
+|$6$|   |   | × |   |   | × |
+
+##### Beispiel 3:
+"Gleichheit" ist die triviale Äquivalenzrelation.
+
+Eine Äquivalenzrelation erzeugt spezielle Teilmengen von ähnlichen Elementen.
+
+##### Definition:
+Für eine Äquivalenzrelation $\sim$ auf $A$ heißt $[x]_\sim := \lbrace y\in A \mid y\sim x\rbrace$ die Äquivalenzklassen zum Element $x$ und $x$ ist ein Repräsentant.
+
+umsortieren von Bsp. 2 liefert:
+
+|   |$1$|$4$|$2$|$5$|$3$|$6$|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|$1$| × | × |   |   |   |   |
+|$4$| × | × |   |   |   |   |
+|$2$|   |   | × | × |   |   |
+|$5$|   |   | × | × |   |   |
+|$3$|   |   |   |   | × | × |
+|$6$|   |   |   |   | × | × |
+
+$[1] = \lbrace 1, 4\rbrace,\quad [2] = \lbrace 2, 5\rbrace,\quad [3] = \lbrace 3, 6\rbrace$
+##### Bemerkung:
+Die Menge der Äquivalenzklassen heißt Faktormenge. Sie ist fundamental für Klassifizierungen jeder Art. Zum Beispiel "im kognitiven Prozess der Identifizierungsabstraktion."
+"""
+
+# ╔═╡ 51a86009-c8c0-4ad4-a4a9-e0e3a0b1c40d
+md"""
+### 1.1.3 Abbildungen
+"""
+
+# ╔═╡ 56383383-af81-43cc-8b21-d1ca822fa379
+md"""
+##### Definition:
+Für zwei Mengen $A$, $B$ heißt die Relation $f\subset A\times B$ Abbildung oder Funktion von $A$ nach $B$, falls gilt: jedem $x\in A$ wird genau ein $y\in B$ zugeordnet. $A$ heißt Definitionsbreich und $B$ heißt Zielmenge.
+
+##### Bemerkung:
+ 1. Im kartesischen Produkt ist in jeder Zeile nur genau ein Paar "markiert".
+ 2. Wir schreiben die Funktion typischerweise als $f$ mit $f:A\to B, x\mapsto f(x).$
+ 3. Im Gegensatz zur Zielmenge ist der Wertebereich $W_f\subset B$ gegeben durch $W_f = \lbrace f \in B \mid \exists x\in A \text{ mit } f(x) = y\rbrace = \mathrm{Im}(f)$
+ 4. Die Paare $\lbrace(x, f(x))\in A\times B \mid x\in A\rbrace$ (also die Relation) heißen Graph von $f$, $\mathrm{gr}(f)$.
+ 5.  $f$ bezeichnet die Operation oder den Vorgang der Abbildung, nicht den Wert oder das Resultat, $f(x) = x^2$, aber $f = (\cdot)^2$
+
+##### Beispiel:
+ 1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c6214b008ebfecce9f3350b6609d3fcdfbf70778/notebooks/assets/bsp-abb.svg","./assets/bsp-abb.svg"))
+ 2. Die konstante Funktion ($c\in B$), $f:A\to B\quad x\mapsto y=f(x)=c$
+ 3. Die Identität $f:A\to A\quad x\mapsto y=f(x)=x.$ Wir schreiben $f = \mathrm{id}$, $A$ z.B. $\lbrace\text{alle Autos}\rbrace$, $\lbrace\text{alle Polynome}\rbrace$, etc.
+ 4. *  $f = \mathrm{Mikrowelle}$: 
+    *  $A = \lbrace\text{essbares}\rbrace\cap\lbrace\text{kein  Metall}\rbrace\cap\lbrace\text{enthält Wasser}\rbrace$,
+    *  $B = \lbrace\text{heißes}\rbrace$,
+    *  $\mathrm{Im}(f)=B\cap A$.
+
+##### Definition:
+ 1. Für $f:A\to B$ und $M\subset A$ heißt die Menge $f(M) := \lbrace y\in B\mid \exists x\in M\text{ mit }f(x) = y\rbrace\subset B$ das Bild von $M$.
+ 2. Für $f:A\to B$ und $N\subset B$ heißt die Menge $f^{-1}(N) := \lbrace x\in A\mid f(x) \in N\rbrace\subset A$ das Urbild von $N$.
+
+##### Bemerkung:
+Die Umkehrfunktion $f^{-1}$ wird später behandelt!
+"""
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 PlutoTeachingTools = "661c6b06-c737-4d37-b85c-46df65de6f69"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
@@ -241,7 +381,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.7"
 manifest_format = "2.0"
-project_hash = "30f4a38dfcda7a14871c6ceb44e827f4b01e87ec"
+project_hash = "67c41df9ef816d371f7aa0032a91fc42966184f5"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -607,7 +747,12 @@ version = "17.4.0+2"
 # ╟─729ddb69-3eda-4885-bd99-7129b6256bba
 # ╟─275fb5d9-bc63-415b-98e4-644ebe7da628
 # ╟─bd65fc51-d6e3-4d42-bfbb-a7ea0cff251a
+# ╟─523a6731-5542-4131-88ff-3a9887c29751
+# ╟─120a5b13-6413-471a-a01a-41c4a35dfce5
 # ╟─349ac35e-10c9-4586-8517-f5b2739da6de
 # ╟─84c3c863-3cf0-4903-af85-240485fac0a8
+# ╟─d2c4c84f-2591-466e-9aa5-ac5c70ce48e7
+# ╟─51a86009-c8c0-4ad4-a4a9-e0e3a0b1c40d
+# ╟─56383383-af81-43cc-8b21-d1ca822fa379
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
