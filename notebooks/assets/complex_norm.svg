@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="349.684" height="254.977" viewBox="0 0 349.684 254.977">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="349.684pt" height="254.977pt" viewBox="0 0 349.684 254.977">
 <defs>
 <g>
 <g id="glyph-0-0">
@@ -68,7 +68,7 @@
 <use xlink:href="#glyph-1-0" x="9.6026" y="224.5184"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-0-1" x="22.001" y="224.5184"/>
+<use xlink:href="#glyph-0-1" x="22.000856" y="224.5184"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
 <use xlink:href="#glyph-0-1" x="22.001" y="40.8624"/>
@@ -78,13 +78,13 @@
 <use xlink:href="#glyph-1-1" x="178.0602" y="92.3824"/>
 </g>
 <g fill="rgb(25%, 25%, 25%)" fill-opacity="1">
-<use xlink:href="#glyph-0-2" x="182.4874" y="92.3824"/>
+<use xlink:href="#glyph-0-2" x="182.488376" y="92.3824"/>
 </g>
 <g fill="rgb(25%, 25%, 25%)" fill-opacity="1">
-<use xlink:href="#glyph-1-1" x="190.6026" y="92.3824"/>
+<use xlink:href="#glyph-1-1" x="190.603512" y="92.3824"/>
 </g>
 <g fill="rgb(25%, 25%, 25%)" fill-opacity="1">
-<use xlink:href="#glyph-2-0" x="199.457" y="92.3824"/>
+<use xlink:href="#glyph-2-0" x="199.463053" y="92.3824"/>
 </g>
 <g fill="rgb(25%, 25%, 25%)" fill-opacity="1">
 <use xlink:href="#glyph-1-2" x="216.2826" y="79.0992"/>
@@ -100,30 +100,30 @@
 <use xlink:href="#glyph-2-1" x="248.6858" y="92.3824"/>
 </g>
 <g fill="rgb(25%, 25%, 25%)" fill-opacity="1">
-<use xlink:href="#glyph-0-1" x="264.6266" y="92.3824"/>
+<use xlink:href="#glyph-0-1" x="264.622772" y="92.3824"/>
 </g>
 <g fill="rgb(25%, 25%, 25%)" fill-opacity="1">
 <use xlink:href="#glyph-3-0" x="271.4666" y="87.7776"/>
 </g>
-<g fill="rgb(0%, 0%, 100%)" fill-opacity="1">
+<g fill="rgb(47.059631%, 36.863708%, 94.119263%)" fill-opacity="1">
 <use xlink:href="#glyph-0-2" x="267.7626" y="29.696"/>
 </g>
-<path fill="none" stroke-width="0.398" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.000550781 -0.000171875 L 5.07025 -0.000171875 " transform="matrix(1.6, 0, 0, -1.6, 267.7626, 204.9216)"/>
-<g fill="rgb(0%, 0%, 100%)" fill-opacity="1">
+<path fill="none" stroke-width="0.398" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(47.059631%, 36.863708%, 94.119263%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.000550781 -0.000171875 L 5.07025 -0.000171875 " transform="matrix(1.6, 0, 0, -1.6, 267.7626, 204.9216)"/>
+<g fill="rgb(47.059631%, 36.863708%, 94.119263%)" fill-opacity="1">
 <use xlink:href="#glyph-0-2" x="267.7626" y="214.016"/>
 </g>
-<path fill-rule="nonzero" fill="rgb(0%, 0%, 100%)" fill-opacity="1" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 161.35357 134.402363 C 161.35357 135.500996 160.462457 136.394551 159.361383 136.394551 C 158.26275 136.394551 157.369195 135.500996 157.369195 134.402363 C 157.369195 133.301289 158.26275 132.410176 159.361383 132.410176 C 160.462457 132.410176 161.35357 133.301289 161.35357 134.402363 Z M 161.35357 134.402363 " transform="matrix(1.6, 0, 0, -1.6, 7.1546, 250.368)"/>
-<path fill-rule="nonzero" fill="rgb(0%, 0%, 100%)" fill-opacity="1" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 161.35357 19.199727 C 161.35357 20.300801 160.462457 21.191914 159.361383 21.191914 C 158.26275 21.191914 157.369195 20.300801 157.369195 19.199727 C 157.369195 18.098652 158.26275 17.207539 159.361383 17.207539 C 160.462457 17.207539 161.35357 18.098652 161.35357 19.199727 Z M 161.35357 19.199727 " transform="matrix(1.6, 0, 0, -1.6, 7.1546, 250.368)"/>
+<path fill-rule="nonzero" fill="rgb(47.059631%, 36.863708%, 94.119263%)" fill-opacity="1" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(47.059631%, 36.863708%, 94.119263%)" stroke-opacity="1" stroke-miterlimit="10" d="M 161.35357 134.402363 C 161.35357 135.500996 160.462457 136.394551 159.361383 136.394551 C 158.26275 136.394551 157.369195 135.500996 157.369195 134.402363 C 157.369195 133.301289 158.26275 132.410176 159.361383 132.410176 C 160.462457 132.410176 161.35357 133.301289 161.35357 134.402363 Z M 161.35357 134.402363 " transform="matrix(1.6, 0, 0, -1.6, 7.1546, 250.368)"/>
+<path fill-rule="nonzero" fill="rgb(47.059631%, 36.863708%, 94.119263%)" fill-opacity="1" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(47.059631%, 36.863708%, 94.119263%)" stroke-opacity="1" stroke-miterlimit="10" d="M 161.35357 19.199727 C 161.35357 20.300801 160.462457 21.191914 159.361383 21.191914 C 158.26275 21.191914 157.369195 20.300801 157.369195 19.199727 C 157.369195 18.098652 158.26275 17.207539 159.361383 17.207539 C 160.462457 17.207539 161.35357 18.098652 161.35357 19.199727 Z M 161.35357 19.199727 " transform="matrix(1.6, 0, 0, -1.6, 7.1546, 250.368)"/>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
 <use xlink:href="#glyph-2-2" x="300.113" y="117.872"/>
 <use xlink:href="#glyph-2-3" x="311.846552" y="117.872"/>
 <use xlink:href="#glyph-2-4" x="318.930359" y="117.872"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-0-2" x="325.1306" y="117.872"/>
+<use xlink:href="#glyph-0-2" x="325.129487" y="117.872"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-2-5" x="333.2442" y="117.872"/>
+<use xlink:href="#glyph-2-5" x="333.244623" y="117.872"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
 <use xlink:href="#glyph-2-6" x="43.5066" y="22.1952"/>
@@ -131,9 +131,9 @@
 <use xlink:href="#glyph-2-4" x="62.545527" y="22.1952"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-0-2" x="68.745" y="22.1952"/>
+<use xlink:href="#glyph-0-2" x="68.744655" y="22.1952"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-2-5" x="76.8586" y="22.1952"/>
+<use xlink:href="#glyph-2-5" x="76.859791" y="22.1952"/>
 </g>
 </svg>
