@@ -29,7 +29,7 @@ html"""
 
 # ╔═╡ b2a667d1-da08-469d-84f0-03b2f58cf986
 md"""
-# 2. Analysis
+# 2 Analysis
 
 """
 
@@ -55,14 +55,14 @@ md"""
 ##### Definition:
 Eine Folge $(a_n)\subset \mathbb{K}$ besitzt den _Grenzwert_ $a\in\mathbb{K}$, falls
 
-$\forall\epsilon>0\,\exists n_0\in\mathbb{N}:\,|a_n-a|\leq \epsilon\quad \forall n\geq n_0.$
+$\forall\varepsilon>0\,\exists n_0\in\mathbb{N}:\,|a_n-a|\leq \varepsilon\quad \forall n\geq n_0.$
 
 Wir schreiben $\lim_{n\to\infty} a_n = a$ oder $a_n\overset{n\to\infty}{\longrightarrow} a$ und nennen $(a_n)$ _konvergent_, andernfalls _divergent_.
 
 ##### Beispiel:
-1.  $(2^n)_{n\geq0} \text{ und } (i^n)_{n\in\mathbb{N}} \text{ sind divergent}.$
-2.  $a_n:= \frac{1}{n} \text{ ist konvergent mit } \lim_{n\to\infty} \frac{1}{n}=0$
-Beweis: Zu zeigen $\forall\epsilon>0\,\exists n_0\in\mathbb{N}:\,|\frac{1}{n}-0|\leq \epsilon\quad \forall n\geq n_0$.
+1.  $(2^n)_{n\geq0}$ und $(i^n)_{n\in\mathbb{N}}$ sind divergent.
+2.  $a_n:= \frac{1}{n}$ ist konvergent mit $\lim_{n\to\infty} \frac{1}{n}=0$
+Beweis: Zu zeigen $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}:\,|\frac{1}{n}-0|\leq \varepsilon\quad \forall n\geq n_0$.
 
 Wir fangen rückwärts an, d.h. $\left|\frac{1}{n}\right| \overset{?}{\leq} \varepsilon$. 
 
@@ -101,9 +101,9 @@ Jede konvergente Folge $(a_n)\subset\mathbb{K}$ ist beschränkt.
 ##### Beweis:
 Sei $\lim_{n\to\infty}a_n=a$, d.h. zum Beispiel für $\varepsilon = 1:\quad \exists n_\varepsilon \in \mathbb{N}:\quad |a_n-a|\leq 1 \quad \forall n\geq n_\varepsilon$.
 
-$|a_n| \leq |a_n-a+a|\underset{\triangle\text{-Ungl.}}{\leq} |a_n-a|+|a|\leq 1+|a|\quad \forall n\geq n_\epsilon.$
+$|a_n| \leq |a_n-a+a|\underset{\triangle\text{-Ungl.}}{\leq} |a_n-a|+|a|\leq 1+|a|\quad \forall n\geq n_\varepsilon.$
 
-Setze $s:=\max\{1+|a|, |a_1|, \dots, |a_{n_\epsilon -1}|\}>0$
+Setze $s:=\max\{1+|a|, |a_1|, \dots, |a_{n_\varepsilon -1}|\}>0$
 """
 
 # ╔═╡ 07319b68-1c84-4a9b-b1bd-dd4600dce204
@@ -131,7 +131,7 @@ Sei $(a_n)\subset\mathbb{R}$ eine monoton wachsende Folge. Falls $(a_n)$ beschr�
 ##### Beweis:
 Offenbar ist die Teilmenge $A:=\{a_n|\,n\in\mathbb{N}\}\subset\mathbb{R}$ nach oben beschränkt, also existiert $a:=\sup(A)$. 
 
-Wähle also ein $\varepsilon > 0$ beliebig. $a$ ist Supremum, also gibt es ein $n_\varepsilon\in\mathbb{N}$ mit $a_{n_\varepsilon}> a-\varepsilon$. Da $a_n$ monoton wächst, gilt  $a-\varepsilon<a_{n_\epsilon}\leq a_n\leq a < a+\varepsilon \quad \forall n\geq n_\varepsilon,$ 
+Wähle also ein $\varepsilon > 0$ beliebig. $a$ ist Supremum, also gibt es ein $n_\varepsilon\in\mathbb{N}$ mit $a_{n_\varepsilon}> a-\varepsilon$. Da $a_n$ monoton wächst, gilt  $a-\varepsilon<a_{n_\varepsilon}\leq a_n\leq a < a+\varepsilon \quad \forall n\geq n_\varepsilon,$ 
 d.h. $|a_n-a|\leq \varepsilon.$
 
 ##### Bemerkung:
@@ -153,6 +153,223 @@ Falls $(a_n)\subset\mathbb{K}$ beschränkt ist, dann existiert eine konvergente 
 
 ##### Beweis:
 Dieser Beweis kann in jedem guten Analysis Buch studiert werden (z.B. Forster, Königsberger, Alt etc.)
+"""
+
+# ╔═╡ a3370b80-0076-430f-a53d-33461e78de03
+md"""
+##### Bemerkung
+1. Beschränktheit $\Rightarrow$ Konvergenz _einer Teilfolge_ ist nur hinreichend, nicht notwendig. $a_n = \begin{cases}\frac{1}{n} &\text{n gerade}\\n&\text{n ungerade}\end{cases}$ enthält eine konvergente Teilfoge.
+2. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/778cd38219a43ad43e5faf1a0f0aa6c88998e985/notebooks/assets/folgenmengen.svg","./assets/folgenmengen.svg"))
+
+##### Definition:
+ $(a_n)\subset\mathbb{K}$ heißt _Cauchy-Folge_, wenn gilt 
+
+$\forall\varepsilon>0\,\exists n_\varepsilon\in\mathbb{N}:\quad |a_n-a_m|\leq \varepsilon \quad \forall n,m\in\mathbb{N}\, n,m\geq n_\varepsilon.$
+Das heißt ab $n_\varepsilon$ wird der Abstand beliebiger Folgenglieder beliebig klein.
+
+"""
+
+# ╔═╡ 8f0aefc3-376b-4912-9bb9-0c4d0c9c7d0b
+md"""
+##### Bemerkung:
+Dies ist eine Eigenschaft einer Folge ähnlich zu "beschränkt" oder "monoton" und ist _ohne_ Kenntnis des Grenzwertes zu überprüfen.
+
+##### Satz:
+ $(a_n)\subset\mathbb{K}$ ist konvergent genau dann, wenn die Folge eine Cauchy-Folge ist.
+
+##### Beweis:
+"Konvergenz $\Rightarrow$ Cauchy"
+
+ 1.  $\forall\varepsilon>0\,\exists n_\varepsilon\in\mathbb{N}:\,|a_n-a|\leq \frac{\varepsilon}{2}$\
+ 2. Wähle $n,m\geq n_\varepsilon$\
+ 3.  $|a_n-a_m|= |a_n-a-(a_m-a)|\leq |a_n-a|+|a_m-a|=\frac{\varepsilon}{2} + \frac{\varepsilon}{2}=\varepsilon$
+
+"Cauchy $\Rightarrow$ Konvergenz"
+
+Dies folgt aus dem Vollständigkeitsaxiom.
+"""
+
+# ╔═╡ c778da30-033c-40af-8c1d-ece03b3b7323
+md"""
+##### Bemerkung:
+
+Tatsächlich ist das Vollständigkeitsaxiom äquivalent zur Aussage "Jede Cauchy-Folge in $\mathbb{K}$ konvergiert". Oft wird der Körper $\mathbb{R}$ definiert mit letzterem, das ist auch viel konstruktiver:
+
+Betrachte $(a_n)\subset \mathbb{Q}$ eine rationale Folge mit $a_1=1$ und $a_{n+1}=\frac{1}{2}(a_n+\frac{2}{a_n}).$ Diese ist Cauchy-Folge (zu beweisen), aber konvergiert nicht in $\mathbb{Q}, \lim_{n\to\infty}a_n=\sqrt{2}\notin \mathbb{Q}$.
+
+ $\mathbb{Q}$ wid _vervollständigt_ durch die Forderung "Alle Cauchy-Folgen konvergieren" und das Resultat ist dann $\mathbb{R}$. Jede _irrationale_ Zahl ist der Grenzwert einer Cauchy-Folge in $\mathbb{Q}$.
+
+
+"""
+
+# ╔═╡ adc24a61-9c0a-47fb-8d6c-6e46ab28e0e4
+md"""
+### 2.1.2 Rechnen mit Folgen
+
+Um Grenzwerte auszurechnen ist Folgendes sehr nützlich:
+##### Satz:
+Seien $(a_n)$ und $(b_n)$ konvergente Folgen in $\mathbb{K}$ mit Grenzwerten $a$ und $b$. Dann gilt
+
+1.  $\lim_{n\to\infty} (\alpha\,a_n + \beta\,b_n) = \alpha\,a + \beta\,b \quad \forall\alpha,\beta \in \mathbb{K}$
+2.  $\lim_{n\to\infty} (a_n\cdot b_n) = a\cdot b$
+3.  $\lim_{n\to\infty} \left(\frac{1}{a_n}\right)=\frac{1}{a} \text{ und } \lim_{n\to\infty}\sqrt{a_n}=\sqrt{a}$
+
+##### Beispiel:
+1.  $a_n = \frac{n^2-n}{2n^2+1}, \quad \lim_{n\to\infty}a_n = ?$\
+   Umformen zu einer Kombination von $\frac{1}{n}:$\
+    $a_n = \frac{n^2(1-\frac{1}{n})}{n^2(2+\frac{1}{n^2})} = \frac{1-\frac{1}{n}}{2+\frac{1}{n}\cdot\frac{1}{n}}$\
+    $\lim\limits_{n\to\infty}a_n = \frac{\lim\limits_{n\to\infty}1 - \lim\limits_{n\to\infty}\frac{1}{n}}{\lim\limits_{n\to\infty}2+\lim\limits_{n\to\infty}\frac{1}{n}\lim\limits_{n\to\infty}\frac{1}{n}} = \frac{1}{2}$
+
+2.  $a_n = \frac{(n-2)^3}{(n+2)(4n^2-3)}=\frac{n^3(1-\frac{2}{n})^3}{n(1+\frac{2}{n})n^2(4-\frac{3}{n^2})} = \frac{(1-\frac{2}{n})^3}{(1+\frac{2}{n})(4-\frac{3}{n^2})}, \quad \lim\limits_{n\to\infty}a_n=\frac{1}{4}$
+3.  $a_n = \sqrt{n+1}-\sqrt{n}\quad$ Trick: Erweitern mit Summe, sodass Wurzeln verschwinden.\
+    $a_n = \sqrt{n+1}-\sqrt{n}\frac{\sqrt{n+1}+\sqrt{n}}{\sqrt{n+1}\sqrt{n}} =\frac{\sqrt{n+1}^2-\sqrt{n}^2}{\sqrt{n+1}+\sqrt{n}}$\
+    $=\frac{n+1-n}{\sqrt{n+1}+\sqrt{n}} = \frac{1}{\sqrt{n}\sqrt{1+\frac{1}{n}}+\sqrt{n}}=\frac{\sqrt{\frac{1}{n}}}{\sqrt{1+\frac{1}{n} +1}}.$\
+    $\lim\limits_{n\to\infty}a_n = 0$
+4.  $a_n = \frac{n+\sin(n)}{n^2+1}=\frac{n^2(\frac{1}{n}+\frac{\sin(n)}{n})}{n^2(1+\frac{1}{n^2})}$\
+    $\lim\limits_{n\to\infty} \frac{\sin(n)}{n} = ?,\quad \left|\frac{\sin(n)}{n}\right| \leq \frac{1}{n}\to 0\quad$ "eingeschlossen" durch Nullfolge\
+    $\Rightarrow \lim\limits_{n\to\infty} \frac{\sin(n)}{n}=0.$\
+
+    Es folgt $\lim_{n\to\infty}a_n = 0$.
+"""
+
+# ╔═╡ c42fe7f1-e46a-4223-b481-44a6ec2e85a0
+md"""
+##### Bemerkung: 
+Eine Folge $(a_n)_{n\in \mathbb{N}}\subset\mathbb{K}$ mit $\lim_{n\to\infty}a_n = 0$ heißt _Nullfolge_.
+"""
+
+# ╔═╡ 2b35d288-6db4-4d8c-aa88-484390676ebf
+md"""
+## 2.2 Reihen
+Praktisch alle interessanten mathematischen Objekte (z.B. Funktionen) können durch Reihen beschrieben werden.
+##### Definition:
+Sei $(a_n)_{n\in\mathbb{N}}\subset\mathbb{K}$ eine Folge. Die zugeordnete _Reihe_ ist die Folge der Partialsummen
+
+$s_n:=\sum_{k=1}^na_k=(a_1,a_1+a_2, a_1+a_2+a_3,\dots)$
+und für den Grenzwert schreiben wir
+$\lim\limits_{n\to\infty}s_n = \lim\limits_{n\to\infty}\sum_{k=1}^na_k =: \sum_{k=1}^\infty a_k$
+Oft nennen wir einfach $\sum_{k=1}^\infty a_k$ _die Reihe_.
+
+##### Beispiel:
+1. Die arithmetische Reihe $\sum_{k=1}^\infty k$. Offenbar gilt $s_n = \sum_{k=1}^n a_k = \frac{n(n+1)}{2}$, also divergiert die Reihe.
+2. Die geometrische Reihe: $\sum_{k=0}^\infty q^k$. Für die Partialsumme gilt
+
+   $s_n = \sum_{k=0}^n q^k = \frac{1-q^{k+1}}{1-q},\, q\neq 1$
+   Die Folge $(s_n)_{n\in\mathbb{N}}$ mit $s_n = \frac{1-q^{k+1}}{1-q}$ konvergiert, falls $|q|<1$, $\lim\limits_{n\to\infty} s_n = \frac{1}{1-q}= \sum_{k=0}^\infty q^k$, ansonsten ist die Reihe divergent.
+
+3. Die harmonische Reihe $\sum_{k=1}^\infty \frac{1}{k}$ divergiert, denn 
+
+   $s_n = \sum_{k=1}^n \frac{1}{k} = 1 + \frac{1}{2} + \underbrace{\frac{1}{3}+\frac{1}{4}}_{=\frac{1}{2}}+\underbrace{\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+\frac{1}{8}}_{=\frac{1}{2}}+\dots \quad \text{ mit } n = 2^m$
+   also $s_{2^m} \geq 1+ \frac{m}{2} \, m\in\mathbb{N}$ und $\sum_{k=1}\frac 1{k}^\infty\to\infty$
+
+4. $\sum_{K=1}^\infty \frac{1}{k(k+1)} = \frac{1}{2}+\frac{1}{6}+\frac{1}{12}+\frac{1}{20}+\cdots$
+   $s_n = \sum_{k=1}^n\frac{1}{k(k+1)}=\sum_{k=1}^n(\frac{1}{k}-\frac{1}{k+1}) \overset{\text{Teleskopsumme}}{=} 1 - \frac{1}{n+1} \Rightarrow \lim_{n\to\infty}s_n=1$ 
+"""
+
+# ╔═╡ eac4a80e-42f2-4f5c-84b3-dd444a3e5193
+md"""
+##### Bemerkung
+1. Für Konvergenz muss offenbar $(a_n)$ eine Nullfolge sein.
+2. Wegen der Rechenregeln für Folgen gilt
+$\sum_{k=1}^\infty a_k = a \text{ und } \sum_{k=1}^\infty b_k = b \Rightarrow \sum_{k=1}^\infty (\alpha\,a_k + \beta\,b_k) = \alpha\,a + \beta\,b$
+3. Für $a_k>0$ ist $s_n = \sum_{k=1}^n a_k$ monoton wachsend, dann gilt $(s_n)_{n\in\mathbb{N}}$ beschränkt $\Leftrightarrow (s_n)$ konvergent, also $\sum_{k=1}^\infty a_k$ konvergent.
+##### Definition und Satz:
+Sei $(a_k)_{k\geq0}$ eine monoton fallende Nullfolge mit $a_k>0$. Dann konvergiert die _alternierende Reihe_ $\sum_{k=0}^\infty(-1)^ka_k.$
+"""
+
+# ╔═╡ df1df3b1-c00f-45b7-a207-5da3a0c46834
+md"""
+##### Beispiel:
+ $\sum_{k=1}^\infty (-1)^{k+1}\frac{1}{k} = 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\dots$ konvergiert gegen $\ln(2)$, jedoch sehr langsam.
+
+##### Warnung:
+Zwar lässt sich mit Reihen rechnen, aber im Allgemeinen spielt die _Summationsreihenfolge_ eine Rolle!
+##### Beispiel:
+Betrachte 
+
+$\begin{align*} \ln(2) &= 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}-\frac{1}{6}+\frac{1}{7}-\frac{1}{8}+\frac{1}{9}-\frac{1}{10}+\frac{1}{11}-\frac{1}{12}\cdots \\[2pt]
+	+\frac{1}{2}\,\ln(2) &= \phantom{1}+\frac{1}{2}\phantom{+\frac11\;\,}-\frac{1}{4}\phantom{+\frac11\;\,}+\frac{1}{6}\phantom{+\frac11\;\,}-\frac{1}{8}\phantom{+\frac11\;\,}+\frac{1}{10}\phantom{+\frac1{11}\;\,}-\frac{1}{12}\cdots \\[2pt]
+\frac{3}{2}\,\ln(2) &= \underbrace{1+\,0\,+\frac{1}{3}-\frac{1}{2}+\frac{1}{5}+\,0\,+\frac{1}{7}-\frac{1}{4}+\frac{1}{9}\,+\;\;0\;\;+\frac{1}{11}-\,\frac{1}{6}\cdots}_{=\ln(2)? \quad \text{ dieselben Summanden, aber andere Reihenfolge}}\end{align*}$
+
+Die obige alternierende Reihe kann so umsortiert werden, dass ein beliebiger Grenzwert entsteht. Wir wollen, dass die Reihenfolge keine Rolle spielt. 
+"""
+
+# ╔═╡ f4035677-2ad9-47b1-a942-6f7ffd56b5e9
+md"""
+##### Definition:
+Eine Reihe $\sum_{k=1}^\infty a_k$ heißt absolut konvergent, falls $\sum_{k=1}^\infty |a_k|$ konvergiert.
+
+##### Bemerkung: 
+1. Absolute Konvergenz $\Rightarrow$ Konvergenz, denn:\
+   Cauchy für abs. Konvergenz: $\forall\varepsilon>0\,\exists n:\varepsilon\in \mathbb{N}:\, |s_n-s_m|<\varepsilon\quad m>n\geq n_\varepsilon$\
+   $\left|\sum_{k=1}^n|a_k|-\sum_{k=1}^m|a_k|\right| = \left|\sum_{k=n+1}^m |a_k|\right|= \sum_{k=n+1}^m |a_k|$\
+   Cauchy für Konvergenz: $\quad |s_n-s_m| = |\sum_{k=n+1}^m a_k | \leq \sum_{k=n+1}^m |a_k| <\varepsilon$
+2. Es lässt sich zeigen: Bei absolut konvergenten Reihen ist der Grenzwert unabhängig von der Summationsreihenfolge
+"""
+
+# ╔═╡ ddbba187-9e47-4153-a686-b3327b56d4b4
+md"""
+### 2.2.1 Kriterien für absolute Konvergenz
+##### Satz:
+Die Reihe $\sum_{k=1}^\infty a_k$ ist absolut konvergent, falls eine der folgenden Bedingungen gilt:
+1. Es existiert $\sum_{k=1}^\infty c_k$ konvergent mit $c_k\geq 0$ und $|a_k|\leq c_k$ ab $k\geq N\in \mathbb{N} \quad$"Majorantenkriterium"
+2. Es existiert ein $q<1:\, \sqrt[k]{|a_k|} \leq q \quad$ ab $k \geq N\quad$ "Wurzelkriterium"
+3. Es existiert ein $q<1: \, |\frac{a_{k+1}}{a_k}| \leq q \quad$ ab $k\geq N \quad$ "Quotientenkriterium"
+
+##### Beweis:
+1. wie oben: Cauchy für $\sum c_k \Rightarrow $Cauchy für $\sum|a_k|$)
+2. wegen $|a_k|\leq q^k$ ist $\sum_{k=1}^\infty q^k$ eine Majorante
+3. Es ist $|a_{k+1}|\leq q\,|a_k|\leq q^2\,|a_{k-1}\leq \dots \leq q^{k+1}\,|a_0|\Rightarrow |a_0|\sum_{k=1}^\infty q^k$ ist Majorante 
+
+##### Bemerkung:
+anstatt 2. und 3. wird oft Folgendes benutzt:
+
+$\lim_{k\to\infty}\sqrt[k]{|a_k|}<1$
+$\lim_{k\to\infty}\left|\frac{a_{k+1}}{a_k}\right|<1$
+"""
+
+# ╔═╡ 4393a0c9-168a-4fc9-b678-3e7e06b461ff
+md"""
+### 2.2.2 Potenzreihen
+##### Beispiel:
+Die geometrische Reihe definiert eine Funktion in $q=x\in(-1,1)\subset\mathbb{R}$
+$g:(-1,1)\to \mathbb{R},\quad x\mapsto \sum_{k=0}^\infty x^k$\
+$g(x)$ ist identisch mit $g(x) = \frac{1}{1-x}$ im Intervall $(-1,1)$
+##### Definition:
+Für $x\in\mathbb{K}$ heißt $\sum_{k=0}^\infty a_kx^k = a_0x+a_1x+a_2x^2+\cdots$ Potenzreihe in x.\
+Hierbei sind die $a_k$ Koeffizienten, nicht Folgenglieder!
+
+##### Bemerkung: 
+1. Dies definiert eine Funktion $f:D_{\!f}\subset\mathbb{K}\to \mathbb{K}, x\mapsto \sum_{k=0}^\infty a_kx^k$ mit $D_{\!f} = \{x\in\mathbb{K}\mid\sum_{k=0}^\infty a_kx^k$ konvergiert$\}$.
+2. Die Potenzreihe oben ist "um den Punkt $0$".\
+   Die Reihe $\sum_{k=0}^\infty a_k(x-x_0)^k$ wäre die Potenzreihe um $x_0$.
+
+
+Leitfrage: Für welche $x\in \mathbb{K}$ konvergiert die Potenzreihe?
+"""
+
+# ╔═╡ 1b1f1b81-9ddf-4f4c-bfc6-5de4b3b78896
+md"""
+##### Satz und Definition:
+Für eine Potenzreihe $\sum_{k=0}^\infty a_kx^k$ heißt $\varrho := \frac{1}{\lim\limits_{n\to\infty} \sqrt[k]{|a_k|}} \in \mathbb{R}$ der _Konvergenzradius_. Die Reihe kovnergiert absolut für $|x|<\varrho$ und divergiert für $|x|>\varrho$.
+
+##### Beweis:
+(durch Verwenden des Wurzelkriterium)
+
+$\lim_{k\to\infty}\sqrt[k]{|a_k\,x^k|} = \lim_{k\to\infty}\sqrt[k]{|a_k|}\cdot |x| = \frac{|x|}{\varrho} = \begin{cases}<1&|x|<\varrho\\>1&|x|>\varrho\end{cases}$
+
+##### Bemerkung:
+1. Der Rand $|x| = \varrho$ muss extra untersucht werden.
+2. Alternativ gilt $\varrho = \frac{1}{\lim\limits_{k\to\infty}\big|\frac{a_{k+1}}{a_k}\big|}$
+"""
+
+# ╔═╡ ba88414f-f414-44e7-8036-3037e62c0633
+md"""
+##### Beispiel:
+$\sum_{k=0}^\infty \frac{1}{k}x^k,\quad a_k = \frac1k, \quad \lim_{k\to\infty}\left|\frac{a_{k+1}}{a_k}\right| = \lim_{k\to\infty}\left|\frac{k}{k+1}\right|=1\Rightarrow \varrho=1$
+Die Reihe konvergiert absolut für $|x|<1$.\
+Für $x=1$ ist $\sum_{k=0}^\infty \frac{1}{k}$ nicht konvergent.\
+Für $x=-1$ ist $\sum_{k=0}^\infty \frac{-1^k}{k}$ konvergent, aber nicht absolut konvergent.
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -1732,5 +1949,18 @@ version = "4.1.0+0"
 # ╟─07319b68-1c84-4a9b-b1bd-dd4600dce204
 # ╟─d113d633-f636-4098-8741-040d56c3603b
 # ╟─852e50d3-afa0-4b8d-9aaf-92917797d067
+# ╟─a3370b80-0076-430f-a53d-33461e78de03
+# ╟─8f0aefc3-376b-4912-9bb9-0c4d0c9c7d0b
+# ╟─c778da30-033c-40af-8c1d-ece03b3b7323
+# ╟─adc24a61-9c0a-47fb-8d6c-6e46ab28e0e4
+# ╟─c42fe7f1-e46a-4223-b481-44a6ec2e85a0
+# ╟─2b35d288-6db4-4d8c-aa88-484390676ebf
+# ╟─eac4a80e-42f2-4f5c-84b3-dd444a3e5193
+# ╟─df1df3b1-c00f-45b7-a207-5da3a0c46834
+# ╟─f4035677-2ad9-47b1-a942-6f7ffd56b5e9
+# ╟─ddbba187-9e47-4153-a686-b3327b56d4b4
+# ╟─4393a0c9-168a-4fc9-b678-3e7e06b461ff
+# ╟─1b1f1b81-9ddf-4f4c-bfc6-5de4b3b78896
+# ╟─ba88414f-f414-44e7-8036-3037e62c0633
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
