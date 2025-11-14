@@ -47,7 +47,7 @@ Folgen sind _Abbildungen_ der Form $a:\mathbb{N}\to A, n\mapsto a(n)$ mit einer 
 3.  $(a_n)_{n\geq0}$ mit  $a_n:=2^n,\quad$ also $1,2,4,8,16,\dots$
 4.  $a_n:= i^n,\quad$ also $i,-1,-i,1,i,-1,\dots\quad$ (oszilierende Folge)
 5.  $a_n:= (1+\frac{1}{n})^n,\quad$ also $2,\, 2,\!25,\, 2,\!37,\dots\quad$ (nähert sich $e=2.71828\dots$)
-6.  $(a_n) \text{ mit } a_1=1$ und $a_{n+1}:=\frac{1}{2}(a_n+\frac{2}{a_n}),\quad$ also $1,\,1,\!5,\,1,\!41666\dots\quad$ (rekursiv definiert, nähert sich $\sqrt{2}$)
+6.  $(a_n)$ mit $a_1=1$ und $a_{n+1}:=\frac{1}{2}(a_n+\frac{2}{a_n}),\quad$ also $1,\,1,\!5,\,1,\!41666\dots\quad$ (rekursiv definiert, nähert sich $\sqrt{2}$)
 """
 
 # ╔═╡ 6e38ce1b-40ea-4b3e-8fc0-0b4599edaf81
@@ -197,7 +197,7 @@ Tatsächlich ist das Vollständigkeitsaxiom äquivalent zur Aussage "Jede Cauchy
 
 Betrachte $(a_n)\subset \mathbb{Q}$ eine rationale Folge mit $a_1=1$ und $a_{n+1}=\frac{1}{2}(a_n+\frac{2}{a_n}).$ Diese ist Cauchy-Folge (zu beweisen), aber konvergiert nicht in $\mathbb{Q}, \lim_{n\to\infty}a_n=\sqrt{2}\notin \mathbb{Q}$.
 
- $\mathbb{Q}$ wid _vervollständigt_ durch die Forderung "Alle Cauchy-Folgen konvergieren" und das Resultat ist dann $\mathbb{R}$. Jede _irrationale_ Zahl ist der Grenzwert einer Cauchy-Folge in $\mathbb{Q}$.
+ $\mathbb{Q}$ wird _vervollständigt_ durch die Forderung "Alle Cauchy-Folgen konvergieren" und das Resultat ist dann $\mathbb{R}$. Jede _irrationale_ Zahl ist der Grenzwert einer Cauchy-Folge in $\mathbb{Q}$.
 
 
 """
@@ -210,12 +210,12 @@ Um Grenzwerte auszurechnen ist Folgendes sehr nützlich:
 ##### Satz:
 Seien $(a_n)$ und $(b_n)$ konvergente Folgen in $\mathbb{K}$ mit Grenzwerten $a$ und $b$. Dann gilt
 
-1.  $\lim_{n\to\infty} (\alpha\,a_n + \beta\,b_n) = \alpha\,a + \beta\,b \quad \forall\alpha,\beta \in \mathbb{K}$
-2.  $\lim_{n\to\infty} (a_n\cdot b_n) = a\cdot b$
-3.  $\lim_{n\to\infty} \left(\frac{1}{a_n}\right)=\frac{1}{a} \text{ und } \lim_{n\to\infty}\sqrt{a_n}=\sqrt{a}$
+1.  $\lim\limits_{n\to\infty} (\alpha\,a_n + \beta\,b_n) = \alpha\,a + \beta\,b \quad \forall\alpha,\beta \in \mathbb{K}$
+2.  $\lim\limits_{n\to\infty} (a_n\cdot b_n) = a\cdot b$
+3.  $\lim\limits_{n\to\infty} \left(\frac{1}{a_n}\right)=\frac{1}{a} $ und $\lim\limits_{n\to\infty}\sqrt{a_n}=\sqrt{a}$
 
 ##### Beispiel:
-1.  $a_n = \frac{n^2-n}{2n^2+1}, \quad \lim_{n\to\infty}a_n = ?$\
+1.  $a_n = \frac{n^2-n}{2n^2+1}, \quad \lim\limits_{n\to\infty}a_n = ?$\
    Umformen zu einer Kombination von $\frac{1}{n}:$\
     $a_n = \frac{n^2(1-\frac{1}{n})}{n^2(2+\frac{1}{n^2})} = \frac{1-\frac{1}{n}}{2+\frac{1}{n}\cdot\frac{1}{n}}$\
     $\lim\limits_{n\to\infty}a_n = \frac{\lim\limits_{n\to\infty}1 - \lim\limits_{n\to\infty}\frac{1}{n}}{\lim\limits_{n\to\infty}2+\lim\limits_{n\to\infty}\frac{1}{n}\lim\limits_{n\to\infty}\frac{1}{n}} = \frac{1}{2}$
@@ -235,7 +235,7 @@ Seien $(a_n)$ und $(b_n)$ konvergente Folgen in $\mathbb{K}$ mit Grenzwerten $a$
 # ╔═╡ c42fe7f1-e46a-4223-b481-44a6ec2e85a0
 md"""
 ##### Bemerkung: 
-Eine Folge $(a_n)_{n\in \mathbb{N}}\subset\mathbb{K}$ mit $\lim_{n\to\infty}a_n = 0$ heißt _Nullfolge_.
+Eine Folge $(a_n)_{n\in \mathbb{N}}\subset\mathbb{K}$ mit $\lim\limits_{n\to\infty}a_n = 0$ heißt _Nullfolge_.
 """
 
 # ╔═╡ 2b35d288-6db4-4d8c-aa88-484390676ebf
@@ -247,8 +247,8 @@ Sei $(a_n)_{n\in\mathbb{N}}\subset\mathbb{K}$ eine Folge. Die zugeordnete _Reihe
 
 $s_n:=\sum_{k=1}^na_k=(a_1,a_1+a_2, a_1+a_2+a_3,\dots)$
 und für den Grenzwert schreiben wir
-$\lim\limits_{n\to\infty}s_n = \lim\limits_{n\to\infty}\sum_{k=1}^na_k =: \sum_{k=1}^\infty a_k$
-Oft nennen wir einfach $\sum_{k=1}^\infty a_k$ _die Reihe_.
+$\lim\limits_{n\to\infty}s_n = \lim\limits_{n\to\infty}\sum_{k=1}^na_k =: \sum_{k=1}^\infty a_k$.
+Oft nennen wir einfach $\sum_{k=1}^\infty a_k$ die _Reihe_.
 
 ##### Beispiel:
 1. Die arithmetische Reihe $\sum_{k=1}^\infty k$. Offenbar gilt $s_n = \sum_{k=1}^n a_k = \frac{n(n+1)}{2}$, also divergiert die Reihe.
@@ -259,10 +259,10 @@ Oft nennen wir einfach $\sum_{k=1}^\infty a_k$ _die Reihe_.
 
 3. Die harmonische Reihe $\sum_{k=1}^\infty \frac{1}{k}$ divergiert, denn 
 
-   $s_n = \sum_{k=1}^n \frac{1}{k} = 1 + \frac{1}{2} + \underbrace{\frac{1}{3}+\frac{1}{4}}_{=\frac{1}{2}}+\underbrace{\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+\frac{1}{8}}_{=\frac{1}{2}}+\dots \quad \text{ mit } n = 2^m$
-   also $s_{2^m} \geq 1+ \frac{m}{2} \, m\in\mathbb{N}$ und $\sum_{k=1}\frac 1{k}^\infty\to\infty$
+   $s_n = \sum_{k=1}^n \frac{1}{k} = 1 + \frac{1}{2} + \underbrace{\frac{1}{3}+\frac{1}{4}}_{>\frac{1}{2}}+\underbrace{\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+\frac{1}{8}}_{>\frac{1}{2}}+\dots \quad \text{ mit } n = 2^m$
+   also $s_{2^m} \geq 1+ \frac{m}{2} \, m\in\mathbb{N}$ und $\sum_{k=1}^\infty\frac 1{k}\to\infty$
 
-4. $\sum_{K=1}^\infty \frac{1}{k(k+1)} = \frac{1}{2}+\frac{1}{6}+\frac{1}{12}+\frac{1}{20}+\cdots$
+4. $\sum_{k=1}^\infty \frac{1}{k(k+1)} = \frac{1}{2}+\frac{1}{6}+\frac{1}{12}+\frac{1}{20}+\cdots$
    $s_n = \sum_{k=1}^n\frac{1}{k(k+1)}=\sum_{k=1}^n(\frac{1}{k}-\frac{1}{k+1}) \overset{\text{Teleskopsumme}}{=} 1 - \frac{1}{n+1} \Rightarrow \lim_{n\to\infty}s_n=1$ 
 """
 
@@ -275,6 +275,8 @@ $\sum_{k=1}^\infty a_k = a \text{ und } \sum_{k=1}^\infty b_k = b \Rightarrow \s
 3. Für $a_k>0$ ist $s_n = \sum_{k=1}^n a_k$ monoton wachsend, dann gilt $(s_n)_{n\in\mathbb{N}}$ beschränkt $\Leftrightarrow (s_n)$ konvergent, also $\sum_{k=1}^\infty a_k$ konvergent.
 ##### Definition und Satz:
 Sei $(a_k)_{k\geq0}$ eine monoton fallende Nullfolge mit $a_k>0$. Dann konvergiert die _alternierende Reihe_ $\sum_{k=0}^\infty(-1)^ka_k.$
+##### Beweis: (durch Bild)
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/alternierende_reihe.svg","./assets/alternierende_reihe.svg"))
 """
 
 # ╔═╡ df1df3b1-c00f-45b7-a207-5da3a0c46834
@@ -307,14 +309,14 @@ Eine Reihe $\sum_{k=1}^\infty a_k$ heißt absolut konvergent, falls $\sum_{k=1}^
 2. Es lässt sich zeigen: Bei absolut konvergenten Reihen ist der Grenzwert unabhängig von der Summationsreihenfolge
 """
 
-# ╔═╡ ddbba187-9e47-4153-a686-b3327b56d4b4
+# ╔═╡ 8bf26b35-aca3-4ecd-851f-2c1c1e82922e
 md"""
 ### 2.2.1 Kriterien für absolute Konvergenz
 ##### Satz:
 Die Reihe $\sum_{k=1}^\infty a_k$ ist absolut konvergent, falls eine der folgenden Bedingungen gilt:
 1. Es existiert $\sum_{k=1}^\infty c_k$ konvergent mit $c_k\geq 0$ und $|a_k|\leq c_k$ ab $k\geq N\in \mathbb{N} \quad$"Majorantenkriterium"
 2. Es existiert ein $q<1:\, \sqrt[k]{|a_k|} \leq q \quad$ ab $k \geq N\quad$ "Wurzelkriterium"
-3. Es existiert ein $q<1: \, |\frac{a_{k+1}}{a_k}| \leq q \quad$ ab $k\geq N \quad$ "Quotientenkriterium"
+3. Es existiert ein $q<1: \, \left|\frac{a_{k+1}}{a_k}\right| \leq q \quad$ ab $k\geq N \quad$ "Quotientenkriterium"
 
 ##### Beweis:
 1. wie oben: Cauchy für $\sum c_k \Rightarrow $Cauchy für $\sum|a_k|$)
@@ -332,18 +334,17 @@ $\lim_{k\to\infty}\left|\frac{a_{k+1}}{a_k}\right|<1$
 md"""
 ### 2.2.2 Potenzreihen
 ##### Beispiel:
-Die geometrische Reihe definiert eine Funktion in $q=x\in(-1,1)\subset\mathbb{R}$
-$g:(-1,1)\to \mathbb{R},\quad x\mapsto \sum_{k=0}^\infty x^k$\
-$g(x)$ ist identisch mit $g(x) = \frac{1}{1-x}$ im Intervall $(-1,1)$
+Die geometrische Reihe definiert eine Funktion $g:(-1,1)\subset\mathbb{R}\to \mathbb{R}, \,x\mapsto \sum_{k=0}^\infty x^k.$\
+$g(x)$ ist identisch mit $g(x) = \frac{1}{1-x}$ im Intervall $(-1,1).$
+
 ##### Definition:
-Für $x\in\mathbb{K}$ heißt $\sum_{k=0}^\infty a_kx^k = a_0x+a_1x+a_2x^2+\cdots$ Potenzreihe in x.\
+Für $x\in\mathbb{K}$ heißt $\sum_{k=0}^\infty a_k\,x^k = a_0\,x+a_1\,x+a_2\,x^2+\cdots$ Potenzreihe in x.\
 Hierbei sind die $a_k$ Koeffizienten, nicht Folgenglieder!
 
 ##### Bemerkung: 
-1. Dies definiert eine Funktion $f:D_{\!f}\subset\mathbb{K}\to \mathbb{K}, x\mapsto \sum_{k=0}^\infty a_kx^k$ mit $D_{\!f} = \{x\in\mathbb{K}\mid\sum_{k=0}^\infty a_kx^k$ konvergiert$\}$.
+1. Dies definiert eine Funktion $f:D_{\!f}\subset\mathbb{K}\to \mathbb{K}, x\mapsto \sum_{k=0}^\infty a_k\,x^k$ mit $D_{\!f} = \{x\in\mathbb{K}\mid\sum_{k=0}^\infty a_k\,x^k$ konvergiert$\}$.
 2. Die Potenzreihe oben ist "um den Punkt $0$".\
-   Die Reihe $\sum_{k=0}^\infty a_k(x-x_0)^k$ wäre die Potenzreihe um $x_0$.
-
+   Die Reihe $\sum_{k=0}^\infty a_k\,(x-x_0)^k$ wäre die Potenzreihe um $x_0$.
 
 Leitfrage: Für welche $x\in \mathbb{K}$ konvergiert die Potenzreihe?
 """
@@ -351,7 +352,7 @@ Leitfrage: Für welche $x\in \mathbb{K}$ konvergiert die Potenzreihe?
 # ╔═╡ 1b1f1b81-9ddf-4f4c-bfc6-5de4b3b78896
 md"""
 ##### Satz und Definition:
-Für eine Potenzreihe $\sum_{k=0}^\infty a_kx^k$ heißt $\varrho := \frac{1}{\lim\limits_{n\to\infty} \sqrt[k]{|a_k|}} \in \mathbb{R}$ der _Konvergenzradius_. Die Reihe kovnergiert absolut für $|x|<\varrho$ und divergiert für $|x|>\varrho$.
+Für eine Potenzreihe $\sum_{k=0}^\infty a_k\,x^k$ heißt $\varrho := \frac{1}{\lim\limits_{n\to\infty} \sqrt[k]{|a_k|}} \in \mathbb{R}$ der _Konvergenzradius_. Die Reihe konvergiert absolut für $|x|<\varrho$ und divergiert für $|x|>\varrho$.
 
 ##### Beweis:
 (durch Verwenden des Wurzelkriterium)
@@ -359,8 +360,8 @@ Für eine Potenzreihe $\sum_{k=0}^\infty a_kx^k$ heißt $\varrho := \frac{1}{\li
 $\lim_{k\to\infty}\sqrt[k]{|a_k\,x^k|} = \lim_{k\to\infty}\sqrt[k]{|a_k|}\cdot |x| = \frac{|x|}{\varrho} = \begin{cases}<1&|x|<\varrho\\>1&|x|>\varrho\end{cases}$
 
 ##### Bemerkung:
-1. Der Rand $|x| = \varrho$ muss extra untersucht werden.
-2. Alternativ gilt $\varrho = \frac{1}{\lim\limits_{k\to\infty}\big|\frac{a_{k+1}}{a_k}\big|}$
+1. Der Rand, $|x| = \varrho$, muss extra untersucht werden.
+2. Alternativ gilt $\varrho = \frac{1}{\lim\limits_{k\to\infty}\left|\frac{a_{k+1}}{a_k}\right|}$
 """
 
 # ╔═╡ ba88414f-f414-44e7-8036-3037e62c0633
@@ -370,6 +371,191 @@ $\sum_{k=0}^\infty \frac{1}{k}x^k,\quad a_k = \frac1k, \quad \lim_{k\to\infty}\l
 Die Reihe konvergiert absolut für $|x|<1$.\
 Für $x=1$ ist $\sum_{k=0}^\infty \frac{1}{k}$ nicht konvergent.\
 Für $x=-1$ ist $\sum_{k=0}^\infty \frac{-1^k}{k}$ konvergent, aber nicht absolut konvergent.
+"""
+
+# ╔═╡ 0d30d014-3031-4c3b-b8ea-f2431d8b805f
+md"""
+### 2.2.3 Die Exponentialreihe
+##### Satz und Definition: 
+Die Reihe $\sum_{k=0}^\infty \frac{1}{k!}x^k = 1+x+\frac{1}{2}x^2+\frac{1}{6}x^3\dots$ heißt _Exponentialreihe_. Der Konvergenzradius ist $\varrho=\infty$, das heißt sie konvergiert für alle $x\in \mathbb{K}$ absolut.
+
+##### Beweis:
+
+$\lim_{k\to\infty}\left|\frac{a_{k+1}}{a_k}\right| = \lim_{k\to \infty}\left|\frac{k!}{(k+1)!}\right|=\lim_{k\to\infty}\frac{1}{(k+1)}=0\Rightarrow \varrho = \infty$
+
+##### Satz und Definition:
+Sind $\sum_{k=0}^\infty a_k$ und $\sum_{k=0}^\infty b_k$ absolut konvergente Reihen, so konvergiert auch das Cauchy-Produkt $\sum_{k=0}^\infty c_k$ mit $c_k := \sum_{j=0}^k a_j b_{k-j}$ absolut und es gilt $\sum_{k=0}^\infty c_k = \left(\sum_{k=0}^\infty a_k\right) \cdot \left( \sum_{k=0}^\infty b_k\right).$
+
+
+"""
+
+# ╔═╡ e6f45d31-b850-41e8-8343-8b2b7b551aa4
+md"""
+Wir betrachten die Funktion $f:\mathbb{R}\to\mathbb{R},\quad x\mapsto \sum_{k=0}^\infty \frac{1}{k!}x^k$.\
+Es gilt (mit obigem Satz)
+
+$\begin{align*}
+f(a)\cdot f(b) &= \sum_{k=0}^\infty \frac{a^k}{k!}\cdot \sum_{k=0}^\infty \frac{b^k}{k!} =\sum_{r=0}^\infty \sum_{k=0}^r \frac{a^k\,b^{r-k}}{k!\,(r-k)!}\\[2pt]
+&= \sum_{r=0}^\infty \sum_{k=0}^r \frac{1}{r!} \underbrace{\frac{r!\,a^k\,b^{r-k}}{k!\,(r-k)!}}_{=(a+b)^r,\text{ binomische Formel}}\\[2pt]
+&= \sum_{r=0}^\infty \frac{1}{r!}(a+b)^r=f(a+b).
+\end{align*}$   
+
+Damit folgt
+
+$\begin{align*}f(2) &= f(1+1) = f(1)f(1) = f(1)^2,\\[2pt] f(3) &= f(1+1+1)=f(1)^3.\end{align*}$ 
+
+Das heißt für $p\in\mathbb{N}: f(p) = f(1)^p,\quad$ "$\!f$ exponiert zur Basis $f(1)$". 
+
+Wir definieren die _Eulersche Zahl_ $e:= f(1) = \sum_{k=0}^\infty \frac{1}{k!}$ und damit $f(p)=e^p$.
+
+Weiterhin gilt $f(0)=1$ und $f(x-x) = f(x)\cdot f(-x) = 1$, also $f(-x) = \frac{1}{f(x)}$, d.h. $\,e^{-n} = \frac{1}{e^n}.$
+
+Außerdem ist
+
+$\begin{align*}
+f(1) &= f\left(\frac{1}{2}+\frac{1}{2}\right)=f\left(\frac{1}{2}\right)^2 \Rightarrow f\left(\frac{1}{2}\right)= \sqrt{f(1)}=f(1)^{\frac{1}{2}}\\[2pt]
+f(1) &= f\left(\frac{1}{3}+\frac{1}{3}+\frac{1}{3}\right)=f\left(\frac{1}{3}\right)^3\Rightarrow f\left(\frac{1}{3}\right)=f(1)^{\frac{1}{3}}\\[2pt]
+ &\Rightarrow f\left(\frac{1}{q}\right) = e^{\frac{1}{q}} = \sqrt[q]{e}.
+\end{align*}$
+
+Analog ist $f\left(\frac{p}{q}\right) = e^{\frac{p}{q}}\quad$ für $p,q\in\mathbb{N},\,$ d.h. $f(x) = e^x, \quad x\in\mathbb{Q}.$ 
+"""
+
+# ╔═╡ 65c54798-28b9-445e-aafb-727d3db668ef
+md"""
+##### Verallgemeinerung:
+ $e^x:= f(x) = \sum_{k=0}^\infty \frac{1}{k!}x^k =: \exp(x)$ für $x\in \mathbb{R}$ und $x\in\mathbb{C}$.
+
+Komplexe Argumente: $x\in\mathbb{C}, \,x = a+bi\quad a,b\in\mathbb{R}.$
+$f(x) = f(a+bi) = \underbrace{f(a)}_{\in\mathbb{R}} \cdot \underbrace{f(bi)}_{\in\mathbb{C}?}$\
+Was ist $z=e^{ib}$?
+"""
+
+# ╔═╡ a9b40cf0-b359-454b-8efe-53c3ad4bbea5
+md"""
+##### Satz:
+$|e^{ib}|=1 \quad \forall b\in\mathbb{R}$
+
+##### Beweis:
+Zunächst komplexe Konjugation:
+
+$\overline{f(x)} = \overline{\sum_{k=0}^\infty \frac{1}{k!}x^k} = \sum_{k=0}^\infty \frac{1}{k!}\overline{x}^k = f(\overline{x}).$
+Damit ist
+
+$|f(ib)| = \sqrt{f(ib)\cdot \overline{f(ib)}} = \sqrt{f(ib)f(\overline{ib})} = \sqrt{f(ib)f(-ib)}? \sqrt{f(ib)\frac{1}{f(ib)}}=1.$
+
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/exponential_formula.svg","./assets/exponential_formula.svg"))
+
+ $e^{it} = \cos(\alpha)+i\sin(\alpha)\Rightarrow \alpha \text{ hängt irgendwie von t ab, aber wie?}$
+
+##### Satz:
+Unter der Funktion $f(i\cdot):\mathbb{R}\to\mathbb{C}, t\mapsto e^{it}$ wird die reelle Achse $t\in \mathbb{R}$ längentreu und monoton auf den Einheitskreis abgewickelt, d.h. $\alpha = t$.
+
+Hier ohne Beweis.
+"""
+
+# ╔═╡ 10a8d630-9cc2-40ec-831f-816f52723f9f
+md"""
+##### Satz:
+Die geometrischen Funktionen $\sin$ und $\cos$ lassen sich darstellen als $\cos(t) = \mathrm{Re}(e^{it})$ und $\sin(t)=\mathrm{Im}(e^{it})$, d.h. 
+
+$e^{it}=\cos(t) +i \sin(t)$
+und genügen den Potenzreihen
+
+$\cos(t) = \sum_{k=0}^\infty  (-1)^k \frac{t^{2k}}{(2k)!},\quad \sin(t) = \sum_{k=0}^\infty (-1)^k\frac{t^{2k+1}}{(2k+1)!}$
+
+##### Beweis:
+Der erste Teil folgt aus dem obigen Satz. Außerdem haben wir
+
+$e^{it} = \sum_{k=0}^\infty \frac{(it)^k}{k!} = 1 + it + \underbrace{\frac{1}{2}(it)^2}_{=-t^2} + \underbrace{\frac{1}{6}(it)^3}_{=-i\,t^3} + \underbrace{\frac{1}{24}(it)^4}_{t^4} + \dots$ 
+Realteil ist also jede gerade Potenz ($\cos$) und Imaginärteil jede ungerade Potenz ($\sin$).
+"""
+
+# ╔═╡ 1a15c7e7-c181-402c-b8f7-24925600b785
+md"""
+##### Bemerkung:
+Es gelten
+1. $\cos(t) = \mathrm{Re}(e^{it}) = \frac{1}{2}(e^{it}+e^{it}),$
+   $\sin(t) = \mathrm{Im}(e^{it}) = \frac{1}{2i}(e^{it}-e^{it}).$
+2. $e^{i\pi}=\cos(\pi)+i\sin(\pi) = 1,$
+   $e^{i\frac{\pi}{2}} = \cos(\frac{\pi}{2})+i\sin(\frac{\pi}{2})=i.$
+
+##### Definition:
+Für verschiedene Anwendungen (z.B. Kettenlinien) sind die hyperbolischen Funktionen wichtig:\
+$\cosh(t):= \frac{1}{2}(e^t+e^{-t}), \quad$ "cosinus hyperbolicus"\
+$\sinh(t):=\frac{1}{2}(e^t-e^{-1}),\quad$ "sinus hyperbolicus".
+
+##### Eigenschaften:
+Es gilt $\cosh^2(t)-\sinh^2(t) = 1$, entgegen $\cos^2(t) + \sin^2(t) = 1$.
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/hyperbolicus.svg","./assets/hyperbolicus.svg"))
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/unit_circle_trigonometry.svg","./assets/unit_circle_trigonometry.svg",:width=>330))
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/unit_circle_hyperbolic.svg","./assets/unit_circle_hyperbolic.svg",:width=>330))
+
+Der rot markierte Flächeninhalt beträgt stets $\frac{t}{2}$.
+"""
+
+
+# ╔═╡ 257a7c67-60e3-4322-bf41-38d774d1fc8e
+md"""
+### 2.2.5 Logarithmus
+
+##### Satz:
+Für die Funktion $\exp:\mathbb{R}\to\mathbb{R}, x\mapsto e^x$ gilt
+1.  $e^x>0 \quad \forall x \in \mathbb{R}$
+2. Als Funktion $\exp: \mathbb{R}\to\mathbb{R}^+$ ist $\exp$ bijektiv.
+Wir können also $\exp$ umkehren.
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/logarithmus.svg","./assets/logarithmus.svg"))
+##### Definition:
+Die Funktion $\exp^{-1}:\mathbb{R}^+\to\mathbb{R}$ heißt _natürlicher Logarithmus_ "$\ln$".
+
+Es gilt $\ln(e^x)=x$ und $e^{\ln(x)} = x$, sowie $\ln(x\cdot y) = \ln(x)+\ln(y)$ wegen $e^{a+b}=e^ae^b$, also $\ln(x^{\frac{p}{q}}) = \frac{p}{q} \ln(x).$
+"""
+
+# ╔═╡ 8d2ad4af-cac1-40a0-b373-3f7c8541fd1d
+md"""
+##### Definition
+Die allgemeine Exponentialfunktion zur Basis $a$, d.h. $a^x$, ist für $x\in \mathbb{R}$ definiert als 
+
+$a^x:=(e^{\ln(a)})^x=e^{x\cdot\ln(a)}$
+"""
+
+# ╔═╡ cb6d0485-be4a-4b5e-b676-9213fb604cc0
+md"""
+## 2.3 Relle Funktionen
+### 2.3.1 Grundbegriffe
+
+$f:D\subset \mathbb{R}\to \mathbb{R}, x\mapsto y=f(x)$
+Erinnere:
+*  $D$ ist Definitionsbereich
+*  $\mathrm{Im}(f) = \{y\in\mathbb{R}|\, y=f(x), x\in D\}$ ist der Wertebereich
+* injektiv, surjektiv, bijektiv
+* bijektive Funktionen lassen sich umkehren
+
+##### Definition
+Mehr elementare Eigenschaften von reellen Funktionen:
+1.  $f$ ist beschränkt, falls $|f(x)| \leq M \quad \forall x\in D,\, M>0.$
+2.  $f$ ist $\begin{cases} \text{gerade}\\\text{ungerade}\end{cases}\,$, falls $\forall x\in D\begin{cases}f(-x)=f(x)\\f(-x)=-f(x)\end{cases}$
+3.  $f$ ist monoton $\begin{cases} \text{fallend}\\\text{wachsend}\end{cases}\,$, falls $\forall x_1,x_2\in D\begin{cases}x_1<x_2\Rightarrow f(x_1)\geq f(x_2)\\x_1<x_2\Rightarrow f(x_1) \leq f(x_2)\end{cases}$
+4.  $f$ ist periodisch mit Periode $L$, falls $f(x+L) = f(x)\quad \forall x\in D.$
+"""
+
+# ╔═╡ b7a09980-45a0-4765-bff2-2a7302344075
+md"""
+##### Beispiel:
+1.  $f(x) = \sin(x)$ ist beschränkt durch 1, ungerade und periodisch mit $2\pi$
+2.  $f(x)=\sinh(x)$ ist unbeschränkt, ungerade, streng monoton wachsend und bijektiv
+
+Wie bestimmt man die Umkehrfunktion?
+
+ $y = \frac{1}{2}(e^x-e^{-x})$ nach $x$ auflösen. Definiere $z:= e^x$, dann gilt:
+
+ $y = \frac{1}{2}(z-\frac{1}{z}) \Leftrightarrow z^2 - 2yz-1 = 0.$
+
+ $\;\,z_{1,2} = y \pm \sqrt{y^2-1}\quad$ Es ist aber $z=e^x>0.$\
+ $\Rightarrow x = \ln(y+\sqrt{y^2+1}) =: \mathrm{arsinh}(y).\quad$ "area sinus hyperbolicus"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -1958,9 +2144,19 @@ version = "4.1.0+0"
 # ╟─eac4a80e-42f2-4f5c-84b3-dd444a3e5193
 # ╟─df1df3b1-c00f-45b7-a207-5da3a0c46834
 # ╟─f4035677-2ad9-47b1-a942-6f7ffd56b5e9
-# ╟─ddbba187-9e47-4153-a686-b3327b56d4b4
+# ╟─8bf26b35-aca3-4ecd-851f-2c1c1e82922e
 # ╟─4393a0c9-168a-4fc9-b678-3e7e06b461ff
 # ╟─1b1f1b81-9ddf-4f4c-bfc6-5de4b3b78896
 # ╟─ba88414f-f414-44e7-8036-3037e62c0633
+# ╟─0d30d014-3031-4c3b-b8ea-f2431d8b805f
+# ╟─e6f45d31-b850-41e8-8343-8b2b7b551aa4
+# ╟─65c54798-28b9-445e-aafb-727d3db668ef
+# ╟─a9b40cf0-b359-454b-8efe-53c3ad4bbea5
+# ╟─10a8d630-9cc2-40ec-831f-816f52723f9f
+# ╟─1a15c7e7-c181-402c-b8f7-24925600b785
+# ╟─257a7c67-60e3-4322-bf41-38d774d1fc8e
+# ╟─8d2ad4af-cac1-40a0-b373-3f7c8541fd1d
+# ╟─cb6d0485-be4a-4b5e-b676-9213fb604cc0
+# ╟─b7a09980-45a0-4765-bff2-2a7302344075
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
