@@ -97,7 +97,7 @@ Differenz $A \setminus B := \lbrace x \mid x \in A \text{ und } x\notin B\rbrace
 """
 
 # ╔═╡ d2de929f-f14d-4ef5-a4c9-fbdfd6ddb602
-RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c6214b008ebfecce9f3350b6609d3fcdfbf70778/notebooks/assets/mengen.svg", "./assets/mengen.svg")
+RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/835f994cea656cfd1c374638dd8b6e7984ef4d5e/notebooks/assets/mengen.svg", "./assets/mengen.svg")
 
 # ╔═╡ b4cc522e-9673-4fd3-8b7f-2a47732ba78e
 md"""
@@ -137,11 +137,34 @@ md"""
     +  $\neg A\qquad\quad\;$ $A$ gilt nicht
     +  $A \land B\qquad$ $A$ und $B$ gelten
     +  $A \lor B\qquad$ $A$ oder $B$ (auch beide) gelten
-    +  $A \Rightarrow B\quad\;\;$ aus $A$ folgt $B$
-    +  $A \Leftrightarrow B\quad\;\;$ $A$ und $B$ sind äquivalent
+    +  $A \Rightarrow B\quad\;\;$ aus $A$ folgt $B$, bzw. $A$ impliziert $B$
+    +  $A \Leftrightarrow B\quad\;\;$ $A$ und $B$ sind äquivalent, bzw. $A$ genau dann, wenn $B$
  3. Variablen in Aussagen können nur mit in Kombination mit Quantoren vorkommen
     +  $\forall x\in M\quad\;$ für alle $x$ in $M$ gilt ...
     +  $\exists x\in M\quad\;$ es gibt (mind. ein) $x$ in $M$, so dass ...
+ 4. Eine Aussage, die nicht weiter in Teilaussagen zerlegt werden kann, nennen wir _atomare Aussage_.
+"""
+
+# ╔═╡ 2db6ffd9-f146-4c9a-86c1-aefc917fbd42
+md"""
+##### Definition: Wahrheitstabelle
+Eine Wahrheitstabelle gibt für eine Aussage die Wahrheitswerte an, die diese für alle möglichen Wahrheitswerte der ihr zugrundeliegenden atomaren Aussagen an.
+
+##### Beipiel:
+Für die obigen vorgestellten Junktoren fassen wir die Wahrheitstabellen zu der Folgenden zusammen. ($0$ bedeutet, dass die Aussage falsch ist, $1$, dass die Aussage wahr ist.)
+
+|$A$|$B$|$\neg A$|$\neg B$|$A \land B$|$A \lor B$|$A \Rightarrow B$|$A \Leftrightarrow B$|
+|:-:|:-:|:------:|:------:|:---------:|:--------:|:---------------:|:-------------------:|
+|$0$|$0$|  $1$   |  $1$   |    $0$    |    $0$   |      $1$        |      $1$            |
+|$0$|$1$|  $1$   |  $0$   |    $0$    |    $1$   |      $1$        |      $0$            |
+|$1$|$0$|  $0$   |  $1$   |    $0$    |    $1$   |      $0$        |      $0$            |
+|$1$|$1$|  $0$   |  $0$   |    $1$    |    $1$   |      $1$        |      $1$            |
+
+##### Definition: Tautologie
+Eine Aussage, die stets wahr ist, ungeachtet welche Wahrheitswerte ihre atomaren Aussagen haben, heißt _Tautologie_.
+
+##### Bemerkung:
+Sind zwei Aussagen $A$ und $B$ äquivalent, so ist $A \Leftrightarrow B$ eine Tautologie. Das heißt auch, dass die entsprechenden Zeilen der Wahrheitstabellen der Aussagen $A$ und $B$ in ihren Wahrheitswerten gleich sind.
 """
 
 # ╔═╡ 1e9ab1ed-d7a9-4bfe-a9d6-743cf54a583a
@@ -351,7 +374,7 @@ Für zwei Mengen $A$, $B$ heißt die Relation $f\subset A\times B$ Abbildung ode
  5.  $f$ bezeichnet die Operation oder den Vorgang der Abbildung, nicht den Wert oder das Resultat, $f(x) = x^2$, aber $f = (\cdot)^2$
 
 ##### Beispiel:
- 1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c6214b008ebfecce9f3350b6609d3fcdfbf70778/notebooks/assets/bsp-abb.svg","./assets/bsp-abb.svg"))
+ 1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/e6e200f5162e4c52f553aaa2d8cbe70c805ffde9/notebooks/assets/bsp-abb.svg","./assets/bsp-abb.svg"))
  2. Die konstante Funktion ($c\in B$), $f:A\to B\quad x\mapsto y=f(x)=c$
  3. Die Identität $f:A\to A\quad x\mapsto y=f(x)=x.$ Wir schreiben $f = \mathrm{id}$, $A$ z.B. $\lbrace\text{alle Autos}\rbrace$, $\lbrace\text{alle Polynome}\rbrace$, etc.
  4. *  $f = \mathrm{Mikrowelle}$: 
@@ -370,12 +393,138 @@ Die Umkehrfunktion $f^{-1}$ wird später behandelt!
 # ╔═╡ c90137b8-4c17-4742-a67a-ddebee962a9b
 md"""
 ##### Beispiel:
-1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/preimage.svg","./assets/preimage.svg"))
+1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/bbbd2f9e2d2fe86332b5503998fd3cca904fa2d6/notebooks/assets/preimage.svg","./assets/preimage.svg"))
 
-2. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/image.svg","./assets/image.svg"))
+2. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/image.svg","./assets/image.svg"))
 
-3. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/urbild.svg","./assets/urbild.svg"))
+3. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/urbild.svg","./assets/urbild.svg"))
 """
+
+# ╔═╡ 16adae15-bcf7-4c5e-9d37-2181fe64a164
+@bind bilder PlutoUI.combine() do Child
+	md"""
+	 Zur Veranschaulichung der obigen Grafiken betrachten wir die Normalparabel und ihre Umkehrfunktion, die Wurzelfunktion. An den Slidern können Sie das Intervall $[a,b]$ für $f(x)$ und die Umkehrfunktion $g(x) = f^{-1}(x)$ bestimmen.
+	
+	a = $(
+		Child(PlutoUI.Slider(0.1:0.2:5.0, show_value=true))
+	) 
+	
+	b = $(
+		Child(PlutoUI.Slider(0.1:0.2:5.0, show_value=true))
+	)
+	"""
+	
+end
+
+# ╔═╡ 85a2c951-9117-4318-8ed1-9950483aa1b2
+let
+	using GLMakie
+	f(x) = x^2
+	g(x) = x^(1/2)
+	fig = Figure()
+
+	# Normalparabel
+	ax1 = Axis(fig[1,1], title = "f(x) = x²")
+	xs = 0:0.01:5.0
+	ys = f.(xs)
+	zs = g.(xs)
+	lines!(ax1, xs, ys)
+
+	# Roter Punkt
+	scatter!(ax1,
+    	lift(x -> [x], bilder[1]),
+    	lift(x -> [f(x)], bilder[1]),
+    	color = :red,
+    	markersize = 12
+	)
+	
+	# Grüner Punkt
+	scatter!(ax1,
+			lift(x-> [x], bilder[2]),
+			lift(x-> [f(x)], bilder[2]),
+			color = :green,
+			markersize = 12
+			)
+	#
+	#Version 1 mit durchgehenden Linien
+	hlines!(ax1,
+    	lift(x -> f(x), bilder[1]),
+    	color = :gray,
+    	linestyle = :dash,
+    	linewidth = 2
+	)
+	
+	hlines!(ax1,
+		   lift(x-> f(x), bilder[2]),
+		   color = :gray,
+		   linestyle = :dash,
+		   linewidth=2
+		   )
+	
+	vlines!(ax1,
+    	lift(x -> x, bilder[1]),
+    	color = :gray,
+    	linestyle = :dash,
+    	linewidth = 2
+	)
+	
+	vlines!(ax1,
+		   lift(x-> x, bilder[2]),
+		   color = :gray,
+		   linestyle = :dash,
+		   linewidth=2
+		   )
+	
+	# Wurzelfunktion
+	ax2 = Axis(fig[1,2], title = "g(x) = √x")
+	lines!(ax2, xs, zs)
+
+	# Roter Punkt
+	scatter!(ax2,
+    	lift(x -> [x], bilder[1]),
+    	lift(x -> [g(x)], bilder[1]),
+    	color = :red,
+    	markersize = 12
+	)
+
+	# Grüner Punkt
+	scatter!(ax2,
+			lift(x-> [x], bilder[2]),
+			lift(x-> [g(x)], bilder[2]),
+			color = :green,
+			markersize = 12
+			)
+	
+	hlines!(ax2,
+    	lift(x -> g(x), bilder[1]),
+    	color = :gray,
+    	linestyle = :dash,
+    	linewidth = 2
+	)
+	
+	hlines!(ax2,
+		   lift(x-> g(x), bilder[2]),
+		   color = :gray,
+		   linestyle = :dash,
+		   linewidth=2
+		   )
+	
+	vlines!(ax2,
+    	lift(x -> x, bilder[1]),
+    	color = :gray,
+    	linestyle = :dash,
+    	linewidth = 2
+	)
+	
+	vlines!(ax2,
+		   lift(x-> x, bilder[2]),
+		   color = :gray,
+		   linestyle = :dash,
+		   linewidth=2
+		   )
+	fig
+	#Makie.current_backend()
+end
 
 # ╔═╡ ebdd05b6-9dc4-4097-9489-792889d8485d
 md"""
@@ -397,12 +546,11 @@ md"""
 
 1. Injektiv, aber nicht surjektiv.
 
-$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/injektiv.svg","./assets/injektiv.svg"))
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/injektiv.svg","./assets/injektiv.svg"))
 
 2. Surjektiv, aber nicht injektiv.
 
-$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/surjektiv.svg","./assets/surjektiv.svg"))
-
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/surjektiv.svg","./assets/surjektiv.svg"))
 
 """
 
@@ -438,7 +586,7 @@ $f\circ f^{-1} = \mathrm{id}_Y$ bzw. $f^{-1} \circ f = \mathrm{id}_X$.
 # ╔═╡ a479be15-4eed-4336-80db-4a90ad81d30f
 md"""
 ##### Beispiel:
-$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/pre.svg","./assets/pre.svg"))
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/bbbd2f9e2d2fe86332b5503998fd3cca904fa2d6/notebooks/assets/pre.svg","./assets/pre.svg"))
 
 Wir werden auf Funktionen zurückkommen, nachdem wir Zahlen eingeführt haben.
 """
@@ -525,7 +673,7 @@ Die Beweise unterscheiden sich zwischen konstruktiv und nicht konstruktiv.
 md"""
 ### 1.2.4 Indirekter Beweis
 
-Manche mathematische Sätze haben die Form $A \Rightarrow B$ (z.B. $x \geq 1 \Rightarrow x^2 \geq 1$). Im indirekten Beweis zeigt man stattdessen $\neg B \Rightarrow \neg A$, also die Umkehrung. Etwa beim Beweis durch Widerspruch, d.h. wir nehmen das Gegenteil an und leiten etwas Falsches ab, dann muss auch die Annahme falsch gewesen sein.
+Manche mathematische Sätze haben die Form $A \Rightarrow B$ (z.B. $x \geq 1 \Rightarrow x^2 \geq 1$). Im indirekten Beweis zeigt man stattdessen $\neg B \Rightarrow \neg A$, also die Umkehrung. (Überprüfen Sie, dass diese Aussagen äquivalent sind!) Etwa beim Beweis durch Widerspruch, d.h. wir nehmen das Gegenteil an und leiten etwas Falsches ab, dann muss auch die Annahme falsch gewesen sein.
 
 ##### Satz:
 
@@ -681,7 +829,7 @@ md"""
 Für eine Menge $\mathbb{R}$ seien folgende Bedingungen erfüllt
 1. Es gibt zwei Verknüpfungen ($+$ und $\cdot$) und $(\mathbb{R}, +, \cdot, 0, 1)$ ist ein Körper.
 2. Es gibt eine Ordnungsrelation $\leq$ auf $\mathbb{R}$ verträglich mit $+$ und $\cdot$, d.h. für $x,y,z\in \mathbb{R}.$
-   $x\leq y \Rightarrow x+y\leq y+z.$\
+   $x\leq y \Rightarrow x+z\leq y+z.$\
    Für $0\leq x$ und $0 \leq y$ folgt $0 \leq x\cdot y$.
 3. Jede nicht leere, nach oben beschränkte Teilmenge $A\subset \mathbb{R}$ besitzt eine kleinste obere Schranke $s\in \mathbb{R}.$
 Dann heißt $\mathbb{R}$ _reeller Zahlenkörper_ und die Elemente sind _reelle Zahlen_. Wir schreiben $x\in \mathbb{R}.$
@@ -816,18 +964,295 @@ $\begin{align*}\mathbb{N} &= \{1,2,\phantom{-}3,4,\phantom{-}5,6,\phantom{-}7,\d
 
 Zu $\mathbb{Q}$: Betrachte $a\in\mathbb{Q}:\, a=\frac{p}{q}>0\quad p,q\in\mathbb{N}$
 
-$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/3d9496a878c2ecfc8cf2b2301a65098510098c21/notebooks/assets/diagonal.svg","./assets/diagonal.svg"))
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/diagonal.svg","./assets/diagonal.svg"))
+"""
+
+# ╔═╡ ef121ae4-fa18-4938-8596-be29164ece6c
+md"""
+##### Satz:
+ $\mathbb{R}$ ist nicht abzählbar unendlich.
+
+##### Beweis (Diagonalverfahren nach Cantor):
+Wir zeigen das offene Intervall $(0,1)$ ist nicht abzählbar unendlich per Widerspruch. Annahme: Es gibt eine Liste $\mathbb{N}\to(0,1)$, z.B. (in Dezimaldarstellung)
+
+$\begin{align*} 1&\to 0,a_{11}a_{12}a_{13}\ldots\\[2pt]
+2&\to 0,a_{21}a_{22}a_{23}\ldots\\[2pt]
+3&\to 0,a_{31}a_{32}a_{33}\ldots\\[2pt]
+&\;\;\vdots \\[2pt]
+a_{ij}&\in\{0,1,2,3,4,5,6,7,8,9\}\end{align*}$
+
+Wir konstruieren daraus eine neue Zahl $z\in (0,1)$, nämlich $z=0,c_1c_2c_3\cdots$ mit $c_j=(a_{jj}+1)$ mod 10. Offenbar ist $z$ nicht in der Liste.
+
+##### Bemerkung:
+1.  $\mathbb{R}$ heißt _überabzählbar_. Es enthält also "mehr" Elemente als $\mathbb{N}$ (und $\mathbb{Q}$).
+2.  $|\mathbb{N}|= \aleph_0 = \infty\quad$ ("aleph-$0$")$\qquad$"Kardinalzahlen": $\infty$, $\aleph_1$, $\aleph_2$, $\ldots$
+3. Die Mengen $\mathbb{R}, \mathbb{R}^2, \mathbb{R}^n (n\in\mathbb{N})$ sind alle gleichmächtig.
+4. Die Menge $A=\{f\mid\, f:[0,1]\to[0,1]\}$ hat eine gößere Mächtigkeit als $\mathbb{R}$ (nämlich $\aleph_2$).
+
+"""
+
+# ╔═╡ 436b09f8-aaa7-4b4a-8989-1b2da9ddf6d9
+md"""
+## 1.5 Komplexe Zahlen
+### 1.5.1 Der Körper $\mathbb{C}$
+Problem von $\mathbb{R}$: Die Gleichung $x^2=-1$ hat keine Lösung!
+
+##### Satz und Definition:
+
+Für die Menge $\mathbb{R}^2=\mathbb{R}\times\mathbb{R}$ definieren wir die Verknüpfungen:
+
+$\begin{align*}
++:\mathbb{R}^2\times\mathbb{R}^2 \to \mathbb{R}^2,& \quad (a,b) + (c,d) := (a+c, b+d) 
+\\[2pt]
+\cdot:\mathbb{R}^2\times\mathbb{R}^2\to\mathbb{R}^2,& \quad (a,b)\cdot(c,d) := (ac-bd, ad+bc)
+\end{align*}$
+
+Damit wird $\mathbb{R}^2$ zum Körper mit Nullelement $(0,0)$, Einselement $(1,0)$ und additivem Inversen $(-a,-b)$, sowie multiplikativem Inversen $(\frac{a}{a^2+b^2},\frac{-b}{a^2+b^2})$ für $(a,b)\neq(0,0)$.
+
+##### Beweis:
+
+Lässt sich leicht durch Nachrechnen zeigen.
+"""
+
+# ╔═╡ 6341adcf-fd11-4d3c-8aad-0be897a85b1c
+md"""
+##### Bemerkung:
+1. Dieser Körper heißt $\mathbb{C}$, die _komplexen Zahlen_.
+2. Die reellen Zahlen werden "eingebettet", d.h. $a\in\mathbb{R}\to \tilde{a} \,\mathrel{\widehat{=}}\, (a,0) \in \mathbb{C}.$
+3. Betrachte $x^2 = -1$ in $\mathbb{C}$, d.h.
+$\begin{align*} (a,b)\cdot(a,b) &= (-1,0) \\[2pt] \Leftrightarrow (a^2-b^2,ab+ba) &=(-1,0)\\[2pt]
+\Leftrightarrow a^2-b^2 &= -1 \;\mathrel{\land}\; 2\,a\,b = 0 \\[2pt]
+\Leftrightarrow (a,b) &= (0,1). \end{align*}$
+4. Die Lösung $(0,1) =: i$ heißt imaginare Einheit und es gilt $i^2 = -1$. Die imaginäre Einheit wird in der Elektrotechnik und Physik auch gerne als "$j$" geschrieben. 
+
+##### Definition:
+Wir schreiben $z\in\mathbb{C}$ als Summe von Realteil und Imaginärteil $z = a+bi$, sowie $\mathrm{Re}(z) = a$ und $\mathrm{Im}(z)=b$.
+"""
+
+# ╔═╡ 108153fe-ffcf-4506-854c-a0da70b3f93a
+md"""
+##### Bemerkung:
+
+1. Die Summation von $a+b\,i$ ist _formal_.
+2. Wir können "normal" rechnen, wobei $i^2 = -1$ bzw. $\sqrt{-1} = \pm i$ gilt
+
+$\begin{align*}
+(a+b\,i) + (c+d\,i) &= (a+b) + (c+d)\,i\\[2pt]
+(a+b\,i)\cdot(c+d\,i) &= a\,c + a\,d\,i + b\,c\,i + b\,d\,i^2\\[2pt] 
+&= (a\,c-b\,d) + (a\,d+b\,c)\,i.
+\end{align*}$
+
+##### Beispiel:
+1.  $z_1 = 1+2\,i, \quad z_2 = -2-i$
+
+   $\begin{align*} z_1+z_2 &= -1+i \\[2pt] z_1\cdot z_2 &= (1+2\,i)\,(-2-i) \\[2pt] &= (-2 -i - 4\,i + 2)\\[2pt] &= -5\,i.\end{align*}$
+2. Bestimmen der Nullstellen von $x^2 - 2\,x + 5$:
+
+   $\begin{align*}  x_{1,2} &= -\frac p2 \pm \sqrt{\frac{p^2}4 - q} \\[2pt] & -1 \pm \sqrt{1 - 5} \\[2pt] &= -1 \pm \sqrt{-4} \\[2pt] &= -1 \pm 2\,i. \end{align*}$
+3.  $\begin{align*} \frac1i = \frac1i\frac ii = \frac i{-1} = -i\end{align*}$
+"""
+
+# ╔═╡ 351810ad-b87f-4e4f-a8e7-fb68a4541e95
+md"""
+##### Definition:
+1. Für $z\in \mathbb{C}$ mit $z=a+b\,i$ ist durch $\overline{z}=a-b\,i$ die _komplex-konjugierte Zahl_ definiert. Es gilt $z\cdot \overline{z} = a^2+b^2.$
+2. Für $z\in\mathbb{C}$ ist der Betrag definiert durch $|z|:= \sqrt{z\overline{z}} = \sqrt{a^2+b^2}$
+
+##### Bemerkung:
+1. Es gilt die Dreieckungsleichung $|z+w| \leq |z|+|w|.$
+2.  $\mathrm{Re}(z) = \frac{1}{2}(z+\overline{z}),\quad \mathrm{Im}(z)=\frac{1}{2i}(z-\overline{z}).$
+3.  $\overline{z}$ ist fast die Inverse von $z$. Es gilt für $z=a+bi$, dass $z^{-1}=\frac{1}{|z|^2}\overline{z}$ ist.
+
+##### Beispiel:
+$z = 1+2\,i \Rightarrow \overline{z} = 1-2\,i\Rightarrow z\cdot \overline{z}=5,\quad |z| = \sqrt{5}$
+und
+
+$z^{-1} = \frac{1}{1+2\,i} = \frac{1}{1+2\,i}\frac{1-2\,i}{1-2\,i}=\frac{1-2\,i}{5}=\frac{\overline{z}}{|z|^2}.$
+"""
+
+# ╔═╡ 0a2e8988-9669-48c3-8825-5ae8f7969ca0
+md"""
+### 1.5.2 Gaußsche Zahlenebene
+
+##### Definition:
+Jede komplexe Zahl $z=a+bi\in\mathbb{C}$ lässt sich als Punkt in der _komplexen_ oder _Gaußschen Zahlebene_ darstellen. 
+
+
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/complex_axis.svg","./assets/complex_axis.svg"))
+
+
+
+"""
+
+# ╔═╡ 90c103a6-2ad1-485e-9b48-4da1435ee4a4
+md"""
+
+Dies erlaubt eine geometrische Interpretation von $\overline{z},|z|, z+w, z\cdot w$, etc.
+
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/complex_norm.svg","./assets/complex_norm.svg"))
+
+"""
+
+# ╔═╡ e72ee126-9933-4655-9587-9f60d2efad96
+md"""
+
+Für die Multiplikation benötigen wir Polarkooridnaten:
+
+ $z=a+bi = r\cos(\varphi) + r\sin(\varphi)i\,$ 
+
+mit $r = |z| = a^2+b^2$ und $\tan(\varphi) = \frac{\sin(\varphi)}{\cos(\varphi)}=\frac{b}{a}.$
+
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/complex_multiplication.svg","./assets/complex_multiplication.svg"))
+
+
+"""
+
+# ╔═╡ 08a817ac-1c50-4a70-aca5-c89e343670f0
+md"""
+##### Beispiel:
+1. $\varphi = \frac{\pi}{3} (60^\circ),\quad r=2$
+$\begin{align*}
+\Rightarrow  z &= r\cos(\varphi)+r\sin(\varphi)i\\
+&= 2\cos\left(\frac{\pi}{3}\right) + 2\sin\left(\frac{\pi}{3}\right)i \\
+&= 1 + \sqrt{3}i. \end{align*}$
+2. Betrachte $\,\,z_1 = r_1(cos(\varphi_1)+\sin(\varphi_1)i),\quad z_2 = r_2(\cos(\varphi_2)+\sin(\varphi_2)i)$
+   $\begin{align*}
+    z_1\cdot z_2 &= r_1r_2(\cos(\varphi_1)+\sin(\varphi_1)i)(\cos(\varphi_2)+\sin(\varphi_2)i)\\[2pt]
+   &=r_1r_2\big[\cos(\varphi_1)\cos(\varphi_2)-\sin(\varphi_1)\sin(\varphi_2)+\\[1pt]
+   &\phantom{=r_1r_2\big[} \bigl(\cos(\varphi_1)\sin(\varphi_2)+\sin(\varphi_1)\cos(\varphi_2)\bigr)i\big]\\[2pt]
+   &=r_1r_2\big[\cos(\varphi_1+\varphi_2)+\sin(\varphi_1+\varphi_2)i\big].\end{align*}$
+
+Die Winkel addieren sich also bei Multiplikation. Die Radien werden multiplizeiert.
+
+Insbesondere gilt $\bigl(\cos(\varphi)+\sin(\varphi)i\bigr)^2 = \cos(2\varphi) + \sin(2\varphi)i.$
+
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/multiplication_examples.svg","./assets/multiplication_examples.svg"))
+"""
+
+# ╔═╡ a697d9c3-f7b7-4d0c-b18e-697f1cabcb87
+md"""
+##### Satz:
+
+Für $z\in\mathbb{C}$ mit $z=r(\cos(\varphi)+\sin(\varphi)i)$ gilt für $n\in\mathbb{N}$\
+$z^n = r^n(\cos(n\varphi)+\sin(n\varphi)i).\quad$ (Formel von Moivre)
+
+##### Beweis:
+Geht durch eine einfache Induktion.
+"""
+
+# ╔═╡ 6fa14111-4b1c-44e1-a6f9-d4f6ce842340
+md"""
+## 1.6 Polynome
+
+##### Definition: 
+
+Für $n\in\mathbb{N}_0$ und $a_0,a_1,\dots,a_n\in\mathbb{R}$ ist 
+$p:\mathbb{C}\to\mathbb{C}, x\mapsto p(x) = \sum_{i=0}^n a_ixî = a_0+a_1x+a_2x^2+\cdots + a_nx^n$
+ein _Polynom_,  wobei $n$, für $a_n \neq 0$, Grad des Polynoms heißt. Ein $x_0 \in \mathbb{C}$ mit $p(x_0)=0$ heißt Nullstelle..
+
+##### Bemerkung:
+1. Falls $a_0,\dots,a_n\in\mathbb{C}$ ist es ein _komplexes_ Polynom.
+2. Für $n=1,\, p(x) = a_0+a_1x$ gibt es ($a_1\neq 0)$ eine Nullstelle. Für $n=2, p(x) = a_0+a_1x+a_2x^2$ gibt es _immer_ (mit $\sqrt{-1}=1$) zwei Nullstellen mit Lösungsformel aus der Schule.
+3. Für $n=3,4$ gibt es kompliziertere Nullstellen-Formeln, für $n\geq5$ nicht mehr.
+
+
+"""
+
+# ╔═╡ dd272752-4512-4d59-a65c-4d2fbe976823
+md"""
+##### Satz:
+Sei $p$ ein Polynom von Grad $n$ und $k$ Nullstellen $x_1,\dots, x_k,\, k\leq n)$ seien bekannt. Dann kann $p$ als Produkt mit "Linearfaktoren"
+
+$p(x) = (x-x_1)\cdot(x-x_2)\cdot\dots\cdot(x-x_k)q(x)$
+
+geschrieben werden, wobei $q$ ein Polynom mit Grad $n-k$ ist.
+
+##### Beweis:
+Der Beweis ist als Übungsaufgabe vorgesehen.
+"""
+
+# ╔═╡ d6bb0cba-7fa3-4f2b-917b-1d59b922df94
+md"""
+##### Beispiel:
+
+1. \
+   $\begin{align*} p(x) &= 2x^2-x-6\quad\quad \Bigl[\text{ NST } x_1=2,\,x_2=-\frac{3}{2}\Bigr]\\&= 2(x-2)\left(x+\frac{3}{2}\right)\end{align*}$
+2. \
+   $\begin{align*} p(x) &= x^2+2x+1\quad\quad \Bigl[\text{ NST (doppelt) } x_1 = -1\Bigr]\\ &= (x+1)(x+1) \end{align*}$
+3. \
+   $\begin{align*} p(x) &= x^2+2 \quad\quad \Bigl[\text{ NST } x_{1,2}=\pm i\sqrt{2}\Bigr]\\&= (x-i\sqrt{2})(x+i\sqrt{2})\end{align*}$
+4. \
+   $\begin{align*}p(x) &= 2x^3-5x^2+12x-5\quad\quad\Bigl[\text{ NST } x_1=\frac{1}{2}\Bigr]\\&= 2(\underbrace{x^2-2x+5}_{\text{ NST } x_{2,3} = 1\pm 2i})\left(x-\frac{1}{2}\right)\\&=2(x-(1+2i))(x-1-2i))\left(x-\frac{1}{2}\right).\end{align*}$
+
+##### Satz (Fundamentallemma der Algebra, Gauss 1799)
+Jedes Polynom $n$-ten Grades mit $n\geq1$ hat genau $n$ (eventuell mehrfache) Nullstellen in $\mathbb{C}$.
+
+##### Beweis:
+Nicht so schwierig, aber benötigt Werkzeug, das wir nicht haben.
+
+##### Bemerkung:
+Sind alle Koeffizienten eines Polynoms reell, tritt mit jeder echt komplexen Nullstelle $z$ auch $\overline{z}$ auf.
+"""
+
+# ╔═╡ 10a9e7eb-5e63-4ddc-921f-8805eb6c1039
+md"""
+##### Satz:
+Stimmen zwei Polynome $p(x) = \sum_{i=0}^na_ix^i$ und $q(x)=\sum_{i=0}^nb_ix^i$ an $n+1$ Stellen überein, dann sind sie gleich.
+
+##### Beweis:
+Das Polynom $p(x)-q(x) = \sum_{i=0}^n(a_i-b_i)x^i$ hat $n+1$ Nullstellen.
+
+ $\Rightarrow p-q=0$, d.h. verschwindende Koeffizienten 
+ 
+ $\Rightarrow a_i=b_i\quad i=0,1,\dots,n.$
+"""
+
+# ╔═╡ 68fa1853-dfeb-4516-8807-c1508575cd4e
+md"""
+##### Satz und Definition:
+
+Das Polynom $p(z) = z^n-1$ für $n\geq 1$ hat genau $n$ Nullstellen $z_k,\, k=0,\dots, n-1$ mit $|z_k|=1$ und $z_k = \cos(k\frac{2\pi}{n})+\sin(k\frac{2\pi}{n})i$, d.h. die $z_k$ liegen auf dem Einheitskreis als regelmäßiges n-Eck mit einer Ecke auf $(1,0)$. Die $z_k$ heißen _n-te Einheitswurzeln_.
+
+##### Beweis: 
+
+Ansatz $z=r(\cos(\varphi)+\sin(\varphi)i)$
+
+$z^n = \underbrace{r^n\cos(n\varphi)}_{\overset{!}{=}1}+\underbrace{r^n\sin(n\varphi)}_{\overset{!}{=}0}i \overset{!}{=} 1+0i.$
+
+Mit $r\neq 0$ folgt $n\varphi=0,\pi,2\pi,3\pi,\dots\Rightarrow \varphi = 0,\frac{\pi}{n},2\frac{\pi}{n},3\frac{\pi}{n},\dots$
+
+Mit $r^n\cos(n\varphi)=1$ folgt $r=1$ und $\varphi = 0,\frac{2\pi}{n},2\frac{2\pi}{n},\dots,(n-1)\frac{2\pi}{n}$.
+
+Für jedes dieser $z_k$ gilt $z_k^7=1$.
+
+$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/b2d207966fe5442b7c03359efb051c548514271d/notebooks/assets/einheitswurzeln.svg","./assets/einheitswurzeln.svg"))
+"""
+
+# ╔═╡ baad704c-5109-4743-b253-cf2d5efb6263
+md"""
+##### Bemerkung:
+Für den allgemeinen Fall $z^n = w = r(\cos(\alpha)+\sin(\alpha)i)$ gilt
+
+$z_k = \sqrt[n]{r}\Bigl(\cos\left(\frac{\alpha}{n}+k\frac{2\pi}{n}\right)+\sin\left(\frac{\alpha}{n}+k\frac{2\pi}{n}\right)i\Bigr).$
+
+##### Beispiel:
+
+Sei $z^2 = i.\,$ Ansatz: Vermute $r=1$ und $z=\cos(\varphi)+\sin(\varphi)i \Rightarrow i = \cos\left(\frac{\pi}{2}\right)+\sin\left(\frac{\pi}{2}\right)i.$
+
+$\begin{align*}z_0 &= \cos\left(\frac{1}{2}\frac{\pi}{2}\right)+\sin\left(\frac{\pi}{4}\right)i\\ &= \frac{1}{\sqrt{2}}+\frac{1}{\sqrt{2}}i, \\z_1&=\cos\left(\frac{\pi}{4}+\pi\right)+\sin\left(\frac{\pi}{2}+\pi\right)i\\&=-\frac{1}{\sqrt{2}}-\frac{1}{\sqrt{2}}i.\end{align*}$
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 PlutoTeachingTools = "661c6b06-c737-4d37-b85c-46df65de6f69"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
+GLMakie = "~0.13.6"
 Makie = "~0.24.6"
 PlutoTeachingTools = "~0.4.6"
 PlutoUI = "~0.7.71"
@@ -839,7 +1264,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.7"
 manifest_format = "2.0"
-project_hash = "32317f980d6b1413b21454c36357c9d0d5853024"
+project_hash = "17aa3a166cf5591b0610497f3964757c5f17560c"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -1065,6 +1490,12 @@ deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 version = "1.11.0"
 
+[[deps.Dbus_jll]]
+deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "473e9afc9cf30814eb67ffa5f2db7df82c3ad9fd"
+uuid = "ee1fde0b-3d02-5ea6-8484-8dfef6360eab"
+version = "1.16.2+0"
+
 [[deps.DelaunayTriangulation]]
 deps = ["AdaptivePredicates", "EnumX", "ExactPredicates", "Random"]
 git-tree-sha1 = "5620ff4ee0084a6ab7097a27ba0c19290200b037"
@@ -1112,6 +1543,12 @@ version = "2.2.4+0"
 git-tree-sha1 = "bddad79635af6aec424f53ed8aad5d7555dc6f00"
 uuid = "4e289a0a-7415-4d19-859d-a7e5c4648b56"
 version = "1.0.5"
+
+[[deps.EpollShim_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "8a4be429317c42cfae6a7fc03c31bad1970c310d"
+uuid = "2702e6a9-849d-5ed8-8c21-79e8b8f9ee43"
+version = "0.0.20230411+1"
 
 [[deps.ExactPredicates]]
 deps = ["IntervalArithmetic", "Random", "StaticArrays"]
@@ -1233,6 +1670,24 @@ deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "7a214fdac5ed5f59a22c2d9a885a16da1c74bbc7"
 uuid = "559328eb-81f9-559d-9380-de523a88c83c"
 version = "1.0.17+0"
+
+[[deps.GLFW]]
+deps = ["GLFW_jll"]
+git-tree-sha1 = "40412e58ec374029de3d4ad7c13e1a52aa1e149f"
+uuid = "f7f18e0c-5ee9-5ccd-a5bf-e8befd85ed98"
+version = "3.4.5"
+
+[[deps.GLFW_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Libglvnd_jll", "Xorg_libXcursor_jll", "Xorg_libXi_jll", "Xorg_libXinerama_jll", "Xorg_libXrandr_jll", "libdecor_jll", "xkbcommon_jll"]
+git-tree-sha1 = "fcb0584ff34e25155876418979d4c8971243bb89"
+uuid = "0656b61e-2033-5cc2-a64a-77c0f6c09b89"
+version = "3.4.0+2"
+
+[[deps.GLMakie]]
+deps = ["ColorTypes", "Colors", "FileIO", "FixedPointNumbers", "FreeTypeAbstraction", "GLFW", "GeometryBasics", "LinearAlgebra", "Makie", "Markdown", "MeshIO", "ModernGL", "Observables", "PrecompileTools", "Printf", "ShaderAbstractions", "StaticArrays"]
+git-tree-sha1 = "0d27753bf95dc7c5e3952189a1bec78b5ac7b784"
+uuid = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
+version = "0.13.6"
 
 [[deps.GeometryBasics]]
 deps = ["EarCut_jll", "Extents", "IterTools", "LinearAlgebra", "PrecompileTools", "Random", "StaticArrays"]
@@ -1678,6 +2133,12 @@ deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
 version = "2.28.6+0"
 
+[[deps.MeshIO]]
+deps = ["ColorTypes", "FileIO", "GeometryBasics", "Printf"]
+git-tree-sha1 = "c009236e222df68e554c7ce5c720e4a33cc0c23f"
+uuid = "7269a6da-0436-5bbc-96c2-40638cbb6118"
+version = "0.5.3"
+
 [[deps.Missings]]
 deps = ["DataAPI"]
 git-tree-sha1 = "ec4f7fbeab05d7747bdf98eb74d130a2a2ed298d"
@@ -1687,6 +2148,12 @@ version = "1.2.0"
 [[deps.Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 version = "1.11.0"
+
+[[deps.ModernGL]]
+deps = ["Libdl"]
+git-tree-sha1 = "ac6cb1d8807a05cf1acc9680e09d2294f9d33956"
+uuid = "66fc600b-dfda-50eb-8b99-91cfa97b1301"
+version = "1.1.8"
 
 [[deps.MosaicViews]]
 deps = ["MappedArrays", "OffsetArrays", "PaddedViews", "StackViews"]
@@ -1807,6 +2274,12 @@ deps = ["OffsetArrays"]
 git-tree-sha1 = "0fac6313486baae819364c52b4f483450a9d793f"
 uuid = "5432bcbf-9aad-5242-b902-cca2824c8663"
 version = "0.5.12"
+
+[[deps.Pango_jll]]
+deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "FriBidi_jll", "Glib_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "1f7f9bbd5f7a2e5a9f7d96e51c9754454ea7f60b"
+uuid = "36c8627f-9965-5494-a995-c6b170f724f3"
+version = "1.56.4+0"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
@@ -2233,6 +2706,12 @@ version = "1.25.0"
     Latexify = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
     Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
+[[deps.Wayland_jll]]
+deps = ["Artifacts", "EpollShim_jll", "Expat_jll", "JLLWrappers", "Libdl", "Libffi_jll"]
+git-tree-sha1 = "96478df35bbc2f3e1e791bc7a3d0eeee559e60e9"
+uuid = "a2964d1f-97da-50d4-b82a-358c7fce9d89"
+version = "1.24.0+0"
+
 [[deps.WebP]]
 deps = ["CEnum", "ColorTypes", "FileIO", "FixedPointNumbers", "ImageCore", "libwebp_jll"]
 git-tree-sha1 = "aa1ca3c47f119fbdae8770c29820e5e6119b83f2"
@@ -2263,6 +2742,12 @@ git-tree-sha1 = "aa1261ebbac3ccc8d16558ae6799524c450ed16b"
 uuid = "0c0b7dd1-d40b-584c-a123-a41640f87eec"
 version = "1.0.13+0"
 
+[[deps.Xorg_libXcursor_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libXfixes_jll", "Xorg_libXrender_jll"]
+git-tree-sha1 = "6c74ca84bbabc18c4547014765d194ff0b4dc9da"
+uuid = "935fb764-8cf2-53bf-bb30-45bb1f8bf724"
+version = "1.2.4+0"
+
 [[deps.Xorg_libXdmcp_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "52858d64353db33a56e13c341d7bf44cd0d7b309"
@@ -2275,6 +2760,30 @@ git-tree-sha1 = "a4c0ee07ad36bf8bbce1c3bb52d21fb1e0b987fb"
 uuid = "1082639a-0dae-5f34-9b06-72781eeb8cb3"
 version = "1.3.7+0"
 
+[[deps.Xorg_libXfixes_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libX11_jll"]
+git-tree-sha1 = "75e00946e43621e09d431d9b95818ee751e6b2ef"
+uuid = "d091e8ba-531a-589c-9de9-94069b037ed8"
+version = "6.0.2+0"
+
+[[deps.Xorg_libXi_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libXext_jll", "Xorg_libXfixes_jll"]
+git-tree-sha1 = "a376af5c7ae60d29825164db40787f15c80c7c54"
+uuid = "a51aa0fd-4e3c-5386-b890-e753decda492"
+version = "1.8.3+0"
+
+[[deps.Xorg_libXinerama_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libXext_jll"]
+git-tree-sha1 = "a5bc75478d323358a90dc36766f3c99ba7feb024"
+uuid = "d1454406-59df-5ea1-beac-c340f2130bc3"
+version = "1.1.6+0"
+
+[[deps.Xorg_libXrandr_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libXext_jll", "Xorg_libXrender_jll"]
+git-tree-sha1 = "aff463c82a773cb86061bce8d53a0d976854923e"
+uuid = "ec84b674-ba8e-5d96-8ba1-2a689ba10484"
+version = "1.5.5+0"
+
 [[deps.Xorg_libXrender_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libX11_jll"]
 git-tree-sha1 = "7ed9347888fac59a618302ee38216dd0379c480d"
@@ -2286,6 +2795,24 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libXau_jll", "Xorg_libXdmcp_j
 git-tree-sha1 = "bfcaf7ec088eaba362093393fe11aa141fa15422"
 uuid = "c7cfdc94-dc32-55de-ac96-5a1b8d977c5b"
 version = "1.17.1+0"
+
+[[deps.Xorg_libxkbfile_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libX11_jll"]
+git-tree-sha1 = "e3150c7400c41e207012b41659591f083f3ef795"
+uuid = "cc61e674-0454-545c-8b26-ed2c68acab7a"
+version = "1.1.3+0"
+
+[[deps.Xorg_xkbcomp_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libxkbfile_jll"]
+git-tree-sha1 = "801a858fc9fb90c11ffddee1801bb06a738bda9b"
+uuid = "35661453-b289-5fab-8a00-3d9160c6a3a4"
+version = "1.4.7+0"
+
+[[deps.Xorg_xkeyboard_config_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_xkbcomp_jll"]
+git-tree-sha1 = "00af7ebdc563c9217ecc67776d1bbf037dbcebf4"
+uuid = "33bec58e-1273-512f-9401-5d533626f822"
+version = "2.44.0+0"
 
 [[deps.Xorg_xtrans_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -2326,6 +2853,12 @@ version = "0.17.4+0"
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
 version = "5.11.0+0"
+
+[[deps.libdecor_jll]]
+deps = ["Artifacts", "Dbus_jll", "JLLWrappers", "Libdl", "Libglvnd_jll", "Pango_jll", "Wayland_jll", "xkbcommon_jll"]
+git-tree-sha1 = "9bf7903af251d2050b467f76bdbe57ce541f7f4f"
+uuid = "1183f4f0-6f2a-5f1a-908b-139f9cdfea6f"
+version = "0.2.2+0"
 
 [[deps.libfdk_aac_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -2384,6 +2917,12 @@ deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "e7b67590c14d487e734dcb925924c5dc43ec85f3"
 uuid = "dfaa095f-4041-5dcd-9319-2fabd8486b76"
 version = "4.1.0+0"
+
+[[deps.xkbcommon_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libxcb_jll", "Xorg_xkeyboard_config_jll"]
+git-tree-sha1 = "fbf139bce07a534df0e699dbb5f5cc9346f95cc1"
+uuid = "d8fb68d0-12a3-5cfd-a85a-d49703b185fd"
+version = "1.9.2+0"
 """
 
 # ╔═╡ Cell order:
@@ -2399,6 +2938,7 @@ version = "4.1.0+0"
 # ╟─b4cc522e-9673-4fd3-8b7f-2a47732ba78e
 # ╟─2cd4661a-00a5-4b19-9227-8eda8bdfeb0c
 # ╟─7c67f3a0-a2f2-4026-86da-e059875d3758
+# ╟─2db6ffd9-f146-4c9a-86c1-aefc917fbd42
 # ╟─1e9ab1ed-d7a9-4bfe-a9d6-743cf54a583a
 # ╟─729ddb69-3eda-4885-bd99-7129b6256bba
 # ╟─275fb5d9-bc63-415b-98e4-644ebe7da628
@@ -2411,6 +2951,8 @@ version = "4.1.0+0"
 # ╟─51a86009-c8c0-4ad4-a4a9-e0e3a0b1c40d
 # ╟─56383383-af81-43cc-8b21-d1ca822fa379
 # ╟─c90137b8-4c17-4742-a67a-ddebee962a9b
+# ╟─16adae15-bcf7-4c5e-9d37-2181fe64a164
+# ╟─85a2c951-9117-4318-8ed1-9950483aa1b2
 # ╟─ebdd05b6-9dc4-4097-9489-792889d8485d
 # ╟─10dff55b-2393-495e-883f-4da451f0318b
 # ╟─c2631f4c-c454-4761-9db7-07d717ae83a3
@@ -2437,5 +2979,21 @@ version = "4.1.0+0"
 # ╟─4e4649cb-1ba5-4cda-833e-8451b00e7cc1
 # ╟─de9e344c-d86c-4934-83bf-eef48c3b0f55
 # ╟─d318c5e9-75c9-434f-be6d-fefa9336a895
+# ╟─ef121ae4-fa18-4938-8596-be29164ece6c
+# ╟─436b09f8-aaa7-4b4a-8989-1b2da9ddf6d9
+# ╟─6341adcf-fd11-4d3c-8aad-0be897a85b1c
+# ╟─108153fe-ffcf-4506-854c-a0da70b3f93a
+# ╟─351810ad-b87f-4e4f-a8e7-fb68a4541e95
+# ╟─0a2e8988-9669-48c3-8825-5ae8f7969ca0
+# ╟─90c103a6-2ad1-485e-9b48-4da1435ee4a4
+# ╟─e72ee126-9933-4655-9587-9f60d2efad96
+# ╟─08a817ac-1c50-4a70-aca5-c89e343670f0
+# ╟─a697d9c3-f7b7-4d0c-b18e-697f1cabcb87
+# ╟─6fa14111-4b1c-44e1-a6f9-d4f6ce842340
+# ╟─dd272752-4512-4d59-a65c-4d2fbe976823
+# ╟─d6bb0cba-7fa3-4f2b-917b-1d59b922df94
+# ╟─10a9e7eb-5e63-4ddc-921f-8805eb6c1039
+# ╟─68fa1853-dfeb-4516-8807-c1508575cd4e
+# ╟─baad704c-5109-4743-b253-cf2d5efb6263
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

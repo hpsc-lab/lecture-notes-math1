@@ -64,7 +64,7 @@ Wir schreiben $\lim_{n\to\infty} a_n = a$ oder $a_n\overset{n\to\infty}{\longrig
 2.  $a_n:= \frac{1}{n}$ ist konvergent mit $\lim_{n\to\infty} \frac{1}{n}=0$
 Beweis: Zu zeigen $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}:\,|\frac{1}{n}-0|\leq \varepsilon\quad \forall n\geq n_0$.
 
-Wir fangen rückwärts an, d.h. $\left|\frac{1}{n}\right| \overset{?}{\leq} \varepsilon$. 
+Wir fangen rückwärts an, d.h. $\left|\frac{1}{n}\right| \overset{?}{\leq} \varepsilon$.
 
 Es gilt $\left|\frac{1}{n}\right|\leq \varepsilon \Leftrightarrow \frac{1}{n}\leq\varepsilon\Leftrightarrow n\geq \frac{1}{\varepsilon}$
 
@@ -80,7 +80,7 @@ md"""
 
 
 2.  $\lim_{n\to\infty}a_n=a\Leftrightarrow$ In jeder $\varepsilon$-Umgebung von $a$ liegen alle Folgengleider bis auf _endlich viele_.$(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c2c9a014eeebcd8711675a7375443c049c6da975/notebooks/assets/folgenkonvergenz.svg","./assets/folgenkonvergenz.svg"))
-3. Es lässt sich zeigen: Eine komplexe Folge $(z_n)_{n\in\mathbb{N}}$ konvergiert genau dann, wenn Real- und Imaginärteil konvergieren. Also 
+3. Es lässt sich zeigen: Eine komplexe Folge $(z_n)_{n\in\mathbb{N}}$ konvergiert genau dann, wenn Real- und Imaginärteil konvergieren. Also
 
 $z_n = x_n + y_ni, \quad \lim_{n\to\infty}x_n\to x,\quad \lim_{n\to\infty}y_n\to y$
 $\Rightarrow \lim_{n\to\infty}z_n = x+yi.$
@@ -91,7 +91,7 @@ Wir versuchen Konvergenz zu charakterisieren.
 # ╔═╡ 38a8e16e-e34e-4bc6-92e0-c981748062bf
 md"""
 ##### Definition:
- $(a_n)\subset \mathbb{K}$ heißt beschränkt, falls es ein $s\in\mathbb{R}, s\geq 0$ gibt mit 
+ $(a_n)\subset \mathbb{K}$ heißt beschränkt, falls es ein $s\in\mathbb{R}, s\geq 0$ gibt mit
 
 $|a_n|\leq s\quad \forall n\in\mathbb{N}$
 
@@ -129,9 +129,9 @@ md"""
 Sei $(a_n)\subset\mathbb{R}$ eine monoton wachsende Folge. Falls $(a_n)$ beschränkt ist, so ist $(a_n)$ konvergent.
 
 ##### Beweis:
-Offenbar ist die Teilmenge $A:=\{a_n|\,n\in\mathbb{N}\}\subset\mathbb{R}$ nach oben beschränkt, also existiert $a:=\sup(A)$. 
+Offenbar ist die Teilmenge $A:=\{a_n|\,n\in\mathbb{N}\}\subset\mathbb{R}$ nach oben beschränkt, also existiert $a:=\sup(A)$.
 
-Wähle also ein $\varepsilon > 0$ beliebig. $a$ ist Supremum, also gibt es ein $n_\varepsilon\in\mathbb{N}$ mit $a_{n_\varepsilon}> a-\varepsilon$. Da $a_n$ monoton wächst, gilt  $a-\varepsilon<a_{n_\varepsilon}\leq a_n\leq a < a+\varepsilon \quad \forall n\geq n_\varepsilon,$ 
+Wähle also ein $\varepsilon > 0$ beliebig. $a$ ist Supremum, also gibt es ein $n_\varepsilon\in\mathbb{N}$ mit $a_{n_\varepsilon}> a-\varepsilon$. Da $a_n$ monoton wächst, gilt  $a-\varepsilon<a_{n_\varepsilon}\leq a_n\leq a < a+\varepsilon \quad \forall n\geq n_\varepsilon,$
 d.h. $|a_n-a|\leq \varepsilon.$
 
 ##### Bemerkung:
@@ -162,7 +162,7 @@ md"""
 2. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/778cd38219a43ad43e5faf1a0f0aa6c88998e985/notebooks/assets/folgenmengen.svg","./assets/folgenmengen.svg"))
 
 ##### Definition:
- $(a_n)\subset\mathbb{K}$ heißt _Cauchy-Folge_, wenn gilt 
+ $(a_n)\subset\mathbb{K}$ heißt _Cauchy-Folge_, wenn gilt
 
 $\forall\varepsilon>0\,\exists n_\varepsilon\in\mathbb{N}:\quad |a_n-a_m|\leq \varepsilon \quad \forall n,m\in\mathbb{N}\, n,m\geq n_\varepsilon.$
 Das heißt ab $n_\varepsilon$ wird der Abstand beliebiger Folgenglieder beliebig klein.
@@ -234,7 +234,7 @@ Seien $(a_n)$ und $(b_n)$ konvergente Folgen in $\mathbb{K}$ mit Grenzwerten $a$
 
 # ╔═╡ c42fe7f1-e46a-4223-b481-44a6ec2e85a0
 md"""
-##### Bemerkung: 
+##### Bemerkung:
 Eine Folge $(a_n)_{n\in \mathbb{N}}\subset\mathbb{K}$ mit $\lim\limits_{n\to\infty}a_n = 0$ heißt _Nullfolge_.
 """
 
@@ -257,13 +257,13 @@ Oft nennen wir einfach $\sum_{k=1}^\infty a_k$ die _Reihe_.
    $s_n = \sum_{k=0}^n q^k = \frac{1-q^{k+1}}{1-q},\, q\neq 1$
    Die Folge $(s_n)_{n\in\mathbb{N}}$ mit $s_n = \frac{1-q^{k+1}}{1-q}$ konvergiert, falls $|q|<1$, $\lim\limits_{n\to\infty} s_n = \frac{1}{1-q}= \sum_{k=0}^\infty q^k$, ansonsten ist die Reihe divergent.
 
-3. Die harmonische Reihe $\sum_{k=1}^\infty \frac{1}{k}$ divergiert, denn 
+3. Die harmonische Reihe $\sum_{k=1}^\infty \frac{1}{k}$ divergiert, denn
 
    $s_n = \sum_{k=1}^n \frac{1}{k} = 1 + \frac{1}{2} + \underbrace{\frac{1}{3}+\frac{1}{4}}_{>\frac{1}{2}}+\underbrace{\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+\frac{1}{8}}_{>\frac{1}{2}}+\dots \quad \text{ mit } n = 2^m$
    also $s_{2^m} \geq 1+ \frac{m}{2} \, m\in\mathbb{N}$ und $\sum_{k=1}^\infty\frac 1{k}\to\infty$
 
 4. $\sum_{k=1}^\infty \frac{1}{k(k+1)} = \frac{1}{2}+\frac{1}{6}+\frac{1}{12}+\frac{1}{20}+\cdots$
-   $s_n = \sum_{k=1}^n\frac{1}{k(k+1)}=\sum_{k=1}^n(\frac{1}{k}-\frac{1}{k+1}) \overset{\text{Teleskopsumme}}{=} 1 - \frac{1}{n+1} \Rightarrow \lim_{n\to\infty}s_n=1$ 
+   $s_n = \sum_{k=1}^n\frac{1}{k(k+1)}=\sum_{k=1}^n(\frac{1}{k}-\frac{1}{k+1}) \overset{\text{Teleskopsumme}}{=} 1 - \frac{1}{n+1} \Rightarrow \lim_{n\to\infty}s_n=1$
 """
 
 # ╔═╡ eac4a80e-42f2-4f5c-84b3-dd444a3e5193
@@ -287,13 +287,13 @@ md"""
 ##### Warnung:
 Zwar lässt sich mit Reihen rechnen, aber im Allgemeinen spielt die _Summationsreihenfolge_ eine Rolle!
 ##### Beispiel:
-Betrachte 
+Betrachte
 
 $\begin{align*} \ln(2) &= 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}-\frac{1}{6}+\frac{1}{7}-\frac{1}{8}+\frac{1}{9}-\frac{1}{10}+\frac{1}{11}-\frac{1}{12}\cdots \\[2pt]
 	+\frac{1}{2}\,\ln(2) &= \phantom{1}+\frac{1}{2}\phantom{+\frac11\;\,}-\frac{1}{4}\phantom{+\frac11\;\,}+\frac{1}{6}\phantom{+\frac11\;\,}-\frac{1}{8}\phantom{+\frac11\;\,}+\frac{1}{10}\phantom{+\frac1{11}\;\,}-\frac{1}{12}\cdots \\[2pt]
 \frac{3}{2}\,\ln(2) &= \underbrace{1+\,0\,+\frac{1}{3}-\frac{1}{2}+\frac{1}{5}+\,0\,+\frac{1}{7}-\frac{1}{4}+\frac{1}{9}\,+\;\;0\;\;+\frac{1}{11}-\,\frac{1}{6}\cdots}_{=\ln(2)? \quad \text{ dieselben Summanden, aber andere Reihenfolge}}\end{align*}$
 
-Die obige alternierende Reihe kann so umsortiert werden, dass ein beliebiger Grenzwert entsteht. Wir wollen, dass die Reihenfolge keine Rolle spielt. 
+Die obige alternierende Reihe kann so umsortiert werden, dass ein beliebiger Grenzwert entsteht. Wir wollen, dass die Reihenfolge keine Rolle spielt.
 """
 
 # ╔═╡ f4035677-2ad9-47b1-a942-6f7ffd56b5e9
@@ -301,7 +301,7 @@ md"""
 ##### Definition:
 Eine Reihe $\sum_{k=1}^\infty a_k$ heißt absolut konvergent, falls $\sum_{k=1}^\infty |a_k|$ konvergiert.
 
-##### Bemerkung: 
+##### Bemerkung:
 1. Absolute Konvergenz $\Rightarrow$ Konvergenz, denn:\
    Cauchy für abs. Konvergenz: $\forall\varepsilon>0\,\exists n:\varepsilon\in \mathbb{N}:\, |s_n-s_m|<\varepsilon\quad m>n\geq n_\varepsilon$\
    $\left|\sum_{k=1}^n|a_k|-\sum_{k=1}^m|a_k|\right| = \left|\sum_{k=n+1}^m |a_k|\right|= \sum_{k=n+1}^m |a_k|$\
@@ -321,7 +321,7 @@ Die Reihe $\sum_{k=1}^\infty a_k$ ist absolut konvergent, falls eine der folgend
 ##### Beweis:
 1. wie oben: Cauchy für $\sum c_k \Rightarrow $Cauchy für $\sum|a_k|$)
 2. wegen $|a_k|\leq q^k$ ist $\sum_{k=1}^\infty q^k$ eine Majorante
-3. Es ist $|a_{k+1}|\leq q\,|a_k|\leq q^2\,|a_{k-1}\leq \dots \leq q^{k+1}\,|a_0|\Rightarrow |a_0|\sum_{k=1}^\infty q^k$ ist Majorante 
+3. Es ist $|a_{k+1}|\leq q\,|a_k|\leq q^2\,|a_{k-1}\leq \dots \leq q^{k+1}\,|a_0|\Rightarrow |a_0|\sum_{k=1}^\infty q^k$ ist Majorante
 
 ##### Bemerkung:
 anstatt 2. und 3. wird oft Folgendes benutzt:
@@ -341,7 +341,7 @@ $g(x)$ ist identisch mit $g(x) = \frac{1}{1-x}$ im Intervall $(-1,1).$
 Für $x\in\mathbb{K}$ heißt $\sum_{k=0}^\infty a_k\,x^k = a_0\,x+a_1\,x+a_2\,x^2+\cdots$ Potenzreihe in x.\
 Hierbei sind die $a_k$ Koeffizienten, nicht Folgenglieder!
 
-##### Bemerkung: 
+##### Bemerkung:
 1. Dies definiert eine Funktion $f:D_{\!f}\subset\mathbb{K}\to \mathbb{K}, x\mapsto \sum_{k=0}^\infty a_k\,x^k$ mit $D_{\!f} = \{x\in\mathbb{K}\mid\sum_{k=0}^\infty a_k\,x^k$ konvergiert$\}$.
 2. Die Potenzreihe oben ist "um den Punkt $0$".\
    Die Reihe $\sum_{k=0}^\infty a_k\,(x-x_0)^k$ wäre die Potenzreihe um $x_0$.
@@ -376,7 +376,7 @@ Für $x=-1$ ist $\sum_{k=0}^\infty \frac{-1^k}{k}$ konvergent, aber nicht absolu
 # ╔═╡ 0d30d014-3031-4c3b-b8ea-f2431d8b805f
 md"""
 ### 2.2.3 Die Exponentialreihe
-##### Satz und Definition: 
+##### Satz und Definition:
 Die Reihe $\sum_{k=0}^\infty \frac{1}{k!}x^k = 1+x+\frac{1}{2}x^2+\frac{1}{6}x^3\dots$ heißt _Exponentialreihe_. Der Konvergenzradius ist $\varrho=\infty$, das heißt sie konvergiert für alle $x\in \mathbb{K}$ absolut.
 
 ##### Beweis:
@@ -398,13 +398,13 @@ $\begin{align*}
 f(a)\cdot f(b) &= \sum_{k=0}^\infty \frac{a^k}{k!}\cdot \sum_{k=0}^\infty \frac{b^k}{k!} =\sum_{r=0}^\infty \sum_{k=0}^r \frac{a^k\,b^{r-k}}{k!\,(r-k)!}\\[2pt]
 &= \sum_{r=0}^\infty \sum_{k=0}^r \frac{1}{r!} \underbrace{\frac{r!\,a^k\,b^{r-k}}{k!\,(r-k)!}}_{=(a+b)^r,\text{ binomische Formel}}\\[2pt]
 &= \sum_{r=0}^\infty \frac{1}{r!}(a+b)^r=f(a+b).
-\end{align*}$   
+\end{align*}$
 
 Damit folgt
 
-$\begin{align*}f(2) &= f(1+1) = f(1)f(1) = f(1)^2,\\[2pt] f(3) &= f(1+1+1)=f(1)^3.\end{align*}$ 
+$\begin{align*}f(2) &= f(1+1) = f(1)f(1) = f(1)^2,\\[2pt] f(3) &= f(1+1+1)=f(1)^3.\end{align*}$
 
-Das heißt für $p\in\mathbb{N}: f(p) = f(1)^p,\quad$ "$\!f$ exponiert zur Basis $f(1)$". 
+Das heißt für $p\in\mathbb{N}: f(p) = f(1)^p,\quad$ "$\!f$ exponiert zur Basis $f(1)$".
 
 Wir definieren die _Eulersche Zahl_ $e:= f(1) = \sum_{k=0}^\infty \frac{1}{k!}$ und damit $f(p)=e^p$.
 
@@ -418,7 +418,7 @@ f(1) &= f\left(\frac{1}{3}+\frac{1}{3}+\frac{1}{3}\right)=f\left(\frac{1}{3}\rig
  &\Rightarrow f\left(\frac{1}{q}\right) = e^{\frac{1}{q}} = \sqrt[q]{e}.
 \end{align*}$
 
-Analog ist $f\left(\frac{p}{q}\right) = e^{\frac{p}{q}}\quad$ für $p,q\in\mathbb{N},\,$ d.h. $f(x) = e^x, \quad x\in\mathbb{Q}.$ 
+Analog ist $f\left(\frac{p}{q}\right) = e^{\frac{p}{q}}\quad$ für $p,q\in\mathbb{N},\,$ d.h. $f(x) = e^x, \quad x\in\mathbb{Q}.$
 """
 
 # ╔═╡ 65c54798-28b9-445e-aafb-727d3db668ef
@@ -447,7 +447,7 @@ $|f(ib)| = \sqrt{f(ib)\cdot \overline{f(ib)}} = \sqrt{f(ib)f(\overline{ib})} = \
 
  $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/c0536a46787931effaac05a93691f63f193efd32/notebooks/assets/exponential_formula.svg","./assets/exponential_formula.svg"))
 
- $e^{it} = \cos(\alpha)+i\sin(\alpha)\Rightarrow \alpha \text{ hängt irgendwie von t ab, aber wie?}$
+ $e^{it} = \cos(\alpha)+i\sin(\alpha)\Rightarrow \alpha$ hängt irgendwie von $t$ ab, aber wie?
 
 ##### Satz:
 Unter der Funktion $f(i\cdot):\mathbb{R}\to\mathbb{C}, t\mapsto e^{it}$ wird die reelle Achse $t\in \mathbb{R}$ längentreu und monoton auf den Einheitskreis abgewickelt, d.h. $\alpha = t$.
@@ -458,7 +458,7 @@ Hier ohne Beweis.
 # ╔═╡ 10a8d630-9cc2-40ec-831f-816f52723f9f
 md"""
 ##### Satz:
-Die geometrischen Funktionen $\sin$ und $\cos$ lassen sich darstellen als $\cos(t) = \mathrm{Re}(e^{it})$ und $\sin(t)=\mathrm{Im}(e^{it})$, d.h. 
+Die geometrischen Funktionen $\sin$ und $\cos$ lassen sich darstellen als $\cos(t) = \mathrm{Re}(e^{it})$ und $\sin(t)=\mathrm{Im}(e^{it})$, d.h.
 
 $e^{it}=\cos(t) +i \sin(t)$
 und genügen den Potenzreihen
@@ -468,7 +468,7 @@ $\cos(t) = \sum_{k=0}^\infty  (-1)^k \frac{t^{2k}}{(2k)!},\quad \sin(t) = \sum_{
 ##### Beweis:
 Der erste Teil folgt aus dem obigen Satz. Außerdem haben wir
 
-$e^{it} = \sum_{k=0}^\infty \frac{(it)^k}{k!} = 1 + it + \underbrace{\frac{1}{2}(it)^2}_{=-t^2} + \underbrace{\frac{1}{6}(it)^3}_{=-i\,t^3} + \underbrace{\frac{1}{24}(it)^4}_{t^4} + \dots$ 
+$e^{it} = \sum_{k=0}^\infty \frac{(it)^k}{k!} = 1 + it + \underbrace{\frac{1}{2}(it)^2}_{=-t^2} + \underbrace{\frac{1}{6}(it)^3}_{=-i\,t^3} + \underbrace{\frac{1}{24}(it)^4}_{t^4} + \dots$
 Realteil ist also jede gerade Potenz ($\cos$) und Imaginärteil jede ungerade Potenz ($\sin$).
 """
 
@@ -517,7 +517,7 @@ Es gilt $\ln(e^x)=x$ und $e^{\ln(x)} = x$, sowie $\ln(x\cdot y) = \ln(x)+\ln(y)$
 # ╔═╡ 8d2ad4af-cac1-40a0-b373-3f7c8541fd1d
 md"""
 ##### Definition
-Die allgemeine Exponentialfunktion zur Basis $a$, d.h. $a^x$, ist für $x\in \mathbb{R}$ definiert als 
+Die allgemeine Exponentialfunktion zur Basis $a$, d.h. $a^x$, ist für $x\in \mathbb{R}$ definiert als
 
 $a^x:=(e^{\ln(a)})^x=e^{x\cdot\ln(a)}$
 """
@@ -556,6 +556,94 @@ Wie bestimmt man die Umkehrfunktion?
 
  $\;\,z_{1,2} = y \pm \sqrt{y^2-1}\quad$ Es ist aber $z=e^x>0.$\
  $\Rightarrow x = \ln(y+\sqrt{y^2+1}) =: \mathrm{arsinh}(y).\quad$ "area sinus hyperbolicus"
+"""
+
+# ╔═╡ 63dc9443-c896-48a4-ae32-153f004f8303
+md"""
+### 2.3.2 Grenzwerte von Funktionen
+Wir benutzen für diese Idee Folgen!
+
+##### Definition:
+Eine Zahl $b\in\mathbb{R}$ heißt Grenzwert von $f$ bei $a\in D$, wenn für alle Folgen $(x_n)\subset D$ mit $\lim\limits_{n\to\infty}x_n=a$ gilt $\lim\limits_{n\to\infty}f(x_n)=b$. Wir schreiben $b = \lim\limits_{x\to a}f(x)$.
+
+##### Bemerkung:
+1.  $b$ muss nicht Funktionswert sein(!), $\pm \infty$ sind mögliche "uneigentliche" Grenzwerte.
+2. Werden nur Folgen mit $x_n<a$ betrachtet, heißt der Grenzwert _linksseitig_, $\lim\limits_{x\to a^-}f(x)$, für $x_n>a$ _rechtsseitig_, $\lim\limits_{x\to a^+} f(x).$
+"""
+
+# ╔═╡ 6edf4001-6421-4bf4-bd15-7d4c2bc999c3
+md"""
+##### Beispiel:
+1. $f(x) = \begin{cases} x&0\leq x<1,\\x+1& x\geq 1.\end{cases}$
+    $\,\lim\limits_{x\to 2}\;f(x) = 3, \quad \,\lim\limits_{x\to 1}\;f(x)$ existiert nicht\
+   $\lim\limits_{x\to1^+}f(x) = 2,\quad \lim\limits_{x\to1^-} f(x)=1.$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/e6e200f5162e4c52f553aaa2d8cbe70c805ffde9/notebooks/assets/unstetig_linear.svg","./assets/unstetig_linear.svg"))
+2. $f(x) = \begin{cases}\sin(x)&x\in\mathbb{R}\setminus\{\frac{\pi}{2}\},\\2&x=\frac{\pi}{2}.\end{cases}$
+    $\,\lim\limits_{x\to 2}\;f(x)=\sin(\frac{\pi}{2})=1\neq 2,$\
+   $\lim\limits_{x\to2^-}f(x)=1=\lim\limits_{x\to2^+}f(x).$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/e6e200f5162e4c52f553aaa2d8cbe70c805ffde9/notebooks/assets/unstetig_sinus.svg","./assets/unstetig_sinus.svg"))
+3. $f:\mathbb{R}\setminus\{2\}\to\mathbb{R}, x\mapsto f(x) = \frac{x^2-4}{x-2}$
+    $\,\lim\limits_{x\to2}f(x) = ?, \quad (x_n): x_n\to 2, \quad f(x_n) = \frac{\overbrace{x_n^2-4}^{(x_n-2)(x_n+2)}}{x_n-2}=x_n+2$\
+   $\lim\limits_{n\to\infty}f(x_n) = \lim\limits_{n\to\infty}(x_n+2)=4.$
+4. $f(x) = \begin{cases}1&x\in \mathbb{Q}\\0&x\notin\mathbb{Q}\end{cases},\quad \lim\limits_{x\to a}f(x) \text{ existiert für kein } a\in\mathbb{R}.$
+   * Konstruiere $(x_n)\subset \mathbb{R}$ mit $x_n\in (a-\frac{1}{n}, a+\frac{1}{n})$ und $x_n\in \mathbb{Q}.$\
+     $\lim\limits_{n\to\infty}x_n=a,\quad \quad \lim\limits_{n\to\infty}f(x_n)=1$
+   * Konstruiere $(x_n)\subset\mathbb{R}$ mit $x_n\in (a-\frac{1}{n},a+\frac{1}{n})$ und $x_n\notin \mathbb{Q}.$
+     $\lim\limits_{n\to\infty}x_n=a,\quad\quad \lim\limits_{n_\to\infty}f(x_n) = 0.$
+5. $f(x) = e^{-\frac{1}{x}}$
+    $\lim\limits_{x\to0}f(x)$ existiert nicht, da $\lim\limits_{x\to0^+}f(x)=0,\quad \lim\limits_{x_\to0^-}f(x)=\infty.$
+6. $f(x) = \frac{1}{x-2}$
+    $\lim\limits_{x\to2^+}f(x) = \infty,\quad\lim\limits_{x\to2^-}f(x)=-\infty.$
+7. $f(x) = \frac{\sin(x)}{x}, \quad \lim\limits_{x\to0}f(x)=?$
+   Zur Widerholung: $\sin(x) = \sum_{k=0}^\infty (-1)^k\frac{x^{2k+1}}{(2k+1)!}=x-\frac{1}{6}x^3+\frac{1}{120}x^5-\dots$\
+   $\Rightarrow \lim\limits_{x\to0}\frac{\sin(x)}{x}=\lim\limits_{x\to0}\frac{x-\frac{1}{6}x^3+\frac{1}{120}x^5-\dots}{x}=\lim\limits_{x\to0}(1-\frac{1}{6}x^2+\frac{1}{120}x^4-\dots)=1.$
+"""
+
+# ╔═╡ b5a979ca-f35b-47ec-b460-287022148faf
+md"""
+##### Bemerkung:
+ $\lim\limits_{x\to a}f(x)$ mit $a = \pm\infty$ kann ebenfalls auf die Existenz eines Grenzwertes untersucht werden.
+
+##### Beispiel:
+1.  $\lim\limits_{x\to\infty} \frac{1}{x}=0$
+2.  $\lim\limits_{x\to\infty}\sin(x)$ existiert nicht.
+3.  $\lim\limits_{x\to\infty} \frac{e^x}{x^p}=\infty.$ Das folgt mit Exp-Reihe. Das heißt $\exp$ wächst schneller als jede Potenz!
+4.  $\lim\limits_{x\to\infty}\frac{\ln(x)}{x^p}=0.$ $\ln$ wächst also langsamer als jede Potenz.
+5.  $\lim\limits_{x\to\infty} x\sin\left(\frac{1}{x}\right) = \lim\limits_{y\to\infty}\left(\frac{1}{y}\sin\left(\frac{1}{\frac{1}{y}}\right)\right) = \lim\limits_{y\to\infty}\frac{\sin(y)}{y}=0$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/e6e200f5162e4c52f553aaa2d8cbe70c805ffde9/notebooks/assets/topologen_sinus.svg","./assets/topologen_sinus.svg"))
+"""
+
+# ╔═╡ bb566e84-1ba2-411f-8d1a-895453dd6e43
+md"""
+### 2.3.3 Stetigkeit
+_Idee_: Wenn $x$ wenig variiert, soll $f(x)$ auch wenig variieren.
+##### Definition:
+Eine Funktion $f:D\subset\mathbb{K}\to\mathbb{K}$ heißt _stetig_ in $x_0\in D$, wenn
+
+$\forall\varepsilon>0\,\exists\delta=\delta(x_0,\varepsilon)>0:\,|x-x_0|\leq \delta\Rightarrow |f(x)-f(x_0)|\leq \varepsilon\quad\forall x\in D.$
+Zu jeder gewünschten Genauigkeit $\varepsilon$ von $f(x_0)$ findet sich eine maximal erlaubte Abweichung von $x,$ nämlich $\delta$. Diese darf von $x_0$ abhängen.
+
+##### Bemerkung:
+1. $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/e6e200f5162e4c52f553aaa2d8cbe70c805ffde9/notebooks/assets/unstetig.svg","./assets/unstetig.svg"))
+2. Auswertung von stetigen Funktion, zum Beispiel im Computer, sind "stabil" oder "robust".
+"""
+
+# ╔═╡ c79d2e6d-88fa-4e26-93ba-e05bd4a483f4
+md"""
+##### Satz:
+Ist $f$ stetig bei $a$ gilt $\lim\limits_{x\to a} f(x) = f(\lim\limits_{x\to a}x)$ (und umgekehrt), dass heißt Grenzwert und Funktion können vertauscht werden.
+
+##### Beweis:
+Zu zeigen: Aus $(x_n)$ konvergiert zu $a$ folgt $(f(x_n))$ konvergiert zu $f(a)$, d.h.
+
+$\forall\varepsilon\,\exists n_\varepsilon\in\mathbb{N}:\quad |f(x_n)-f(a)|\leq \varepsilon \quad n>n_\varepsilon.$
+Wegen Stetigkeit existiert ein $\delta_\varepsilon$, so dass $|x-a\leq \delta_\varepsilon\Rightarrow |f(x)-f(a)|\leq\varepsilon$.
+Wähle nun $n_\varepsilon\in\mathbb{N}$ so, dass $|x_n-a|\leq\delta_\varepsilon\quad \forall n>n_\varepsilon\quad$ (geht wegen Konvergenz von $(x_n)$).
+
+Die Rückrichtung ist hier ohne Beweis.
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -2158,5 +2246,10 @@ version = "4.1.0+0"
 # ╟─8d2ad4af-cac1-40a0-b373-3f7c8541fd1d
 # ╟─cb6d0485-be4a-4b5e-b676-9213fb604cc0
 # ╟─b7a09980-45a0-4765-bff2-2a7302344075
+# ╟─63dc9443-c896-48a4-ae32-153f004f8303
+# ╟─6edf4001-6421-4bf4-bd15-7d4c2bc999c3
+# ╟─b5a979ca-f35b-47ec-b460-287022148faf
+# ╟─bb566e84-1ba2-411f-8d1a-895453dd6e43
+# ╟─c79d2e6d-88fa-4e26-93ba-e05bd4a483f4
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
