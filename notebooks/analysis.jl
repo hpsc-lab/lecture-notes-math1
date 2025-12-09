@@ -4,11 +4,28 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    #! format: off
+    return quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+    #! format: on
+end
+
 # ╔═╡ 0f870d00-ce80-4c42-b444-d840c1e703c5
 begin
 	using PlutoTeachingTools
 	using PlutoUI
-	using Makie
+	using CairoMakie
+	ultramarine40 = RGBf(100/255.0, 143/255.0, 255/255.0)
+	indigo50      = RGBf(120/255.0,  94/255.0, 240/255.0)
+	magenta50     = RGBf(220/255.0,  38/255.0, 127/255.0)
+	orange40      = RGBf(254/255.0,  97/255.0,   0/255.0)
+	gold20        = RGBf(255/255.0, 176/255.0,   0/255.0)
 	TableOfContents()
 end
 
@@ -646,15 +663,916 @@ Wähle nun $n_\varepsilon\in\mathbb{N}$ so, dass $|x_n-a|\leq\delta_\varepsilon\
 Die Rückrichtung ist hier ohne Beweis.
 """
 
+# ╔═╡ 2cbe1d61-6048-45c9-8c6d-719ff647d8a1
+md"""
+##### Beispiel:
+1. Die Funktionen $x, x^2, \sin(x), e^x$ sind alle stetig.
+2. Auf $\mathbb{R}\setminus\{0\}$ ist $\frac{1}{x}$ stetig und für $x>0$ ist $\ln(x)$ stetig.
+3. Für $x\geq 0$ ist $f(x)=\sqrt{x}$ stetig.
+
+   Für $x_0=0$ mit $\varepsilon$-$\delta$-Kriterium: Sei $\delta_\varepsilon:=\varepsilon^2$, dann $\forall\varepsilon\,\exists\delta=\delta_\varepsilon=\varepsilon^2:\, |x-x_0|\leq\delta_\varepsilon\Rightarrow|f(x)-f(x_0)|\leq \varepsilon$.\
+   Tatsächlich $|x|\leq \varepsilon^2\Rightarrow|\sqrt{x}-\sqrt{x_0}=|\sqrt{x}|\leq \varepsilon$.
+
+   Für $x_0>0$ zeigen wir $\lim\limits_{x\to x_0}f(x)=f(x_0):$
+
+   Sei $(x_n)$ eine Folge mit $x_n>0,x_n\to x_0.$
+
+   $|f(x_n)-f(x_0)|=\left|\sqrt{x_n}-\sqrt{x_0} \frac{\sqrt{x_n}+\sqrt{x_0}}{\sqrt{x_n}+\sqrt{x_0}}\right|=\left|\frac{x_n-x_0}{\sqrt{x_n}+\sqrt{x_0}}\right|\leq \frac{|x_n-x_0|}{\sqrt{x_0}}\to0.$
+   Es folgt also $\sqrt{x_n}\to\sqrt{x_0}$
+
+4.  $f(x)=\frac{x^2-4}{x-2}$ ist auf $\mathbb{R}{\setminus}\{2\}$ stetig.\
+   Die _stetige Fortsetzung_ $g(x)=\begin{cases}\frac{x^2-4}{x-2}&x\neq2\\4&x=2\end{cases}$ ist stetig auf ganz $\mathbb{R}$.
+5.  $f(x)=\frac{\sin(x)}{x}$ wird stetig fortgesetzt durch $g(x)=\begin{cases}\frac{\sin(x)}{x}&x\neq0\\1&x=0\end{cases}.$
+6. Potenzreihen sind stetig in ihrem Definitionsbereich.
+"""
+
+# ╔═╡ 8cf5fc18-879e-4cd5-8cd4-e07dada54684
+md"""
+##### Definition:
+Stimmt nur der rechtsseitige Grenzwert von $f$ bei $x_0$ mit $f(x_0)$ überein, heißt $f$ _rechtsseitig stetig_. Analog _linksseitig stetig_.
+##### Beispiel:
+1.  $f(x) = \begin{cases}-1&x<0,\\0&x=0,\\1&x>0.\end{cases}\quad$ "Signum" ist weder rechts- noch linksseitig stetig.
+
+
+2.  $f(x)=\begin{cases}-1&x\leq0,\\1&x>0\end{cases}\quad$ ist linksseitig stetig.
+##### Satz:
+Seien $f$ und $g$ stetig bei $x_0$. Dann sind $\alpha f+\beta g \,($mit $\alpha,\beta\in\mathbb{R}), f\cdot g$ und $\frac{f}{g} \,(g(x_0)\neq 0)$ auch stetig bei $x_0$. Ist $f$ stetig bei $g(x_0)$ und $g$ stetig bei $x_0$, dann ist $f\circ g$ stetig bei $x_0$.
+
+##### Beispiel:
+1.  $f(x)=\frac{e^{1-\ln(x)^2}\arccos\left(\frac{1}{1+x^2}\right)}{\ln(2+\sin(1+e^x))}\quad$ ist stetig auf $\mathbb{R}^+$.\
+   Den meisten Funktionen können wir Stetigkeit "ansehen".
+
+
+2.  $f(x)=\begin{cases}1&x\in\mathbb{Q},\\0&x\notin\mathbb{Q}\end{cases}\quad$ ist für alle $x\in\mathbb{R}$ _unstetig_.
+
+"""
+
+# ╔═╡ fb5a6f17-fdda-4f8b-90df-0896f04e0311
+md"""
+### 2.3.4 Verfeinerte Stetigkeitsbegriffe
+
+Betrachte für $x\in[0,1]$:
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/dd1c115d0715333c812da8cc6ac1a852324d0ff6/notebooks/assets/hyperbel.svg","./assets/hyperbel.svg"))
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/dd1c115d0715333c812da8cc6ac1a852324d0ff6/notebooks/assets/squareroot.svg","./assets/squareroot.svg"))
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/dd1c115d0715333c812da8cc6ac1a852324d0ff6/notebooks/assets/parabel.svg","./assets/parabel.svg"))
+
+Was ist der Unterschied?
+
+##### Definition:
+1.  $f$ heißt _gleichmäßig stetig_, falls für alle $y\in D$ gilt:
+
+$\forall\varepsilon>0\,\exists\delta=\delta(\varepsilon):\quad |x-y|\leq\delta\Rightarrow|f(x)-f(y)|\leq\varepsilon\quad\forall x \in D.$
+2.  $f$ heißt _Lipschitz-stetig_, falls für alle $x,y\in D$ gilt:
+
+$\exists L>0:\quad |f(x)-f(y)|\leq L|x-y|.$
+
+3.  $f$ heißt _Kontraktion_, falls es Lipschitz-stetig mit $L<1$ ist.
+"""
+
+# ╔═╡ be62c9f6-cd2c-470e-af41-f03486f07a7b
+md"""
+##### Bemerkung:
+Wir werden das Folgende sehen:\
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/dd1c115d0715333c812da8cc6ac1a852324d0ff6/notebooks/assets/stetigkeitsmenge.svg","./assets/stetigkeitsmenge.svg",:width=>300))
+
+1. Lipschitz-Funktionen verlaufen überall in einem "Kegel" mit maximaler, minimaler Steigung $\pm L $, z.B. die Gerade $f(x)=ax$ ist Lipschitz:\
+   $|f(x)-f(y) = |ax-ay|\leq |a||x-y|$ mit $L=|a|.$\
+   Aber: $f(x) = \sqrt{x}$ mit $x\geq0$ ist _nicht_ Lipschitz.\
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/82360ec40db458f640b617e1c7de3b633ed569dd/notebooks/assets/lipschitz.svg","./assets/lipschitz.svg"))
+
+
+2.  $f(x)=\frac{1}{x}$ ist stetig, aber nicht gleichmäßig stetig, denn:\
+
+   Stetigkeit: Gegeben eine Genauigkeit $\varepsilon$ mit $|f(x)-f(x_0)|\leq \varepsilon$, gesucht eine maximal erlaubte Abweichung $|x-x_0|\leq\delta$. Sei zur Einfachheit $0<x\leq x_0$.
+
+    $\begin{align*}\left|\frac{1}{x}-\frac{1}{x_0}\right|=\frac{1}{x}-\frac{1}{x_0}\leq\varepsilon &\Leftrightarrow x\geq\frac{x_0}{\varepsilon x_0+1}\\ &\Leftrightarrow -x\leq\frac{-x_0}{\varepsilon x_0+1}\\&\Leftrightarrow x_0-x\leq x_0-\frac{x_0}{\varepsilon x_0 +1} \\&= x_0 \frac{\varepsilon x_0}{\varepsilon x_0 +1}=: \delta(\varepsilon,x_0)\end{align*}$
+
+   Für gleichmäßige Stetigkeit auf $(0,1]$ müsste es ein minimales $\delta>0$ geben für alle $x_0\in (0,1].$ Problem: $\delta(\varepsilon,x_0)\to 0$ für $x_0\to0$.\
+
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/66a1da4aef0a2a7763308a13a6ed72e9f3cb46c2/notebooks/assets/hyperbel_stetigkeit.svg","./assets/hyperbel_stetigkeit.svg"))
+"""
+
+# ╔═╡ c7555deb-f940-479b-a3cd-d3ced4213db6
+md"""
+##### Satz:
+Eine stetige Funktion $f:[a,b]\to\mathbb{R}$ auf einem abgeschlossenem, beschränkten Intervall $[a,b]\subset\mathbb{R}$ ist gleichmäßig stetig.
+
+##### Beweis:
+Annahme: $f$ ist nicht gleichmäßig stetig, d.h. zu jedem $\delta>0$ gibt es ein $\varepsilon>0$ und Punkte $x,y$ mit $|x-y|\leq \delta$, aber $|f(x)-f(y)|>\varepsilon$. Wir konstruieren zwei Folgen $(x_n),(y_n)$ mit $|x_n-y_n|<\frac{1}{n}$ und $|f(x_n)-f(y_n)|>\varepsilon.$
+
+Nach Bolzano-Weierstraß: $[a,b]$ beschränkt, d.h. $x_n\in[a,b]\Rightarrow (x_n)$ enthält eine konvergente Teilfolge. $(x_{n_k})_{n_k \in I\subset\mathbb{N}}$ mit $x_{n_k} \to x_0\in[a,b].$
+
+Es folgt wegen $|x_{n_k}-y_{n_k}|<\frac{1}{n_k}\to0$ auch $y_{n_k}\to x_0$, also $\lim\limits_{k\to\infty}(f(x_{n_k})-f(y_{n_k})) \underset{f\text{ stetig}}{=} f(\lim\limits_{k\to\infty}x_{n_k})-f(\lim\limits_{k\to\infty}y_{n_k}) = f(x_0)-f(x_0)=0$, was zu einem Widerspruch führt.
+"""
+
+# ╔═╡ 3a0fe81e-2f5a-47f0-9f73-e6497290ed5d
+md"""
+##### Satz (ohne Beweis):
+Jede Lipschitz-stetige Funktion ist gleichmäßig stetig.
+"""
+
+# ╔═╡ c7e9cffb-2fdd-4ca3-926b-da7a95b64b09
+md"""
+##### Satz (Zwischenwertsatz):
+Sei $f$ auf $[a,b]$ stetig und $f(a)<0,f(b)>0$. Dann hat $f$ in $[a,b]$ mindestens eine Nullstelle.
+##### Beweis:
+Wir machen _Bisektion_ $a_0=a, b_0=b$. D.h. für $k=0,1,2,\dots$ iteriere mit $k$.
+
+$t=\frac{a_k+b_k}{2} \Rightarrow \begin{cases}a_{k+1}=t,\, b_{k+1}=b_k&\text{ falls} f(t)<0\\a_{k+1}=a_k,\, b_{k+1}=t&\text{ falls} f(t)>0\end{cases}$
+Es gilt $f(a_k)<0, f(b_k)>0\quad \forall k =0,1,2,\dots. (a_k)$ ist monoton steigend, $(b_k)$ ist monoton fallend, $a_k<b_k,\, |b_k-a_k|\overset{k\to\infty}{\to}0.$
+
+Sei $\xi=\lim\limits_{k\to\infty}a_k=\lim\limits_{k\to\infty}b_k$. Behauptung: $f(\xi) = 0$.
+
+Wäre $f(\xi)>0$, dann existiert $\delta>0,\,|x-\xi|\leq\delta\Rightarrow |f(x)-f(\xi)|\leq\varepsilon$ und zusätzlich $f>0$ in $\delta$-Umgebung von $\xi$. Aber $[\xi-\delta,\xi+\delta]$ muss ein $a_k$ enthalten, da $a_k\to\xi$ von unten. Widerspruch wegen $f(a_k)<0.$
+
+##### Bemerkung:
+1. Das Bisektionsverfahren wird tatsächlich oft numerisch benutzt.
+2. Allgemein gilt: Ist $f$ stetig auf $[a,b]$, dann wird jeder Wert zwischen $f(a)$ und $f(b)$ angenommen.
+3. Mit $f:B\to\mathbb{R}$ stetig und $B$ ein Intervall, folgt $\mathrm{Im}(B)$ auch ein Intervall.
+"""
+#TODO Skizzen
+
+# ╔═╡ a44ddf76-a7f8-4e6f-9d26-47b85d593e20
+md"""
+## 2.4 Differentialrechnung
+### 2.4.1 Grundbegriffe
+Idee: Ableitung als _lineare Approximation_ (lässt sich später besser verallgemeinern). Wir wollen $f$ an der Stelle $x_0$ durch eine lineare Funktion $g(x)$ approximieren, d.h. $g(x_0)=f(x_0)$ und linear $\Rightarrow g(x) = a(x-x_0)+f(x_0)$ mit $a=?$
+
+Neues Koordinatensystem mit
+
+ $\Delta f(h) = f(x_0+h)-f(x_0),$
+
+ $\Delta g(h) = g(x_0+h)-g(x_0)=ah.$
+
+Es gilt $\Delta f(h) = ah+r(h),$ wobei $r(h)$ den Fehler bei der Approximation beschreibt, welcher klein sein soll. Am besten kleiner als $ah$, also $r(h) <\!\!< ah$ für kleine $h$, womit  $\frac{r(h)}{ah}<\!\!<1$, z.B. $\frac{r(h)}{ah}\approx0\quad$ für kleine $h.$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/66a1da4aef0a2a7763308a13a6ed72e9f3cb46c2/notebooks/assets/differenzierbarkeit.svg","./assets/differenzierbarkeit.svg",:width=>350))
+
+Idee: $\lim\limits_{h\to0}\frac{r(h)}{ah}=0$, es reicht $\lim\limits_{h\to0}\frac{r(h)}{h}=0.$
+Dies liefert $a$, d.h. die _beste_ lineare Approximation, denn: $\Delta f(h) = f(x_0+h)-f(x_0) = ah + r(h)$ nach $a$ auflösen liefert $a = \frac{f(x_0+h)-f(x_0)}{h}-\frac{r(h)}{h}$.
+
+$\underbrace{\lim_{h\to0}a}_{=a} = \lim_{h\to0}\frac{f(x_0+h)-f(x_0)}{h}-\underbrace{\lim_{h\to0}\frac{r(h)}{h}}_{=0}.$
+"""
+#TODO Skizze 38
+
+# ╔═╡ 414521f9-7c60-472d-a844-cfee979c5c9a
+md"""
+##### Definition:
+Eine Funktion $f$ heißt _differenzierbar_ bei $x_0$, falls es eine Konstante $a$ gibt, so dass gilt
+
+$f(x_0+h) = \underbrace{f(x_0) + ah}_{\text{ lin. Approximation}} + r(h)\quad\text{ mit } \lim_{h\to0}\frac{r(h)}{h}=0.$
+
+ $a$ hängt von $f$ und $x_0$ ab und heißt _Ableitung_.
+
+ $a=\lim\limits_{h\to0}\frac{f(x_0+h)-f(x_0)}{h}=:f'(x_0)$
+ $= \lim\limits_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}.$
+"""
+
+# ╔═╡ 26cc2470-dca2-4e18-94c8-6b2b9d6b1706
+md"""
+##### Bemerkung:
+
+1.  $f'(x)$ wird auch $\frac{df}{dx}(x)$ geschrieben ("Differentialquotient")
+2. Es gibt auch rechts-/linksseitige Ableitung $\lim\limits_{x\to x_0\pm}\frac{f(x)-f(x_0)}{x-x_0}$
+3. Jede differenzierbare Funktion ist stetig
+4. ($f$ mit "Knick" $\Rightarrow f'$ springt), d.h. unstetig
+
+##### Beispiel:
+0.  $f(x) = \mathrm{const.} \qquad f'(x_0)=0$
+1.  $f(x)=ax \qquad f'(x_0) = \lim\limits_{x\to x_0} \frac{ax-ax_0}{x-x_0}=a$
+
+
+2.  $\begin{align*}f(x) = x^2\qquad f'(x_0) &= \lim_{h\to0}\frac{(x_0+h)^2-x_0^2}{h}\\&=\lim_{h\to0}\frac{x_0^2+2hx_0+h^2-x_0^2}{h}\\&=\lim_{h\to0}(2x_0+h)=2x_0\end{align*}$
+
+
+3.  $\begin{align*}f(x)=e^x\qquad f'(x_0) &= \lim_{h\to0}\frac{e^{x_0+h}-e^{x_0}}{h}\\&=\lim_{h\to0}e^{x_0}\frac{e^h-1}{h}\\&=e^{x_0}\lim_{h\to0}\frac{e^h-1}{h}=e^{x_0}\end{align*}$
+
+
+4.  $f(x)=|x|\qquad \lim\limits_{h\to0}\frac{|x_0+h|-|x_0|}{h}=\begin{cases}\phantom{-}1&x_0>0,\\-1&x_0<0,\\\text{ex. nicht}&x_0=0.\end{cases}$
+
+    $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/66a1da4aef0a2a7763308a13a6ed72e9f3cb46c2/notebooks/assets/betragsfunktion.svg","./assets/betragsfunktion.svg",:width=>350))
+
+    Bei $x_0=0$ gibt es nur eine rechts-und linksseite Ableitung.
+"""
+
+# ╔═╡ 31c3216b-aca6-4c6b-bc61-f2455de9ac77
+md"""
+### 2.4.2 Rechenregeln für Differentiation
+
+Für $f,g$ differenzierbar bei $x_0$ gilt
+1.  $(\alpha f + \beta g)'(x_0) = \alpha f'(x_0) + \beta g'(x_0),\quad \alpha,\beta\in\mathbb{R}$
+2.  $(f\cdot g)'(x_0) = f'(x_0)g(x_0)+f(x_0)g'(x_0),\quad$ "Produktregel"
+3.  $\left(\frac{f}{g}\right)'(x_0) = \frac{f'(x_0)g(x_0)-f(x_0)g'(x_0)}{g(x_0)^2},\quad g(x_0)\neq0,$ "Quotientenregel"
+4.  Falls $g$ differenzierbar bei $y_0=f(x_0)$: $(g\circ f)'(x_0) = \frac{d}{dx}g(f(x)) \big|_{x=x_0} = g'(f(x_0))f'(x_0),\quad$ "Kettenregel"
+5.  Falls $f$ umkehrbar und in einer Umgebung von $x_0$ differenzierbar ist: $(f^{-1})'(y_0)=\frac{1}{f'(f^{-1}(y_0))},\quad$ mit $y_0=f(x_0)$, "Umkehrregel"
+
+##### Beweis:
+für 4: $\frac{g(f(x_0+h)) - g(f(x_0))}{h}=\frac{g(f(x_0+h))-g(f(x_0))}{f(x_0+h)-f(x_0)}\,\frac{f(x_0+h)-f(x_0)}{h} \overset{h\to0}{\to} g'(f(x_0))f'(x_0)$
+
+für 5: $f^{-1}(f(x_0))=x_0 \Rightarrow (f^{-1})'(\underbrace{f(x_0)}_{y_0})\underbrace{f'(x_0)}_{=f^{-1}(y_0)}=1$
+"""
+
+# ╔═╡ 2fc93fad-76b0-480a-a636-6a913559b609
+md"""
+##### Beispiel:
+1.  $g(x) = \ln(x) = \exp^{-1}(x)$
+
+    $g'(x) = \underbrace{(\exp^{-1})}_{=f^{-1}}(x) = \frac{1}{\exp(\ln(x))} = \frac{1}{x} ,\quad$ also $\ln(x)'=\frac{1}{x}.$
+
+
+2. Für $\alpha\in\mathbb{R}$ betrachten wir $f(x)=x^\alpha=e^{\ln(x^\alpha)}=e^{\alpha\ln(x)}.$
+
+   Hier haben wir eine doppelte Verknüpfung $\begin{cases}a(x)=\ln(x),\\b(y)=\alpha\,y,\\c(z)=e^z.\end{cases}\quad \Rightarrow f(x) = c(b(a(x)))=e^{\alpha\ln(x)}$
+
+    $f'(x)=c'(b(a(x)))\frac{d}{dx}b(a(x))=\underbrace{c'(b(a(x)))}_{e^z=e^{\alpha\ln(x)}}\underbrace{b'(a(x))}_{\alpha}\underbrace{a'(x)}_{\frac{1}{x}} = e^{\alpha\ln(x)}\alpha\frac{1}{x}$
+
+    $\phantom{f'(x)}= \alpha x^\alpha\frac{1}{x} = \alpha x^{\alpha-1}.$
+
+
+3.  $f(x) = \cos(x) = \frac{e^{ix}+e^{-ix}}{2}$
+
+    $f'(x) = \frac{1}{2}(ie^{ix}+(-i)e^{-ix})=\underbrace{i}_{-\frac{1}{i}}\frac {e^{ix}-e^{-ix}}2 = -\sin(x)$
+
+    Analog $\sin'(x) = \cos(x),\quad \sinh'(x) = \cosh(x),\text{ aber}\cosh'(x)=+\sinh(x).$
+
+
+4.  $f(x) = \tan(x) = \frac{\sin(x)}{\cos(x)}$
+
+    $f'(x) = \frac{\sin'(x)\cos(x)-\cos'(x)\sin(x)}{(\cos(x))^2}= \frac{\cos^2(x)+\sin^2(x)}{\cos^2(x)}=\frac{1}{\cos^2(x)}.$
+
+
+5.  $f(x)=\arcsin(x),\quad f'(x) = \frac{1}{\sqrt{1-x^2}}\quad$ mit "Umkehr-Regel".
+
+"""
+
+# ╔═╡ beb04ead-d386-4d24-b787-70f8679f6125
+md"""
+##### Satz:
+1.  $f'(x)=0\quad \forall x\in(a,b) \Leftrightarrow f$ ist konstant in $(a,b)$.
+2.  $f'(x) \geq 0 \quad \forall x\in(a,b)\Leftrightarrow f$ ist monoton wachsend in $(a,b)$.
+3. Analog für fallend, bzw. _streng_ monoton mit "<" oder ">".
+
+##### Definition:
+Die _n-te Ableitung_ einer Funktion $f$ im Punkt $x_0$ ist rekursiv definiert, d.h. es existiert der Grenzwert
+
+$\lim_{h\to0}\frac{f^{(n-1)}(x_0+h)-f^{(n-1)}(x_0)}{h}=:f^{(n)}(x_0).$
+Wir schreiben $f, f', f'', f''', f^{(iv)}, \dots, f^{(n)}.$ Existiert $f^{(k)}(x_0)$ für $k=1,2,\dots,n$ heißt $f$ _n-mal differenzierbar_ in $x_0$.
+
+##### Definition:
+Sei $I\subset \mathbb{R}$ ein Intervall. Die Menge
+
+$C^n(I):=\{f:I\to\mathbb{R}|\,f^{(k)}\text{ stetig },\, k=0,1,\dots,n\}$
+enthält die _n-mal stetig differenzierbaren_ Funktionen auf $I$. Ist $f^{(n)}$ stetig für beliebige $n$, so heißt $f$ _unendlich_ _oft_ _differenzierbar_ oder _glatt_, $f\in C^\infty(I).$
+"""
+
+# ╔═╡ 24975dda-9ce3-4d50-8004-50564309d2eb
+md"""
+##### Beispiel:
+1.  $f(x)=e^x, \quad f\in C^\infty(\mathbb{R})$.
+2. Für Polynome $p$ mit Grad $n$ gilt $p\in C^\infty(\mathbb{R})$, inbesondere $p^{(k)}=0$ für $k>n$.
+3.  $f(x)=|x|, \quad f\in C^0(\mathbb{R})$, also nur stetig.
+4.  $f(x)=|x|^3,\quad f\in C^2(\mathbb{R}),\quad f^{''}(x) = |x|.$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/betrag_kubisch.svg","./assets/betrag_kubisch.svg", :width=>350))
+
+##### Bemerkung:
+ $\frac{d}{dx}:C^n(I)\to C^{n-1}(I),\quad f\mapsto\frac{d}{dx}(f)=f'\quad$ ist der sogenannte "Ableitungsoperator"
+"""
+
+# ╔═╡ 3ca46888-3700-47a0-868b-e66c97fd25b8
+md"""
+##### Definition:
+Sei $f:I\to\mathbb{R}$ eine Funktion. Gilt für alle $x_0,x_1\in I$ und $\lambda\in[0,1]$
+
+$f((1-\lambda)x_0+\lambda x_1)\leq (1-\lambda)f(x_0)+\lambda f(x_1)$
+
+so heißt $f$ auf $I$ _konvex_.
+
+##### Bemerkung:
+1. Analog konkav für $\geq$ und _streng_ für < bzw. >.
+
+
+2.  $\tilde{f}(\lambda) = f((1-\lambda)x_0+\lambda x_1) = f(x_0) + \lambda(x_1-x_0)$
+
+    $g(\lambda) = (1-\lambda)f(x_0)+\lambda f(x_1) = f(x_0) + \lambda(f(x_1)-f(x_0)$
+
+    $g(\lambda)$ entspricht dabei der Geraden zwischen $f(x_0)$ und $f(x_1)$. _Konvexe_ Funktionen liegen _unterhalb_ ihrer Sekanten (links-gekrümmt). 
+
+    $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/konvexitaet.svg","./assets/konvexitaet.svg"))
+"""
+
+# ╔═╡ dbe2e33f-91ff-4c47-bad3-cc6c8d4c9ad2
+md"""
+##### Satz:
+Für $f\in C^2(I)$ gilt: $f$ konvex auf $I \Leftrightarrow f''(x)\geq 0,\quad \forall x\in I.$
+
+##### Bemerkung:
+Analog gilt das für konkave, streng konkave und streng konvexe Funktionen.
+
+##### Beispiel:
+1.  $f(x)=x^2,\quad f''(x)=2\Rightarrow f$ ist konvex.
+2.  $f(x)=\sin(x)$ ist konkav auf $(2k\pi,(2k+1)\pi)$ für $k\in \mathbb{Z}.$
+
+##### Bemerkung:
+Jede Potenzreihe ist in ihrem Konvergenzgebiet, d.h. $|x|<\varrho$ (Konvergenzradius) $\infty$-oft differenzierbar, also $C^\infty$.
+"""
+
+# ╔═╡ b61d62c4-b6be-457c-b336-1b80956e7860
+md"""
+### 2.4.3 Kurvendiskussion
+
+##### Definition:
+Sei $f:(a,b) \to\mathbb{R}$ und $x_0\in(a,b)$ gegeben. Falls eine Umgebung von $x_0$ (z.B. $U=[x_0-\delta,x_0+\delta])$ existiert, sodass $f(x)\leq f(x_0),\quad \forall x\in U$, dann hat $f$ ein lokales _Maximum_ in $x_0$. Analog für _Minimum_. Beides heißt _Extremum_.
+
+##### Satz:
+Sei $f$ differenzierbar. Hat $f$ in $x_0$ ein lokales Extremum, so gilt $f'(x_0)=0$.
+
+##### Beweis:
+Zu zeigen: $\underbrace{f(x)\leq f(x_0)\quad\forall x\in U}_{\text{ lokales Extremum}}\Rightarrow f'(x_0)=0$. Für den Differenzen-Quotienten gilt:
+
+ $\frac{\overbrace{f(x)-f(x_0)}^{\leq 0}}{x-x_0}\begin{cases}\geq0&\text{ für } x<x_0\\\leq0&\text{ für }x>x_0,\end{cases}\quad \text{d.h. } \lim\limits_{x\to x_0\pm}\frac{f(x)-f(x_0)}{x-x_0}\begin{cases}\leq0\\\geq0.\end{cases}$
+
+Aber $f$ ist differenzierbar, also muss $\lim\limits_{x\to x_0}$ existieren $\Rightarrow f'(x_0)=0.$
+"""
+
+# ╔═╡ a5fc080e-d356-4290-960f-8c295aa714b7
+md"""
+##### Bemerkung:
+ $f'(x_0)=0$ ist nur notwendig, nicht hinreichend für ein Extremum. Der Punkt $x_0$ heißt _kritischer Punkt_.
+
+##### Satz:
+Für $f\in C^2$ sei $f'(x_0)=0.$ Dann ist bei $x_0$
+1. ein lokales Maximum, falls $f'$ bei $x_0$ fallend ist, d.h. $f''(x_0)<0 \quad$ (rechts gekrümmt).
+2. Analog: Minimum
+"""
+
+# ╔═╡ f0c132db-3821-4557-9525-4c02d9370bf1
+md"""
+##### Bemerkung:
+Ein Punkt, in dem die Krümmung wechselt, heißt _Wendepunkt_. Notwendig ist $f''(x_0)=0$, hinreichend ist $f''(x_0)=0$ und $f'''(x_0)\neq 0$.
+"""
+
+# ╔═╡ de17e260-42e3-4d67-a196-e5ca78aee6ff
+WideCell(max_width=930, md"""##### Beispiel:
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/kurvendiskussion.svg","./assets/kurvendiskussion.svg",:width=>300))
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/kurvendiskussion_ableitung.svg","./assets/kurvendiskussion_ableitung.svg",:width=>300))
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/kurvendiskussion_2ableitung.svg","./assets/kurvendiskussion_2ableitung.svg",:width=>300))
+""")
+
+# ╔═╡ 0750a5f7-e01c-4127-b12d-30dad617af36
+md"""
+### 2.4.4 Satz von de l'Hospital
+
+Nützlich für Grenzwerte, z.B. $\lim\limits_{x\to0}\frac{\ln(\cos(x))}{\ln(\cos(2x))}=\vphantom{\frac00}''\frac00''$. Wir benötigen einige Vorarbeit:
+
+##### Satz:
+Sei $f:B\to\mathbb{R}$ stetig und $B$ abgeschlossen und beschränkt. Dann ex. $\max\limits_{x\in B}f(x)$ und $\min\limits_{x\in B}f(x).$
+
+##### Bemerkung:
+1. Eventuall am Rand, eventuell mehrdeutig 
+2.  $B\subset \mathbb{R}$ abgeschlossen und beschränkt heißt $B$ _kompakt_, z.B. Intervalle $[a,b]$.
+3. Für $f=\mathrm{id}$ sagt der Satz: "kompakte Teilmengen von $\mathbb{R}$ haben ein Maximum und Minimum":
+"""
+
+# ╔═╡ 2b396a1a-5922-4597-aa3f-6adf1c762b17
+md"""
+##### Satz (Allgemeiner Mittelwertsatz):
+
+Seien $f,g$ Funktionen, stetig in $[a,b]$ und differenzierbar im Inneren $(a,b)$. Dann gibt es ein $\xi\in(a,b)$ mit $(f(b)-f(a))\,g'(\xi)=(g(b)-g(a))f'(\xi)$.
+##### Beweis:
+Betrachte $h:[a,b]\to\mathbb{R},\, h(x)=(f(b)-f(a))\,g(x)-(g(b)-g(a))\,f(x)$. Es gilt $h(a)=h(b)=f(b)g(a)-g(b)f(a)$, $h$ stetig und differenzierbar. Zu zeigen:
+
+$\exists \xi \in (a,b): \, h'(\xi)=0.$
+
+Fall 1: $h(x)=$ const $= h(a)=h(b) \Rightarrow h'(x)=0$
+
+Fall 2: $h(x)$ variiert, z.B. es gibt ein $x$ mit $h(x) > h(a) = h(b)$. Wegen Stetigkeit wird ein Maximum angenommen und zwar im Inneren $\xi\in(a,b).$ Wegen Differenzierbarkeit gilt dort $h'(\xi)=0$.
+
+Fall 3: Analog zu Fall 2 nimmt $h$ ein Minimum an.
+"""
+
+# ╔═╡ 9658f505-a331-4e4b-bac9-c894ef2e0476
+md"""
+##### Bemerkung:
+1. Der klassische Mittelwertsatz entsteht für $g(x)=x$.
+
+   $\exists\xi\in(a,b):\quad f(b)=f(a)+f'(\xi)(b-a),\, \text{ oder } \frac{f(b)-f(a)}{b-a}=f'(\xi).$
+
+   Es gibt mindestens eine Stelle an der die Tangente parallel zur Sekante ist.
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/mittelwertsatz.svg","./assets/mittelwertsatz.svg", :width=> 350))
+2. Für $g(x)=x$ und $f(a)=f(b)$ entsteht der Satz von Rolle:
+
+   $\exists \xi\in(a,b):\quad f'(\xi)=0.$
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/8d2fa0d520b1743f00e86f0bc74b1a817a25c240/notebooks/assets/sv_rolle.svg","./assets/sv_rolle.svg", :width=>350))
+
+"""
+
+# ╔═╡ 1f92a719-9af8-46b8-9214-1bd9a8904844
+md"""
+##### Satz (von de L'Hospital):
+Seien $f,g$ differenzierbar und $\lim\limits_{x\to a} f(x)=0, \,\lim\limits_{x\to a} g(x)=0,\, a\in\mathbb{R}\cup\{\pm\infty\}.$ Dann gilt
+
+$\lim_{x\to a}\frac{f(x)}{g(x)}=\lim_{x\to a} \frac{f'(x)}{g'(x)}\quad\text{ (falls existent)}$
+
+##### Beweis:
+Für $a<\infty, \,f$ und $g$ differenzierbar $\Rightarrow f$ und $g$ stetig, also $f(a)=0,\, g(a)=0.$
+
+Für $x\neq a$ ist
+ $\frac{f(x)}{g(x)}=\frac{f(a)-f(x)}{g(a)-g(x)}\underset{\text{MWS}}{=}\frac{f'(\xi)}{g'(\xi)}$
+
+ $\xi$ hängt von $x$ ab! Wähle also $\xi_x$ mit $\lim\limits_{x\to a} \xi_x=a.$
+
+ $\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\lim\limits_{x\to a}\frac{f'(\xi_x)}{g'(\xi_x)}=\lim\limits_{x\to a} \frac{f'(x)}{g'(x)}.$
+"""
+
+# ╔═╡ f4c0a98b-07cf-478e-b9cb-eccc4c44a7bc
+md"""
+##### Beispiel:
+1.  $\lim\limits_{x\to 0} \frac{\sin(x)}{x} = \lim\limits_{x\to 0} \frac{\cos(x)}{1} = \cos(0)=1.$
+
+
+2.  $\lim\limits_{x\to 0} \frac{\ln(\cos(x))}{\ln(\cos(2x))} =\lim\limits_{x\to 0}\frac{\frac{1}{\cos(x)}(-\sin(x))}{\frac{1}{\cos(2x)}(-\sin(2x))\cdot 2}=\lim\limits_{x\to0}\frac{\tan(x)}{2\cdot \tan(2x)}$
+
+    $\phantom{ \lim\limits_{x\to 0} \frac{\ln(\cos(x))}{\ln(\cos(2x))} }=\lim\limits_{x\to0}\frac{\frac{1}{\cos(x)^2}}{2\frac{1}{\cos^2(2x)}\cdot 2} = \lim\limits_{x\to0}\frac{\cos^2(2x)}{4\cos^2(x)} = \frac{1}{4}.$
+
+
+3.  $\lim\limits_{x\to\frac{\pi}{2}} \left(x-\frac{\pi}{2}\right)\tan(x) = \lim\limits_{x\to\frac{\pi}{2}}\frac{x-\frac{\pi}{2}}{\frac{1}{\tan(x)}}$
+
+    $= \lim_{x\to\frac{\pi}{2}}\frac{1}{\underbrace{-\frac{1}{\tan^2(x)}}_{=-\frac{\cos^2(x)}{\sin^2(x)}}\frac{1}{\cos^2(x)}} = \lim_{x\to\frac{\pi}{2}}(-\sin^2(x))=-1$
+
+
+4.  $\lim\limits_{x\to\infty} (1+\frac{\alpha}{x})^x = \lim\limits_{x\to\infty} \exp(x\ln(1+\frac{\alpha}{x})) = \lim\limits_{x\to\infty}\exp\left(\frac{\ln(1+\frac{\alpha}{x})}{\frac{1}{x}}\right) = e^\alpha$
+
+    mit $\lim\limits_{x\to\infty}\frac{\ln(1+\frac{\alpha}{x})}{\frac{1}{x}} = \lim\limits_{x\to\infty}\frac{\frac{1}{1+\frac{\alpha}{x}}\cdot(-\frac{\alpha}{x^2})}{-\frac{1}{x^2}} = \lim\limits_{x\to\infty}\frac{\alpha}{1+\frac{\alpha}{x}} = \alpha.$
+"""
+
+# ╔═╡ 96c6d8cc-b8d4-4819-bd0b-b34b3d5ce696
+md"""
+### 2.4.5 Taylor-Entwicklung
+
+Wie berechnet sich eine Potenzreihe $\sum_{k=0}^\infty a_kx^k$ zu einer beliebigen Funktion $f$?\
+Das hat etwas mit Approximation zu tun!
+
+##### Beispiel:
+Anstatt nur einer Geraden mit gleicher Steigung bei $x_0=0$ (lineare Approximation) wollen wir nun die gleiche Steigung und gleiche Krümmung.
+
+Ansatz:
+
+ $\begin{align*} p(x) &= a_0 + a_1x + a_2x^2\quad &p(0) &= f(0) \Rightarrow a_0 = f(0)&\\p'(x) &= a_1 + 2a_2x \quad &p'(0) &= f'(0) \Rightarrow a_1 = f'(0)&\\ p''(x) &= 2a_2 \quad &p''(0) &= f''(0) \Rightarrow a_2 = \frac{1}{2}f''(0)&\end{align*}$
+
+ $\Rightarrow p(x) = f(0) + f'(0)x + \frac{1}{2}f''(0)x^2.$ Geht auch für $x_0$ beliebig.
+"""
+
+# ╔═╡ 022df025-f076-4551-b10c-735f8144c56d
+md"""
+##### Definition:
+Für $f\in C^n(I)$ und $x_0\in I, \, n\in \mathbb{N}$ heißt
+
+$T_n(x)=\sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k = f(x_0)+f'(x_0)(x-x_0)+\frac{1}{2}f''(x_0)(x-x_0)^2+\dots$
+
+die Taylor-Entwicklung (oder Taylor-Polynom) $n$-ter Ordnung zu $f$ um den Punkt $x_0$.
+
+##### Beispiel:
+1.  $f(x)=e^x,\quad f^{(k)}(x)=e^x,\,x_0=0,\,f^{(k)}(0)=1$
+
+    $\Rightarrow T_n(x)=\sum\limits_{k=0}^n\frac{1}{k!}x^k \quad$ (Für $n\to\infty$ ist dies die Exponentialreihe!)
+
+
+2.  $f(x) = x^2-2x+3,\, x_0=1,\, f(1)=2,\, f'(1)=0,\, f''(1)=2$
+
+    $\Rightarrow T_2(x)=\sum\limits_{k=0}^2\frac{f'(1)}{k!}(x-1)^k = 2 + 0(x-1)^1 + \frac{2}{2}(x-1)^2 = x^2-2x+3$
+
+
+3.  $f(x)=\sin(x),\, x_0=0,\, f^{(k)}(0)\Rightarrow \{1,0,-1,0,1,\dots\}$
+
+    $\Rightarrow T_5(x) = x-\frac{1}{6}x^3+\frac{1}{120}x^5$
+"""
+
+# ╔═╡ 703e6fb5-9dd6-47df-abde-3861a8039e61
+begin
+	function poly_deg5(x)
+		return (x^5 + 3x^4 - 11x^3 - 27x^2 + 10x + 64)/20
+	end
+	function bsp_taylor2(x)
+		return x^2 - 2x + 3
+	end
+	function nth_derivative(::typeof(cos), n, x)
+		mod4 = n % 4
+		if mod4 == 1
+			result = -sin(x)
+		elseif mod4 == 2
+			result = -cos(x)
+		elseif mod4 == 3
+			result = sin(x)
+		else
+			result = cos(x)
+		end
+		return result
+	end
+	function nth_derivative(::typeof(sin), n, x)
+		mod4 = n % 4
+		if mod4 == 1
+			result = cos(x)
+		elseif mod4 == 2
+			result = -sin(x)
+		elseif mod4 == 3
+			result = -cos(x)
+		else
+			result = sin(x)
+		end
+		return result
+	end
+	function nth_derivative(::typeof(exp), n, x)
+		return exp(x)
+	end
+	function nth_derivative(::typeof(poly_deg5), n, x)
+		if n == 0
+			result = (x^5 + 3x^4 - 11x^3 - 27x^2 + 10x + 64)/20
+		elseif n == 1
+			result = (5x^4 + 12x^3 - 33x^2 - 54x + 10)/20
+		elseif n == 2
+			result = (20x^3 + 36x^2 - 66x - 54)/20
+		elseif n == 3
+			result = (60x^2 + 72x - 66)/20
+		elseif n == 4
+			result = (120x + 72)/20
+		elseif n == 5
+			result = 6*one(x)
+		else
+			result = zero(x)
+		end
+		return result
+ 	end
+	function nth_derivative(::typeof(bsp_taylor2), n, x)
+		if n == 0
+			result = bsp_taylor2(x)
+		elseif n == 1
+			result = 2x - 2
+		elseif n == 2
+			result = 2
+		else
+			result = zero(x)
+		end
+		return result
+	end
+	nothing
+end
+
+# ╔═╡ c3779634-cf79-4b3b-b724-c2d6a7ed9e98
+md"""
+zu approximierende Funktion $(@bind selected_function Select([sin, cos, exp, poly_deg5, bsp_taylor2]))
+
+wir betrachten ``x`` aus dem geschlossenen Intervall von $(@bind x_min Scrubbable(-20:0; default=-10)) bis $(@bind x_max Scrubbable(1:20; default=10))
+
+wir betrachten ``y`` aus dem geschlossenen Intervall von $(@bind y_min Scrubbable(-10:0;default=-5)) bis $(@bind y_max Scrubbable(1:20;default=5))
+"""
+
+# ╔═╡ cc9f5089-7bba-4c2a-8163-914a572e4cdd
+md"""
+Polynomgrad: $\quad$
+$(@bind n PlutoUI.Slider(0:20, default=1, show_value=true))
+
+Approximationspunkt $x_0$: $\quad$ $(@bind x0 PlutoUI.Slider(x_min:0.05:x_max, default=0.0, show_value=true))
+"""
+
+# ╔═╡ ad561de0-a2ad-4030-8543-ba5e253f3e71
+let
+	"""
+    function taylor_polynomial(f, n, x0, x)
+
+	Evaluate `n`-th Taylor polynomial for function `f` around the evaluation point `x0` at the position `x`. Uses `nth_derivative(f, i, x0)` to evaluate the i-th derivative 	of `f` at `x0`, thus a corresponding method must exist.
+	"""
+	function taylor_polynomial(f, n, x0, x)
+		result = nth_derivative(f, 0, x0)
+		for i in 1:n
+			result += nth_derivative(f, i, x0) * (x - x0)^i / factorial(i)
+		end
+		return result
+	end
+	
+	# Plot canvas and set some default options
+	f = Figure(size=(600,400))
+	ax = Axis(f[1,1], aspect=1)
+	xlims!(x_min,x_max)
+	ylims!(y_min,y_max)
+
+	# Plot exact function
+	xvalues = range(x_min, x_max, 1001)
+	#label_exact = L"%$(nameof(selected_function))$\,(x)$"
+    lines!(xvalues, selected_function.(xvalues), color=indigo50)
+
+	# Plot Taylor polynomial
+	taylor_values = taylor_polynomial.(
+		Ref(selected_function),
+		Ref(n),
+		Ref(x0),
+		xvalues)
+	taylor_values_limited = clamp.(taylor_values, y_min-1, y_max+1)
+	# taylor_values_limited = clamp.(taylor_values, -Inf, Inf)
+    lines!(xvalues, taylor_values_limited, label=L"T_{%$n}(x)", color=gold20)
+
+	# Plot marker at x0
+	scatter!([x0], [selected_function(x0)], label=L"x_0", markersize=10, color=magenta50)
+	f
+end
+
+# ╔═╡ 8223202c-a921-4909-add3-9c338004538b
+md"""
+##### Bemerkung:
+1. Jedes Polynom $n$-ten Grades ist identisch zu seinem Taylorpolynom $T_n$.
+2. Wir können einen "Taylor-Operator" definieren.
+   Sei dazu $P_n=\{f:\mathbb{R}\to\mathbb{R}|\, f$ Polynom n-ten Grades$\}:$\
+    $j_{x_0}^n:C^n(I)\to P_n,\, f\mapsto j_{x_0}^n(f)=\sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(\cdot \,- x_0)^k.$
+
+   Was ist der Fehler $|f(x)-j_{x_0}^n(f)(x)|$?
+
+##### Satz von Taylor:
+Sei $f\in C^n([x_0,x])$ und $f^{(n+1)}$ stetig in $(x_0,x).$ Dann existiert ein $\xi\in(x_0,x)$, so dass
+
+$f(x)-\underbrace{\sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k}_{T_n(x)} = \underbrace{\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}}_{\text{Fehler } r_n(x), \text{ "Lagrange-Restglied"}}$
+
+##### Bemerkung:
+
+Für $n=0$ ist das der Mittelwertsatz: $f(x)-f(x_0) = f'(\xi)(x-x_0)$(!)
+"""
+
+# ╔═╡ 8cd3a268-d8c8-45f8-87a1-429376013887
+md"""
+##### Beweis:
+Wir definieren $\varrho$ durch $f(x)-T_n(x)=r_n(x)=\frac{(x-x_0)^{n+1}}{(n+1)!} \varrho$.\
+Zu zeigen ist $\varrho=f^{(n+1)}(\xi)$ mit $\xi\in(x_0,x)$.
+
+"Geniestreich": Definiere $g(t) = f(x) - \sum\limits_{k=0}^n\frac{f^{(k)}(t)}{k!}(x-t)^k-\frac{(x-t)^{n+1}}{(n+1)!}\varrho.$
+
+Es gilt $g(x)=f(x)-f(x)-0=0, \, g(x_0) = f(x) -T_n(x)-\frac{(x-x_0)^{n+1}}{(n+1)!}\varrho=0$ und
+
+$\begin{align*}g'(t)&=-\sum_{k=0}^n \frac{f^{(k+1)}(t)}{k!}(x-t)^k + \sum_{k=1}^n\frac{f^{(k)}(t)}{(k-1)!}(x-t)^{k-1}+\frac{(x-t)^n}{n!}\varrho\\&= -\frac{f^{(n+1)}(t)}{n!}(x-t)^n+\frac{(x-t)^n}{n!}\varrho.\end{align*}$
+
+Mit Satz von Rolle (Mittelwertsatz) können wir folgern, dass $g(x)=g(x_0)=0\Rightarrow \exists \xi\in(x,x_0):\, g'(\xi)=0$, also $\varrho=f^{(n+1)}(\xi).$
+"""
+
+# ╔═╡ ef93403f-26b6-4176-a051-ae76a1eb8b43
+
+md"""
+##### Beispiel:
+ $f(x) = \sin(x).$ Es gilt $r_5(x)= f(x)-T_5(x) = \frac{f^{(n)}(\xi)}{6!}x^6 = \frac{-x^6}{720}\sin(\xi).$
+
+ $T_5(x)=x-\frac{1}{6}x^3+\frac{1}{120}x^5\quad$ mit $\xi\in(0,x).$
+
+ $|r_5(x)|=\frac{1}{720}|x^6\sin(\xi)|\leq \frac{1}{720}|x^6|=\begin{cases}\approx 10^{-3}&x=1\\\approx1&x=3.\end{cases}$
+
+Die Abschätzung ist dabei sehr konservativ, der tatsächlicher Fehler ist $\begin{cases}\approx2\cdot 10^{-4}&x=1\\\approx0.4&x=3.\end{cases}$
+
+Für $f\in C^\infty(I)$ dürfen wir in der Taylorentwicklung $n\to\infty$ schreiben.
+"""
+
+# ╔═╡ c2ce741c-d0f0-413a-99c5-4b149e702ea3
+md"""
+##### Definition:
+Für $f\in C^\infty(I)$ heißt $\sum\limits_{k=0}^\infty\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k$ Taylor-Reihe.
+
+##### Bemerkung:
+Die Reihe konvergiert nur, wenn $\lim\limits_{n\to\infty}|r_n(x)|=0.$
+
+##### Satz:
+
+Falls ein $c>0$ existiert mit $\left|\frac{f^{(n+1)}(x)}{(n+1)!}\right|\leq c^{n+1}, \quad \forall x: |c(x-x_0)|<1$, dann konvergiert die Taylor-Reihe mit Konvergenzradius $|x-x_0|<\frac{1}{c}$.
+
+##### Beweis:
+ $|r_n(x)|=\left|\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}\right|\leq |\underbrace{\phi(x-x_0)}_{<1}|^{n+1}\overset{n\to\infty}{\to}0.$
+"""
+
+# ╔═╡ 5f815d22-80a3-48a8-acbc-04c5ebd736dc
+md"""
+##### Beispiel:
+1.  $f(x) = \ln(1+x),\quad x_0=0$
+
+    $f^{(k)}(x)=(-1)^{k-1}\frac{(k-1)!}{(1+x)^k},\quad$ also $f^{(k)}(0)=(-1)^{k-1}(k-1)!$
+
+    $T_{\infty}(x)=\sum_{k=0}^\infty(-1)^{k-1}\frac{(k-1)!}{k!}x^k=\sum_{k=0}^\infty\frac{(-1)^{k-1}}{k}x^k$
+
+    $\left|\frac{f^{(k)}(x)}{k!}\right|=\frac{1}{k}\left|\frac{1}{(1+x)}\right|^k\leq \left|\frac{1}{(1+x)}\right|^k \overset{?}{\leq}\phi^k$
+
+    $\left|\frac{1}{1+x}\right|\leq \phi,\quad\forall x$ mit $|x|<\frac{1}{\phi}?$
+
+    $\Rightarrow$ Konvergiert für $|x|<1.$
+
+2. $f(x) = \begin{cases}e^{-\frac{1}{x^2}}&x\neq0\\0&x=0\end{cases},\quad f'(x)=\begin{cases}\frac{2}{x^3}e^{-\frac{1}{x^2}}&x\neq0\\0&x=0\end{cases}$
+
+   Es lässt sich zeigen, dass $f\in C^\infty(\mathbb{R}),\, f^{(k)}(0)=0\,\forall k\in\mathbb{N}\Rightarrow T_\infty(x)\equiv 0$ (hat also (fast) nichts mit $f(x)$ zu tun).
+"""
+
+# ╔═╡ 8a9b9e48-28b6-49bf-8b9c-916ec198d121
+md"""
+## 2.5 Integration
+### 2.5.1 Grundbegriffe
+
+Frage: Was ist die Fläche zwischen $y=f(x)$ und der $x$-Achse für $a\leq x\leq b?$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/f4f5c0daebef80c7c81d5a951b0a20bc102b8af0/notebooks/assets/integral.svg","./assets/integral.svg"))
+
+Idee: Approximation durch Rechtecke:
+1. Wähle eine Zerlegung $Z=(x_0,x_1,\dots,x_n)$ von $[a,b]$ mit $a=x_0<x_1<x_2<\dots<x_n=b\quad$ ($n$ Teilintervalle $[x_{i-1},x_i]$)
+2. Wähle in jdeem Teilintervall $I$ eine Zwischenstelle $\xi_i\in[x_{i-1},x_i],\, i=1,\dots,n$
+3.  $A\approx \sum\limits_{i=1}^n \underbrace{f(\xi_i)(x_i-x_{i-1})}_{\text{Rechteckinhalt}}$.
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/f4f5c0daebef80c7c81d5a951b0a20bc102b8af0/notebooks/assets/integral_teilintervalle.svg","./assets/integral_teilintervalle.svg"))
+
+
+Manche $\xi_i$ sind ausgezeichnet. $O(f,Z)$ ist die Obersumme, $U(f,Z)$ ist die Untersumme und die eingezeichneten Balken nimmt den Funktionswert in der Mitte des Intervalls als Höhe des Rechtecks.
+"""
+
+# ╔═╡ 725e22e0-6e67-4fbb-8225-d3aa0ff32d5a
+md"""
+##### Definition:
+1. Wähle $\xi_i\in[x_{i-1},x_i]$ so, dass $f(\xi_i)=\underset{[x_{i-1},x_i]}{\min}f(x)$, dann heißt $U(f,z)=\sum_{i=1}^nf(\xi_i)(x_i-x_{i-1})$ _Untersumme_.
+2. Analog heißt für $f(\xi_i)=\underset{[x_{i-1},x_i]}{\max}f(x)$ $O(f,z)$ _Obersumme_.
+
+Offenbar gilt für $Z_2$ feiner als $Z_1$ immer $U(f,Z_2) \geq U(f,Z_1)$ und $O(f,Z_2)\leq O(f,Z_1).$ Außerdem ist $U(f,Z) \leq O(f,Z).$
+##### Definition:
+Sei $f:[a,b]\to\mathbb{R}$ beschränkt. Sei $\mathcal{Z}$ die Menge _aller_ möglichen Zerlegungen $Z$ von $[a,b].$
+1. Der Wert $O(f) = \inf\{O(f,z)|\,Z\in\mathcal{Z}\}$ heißt _Oberintegral_
+2. Der Wert $U(f)=\sup\{U(f,z)|\,Z\in\mathcal{Z}\}$ heißt _Unterintegral_.
+3.  $f$ heißt _Riemann-integrierbar_, falls $O(f)=U(f)$. Wir schreiben $\int_a^bf(x)dx=O(f)=U(f)$.
+"""
+
+# ╔═╡ 942c21fe-8b95-432f-83d9-17ccd38c8067
+md"""
+Zeige Obersumme: $(@bind show_upper CheckBox(default=true)) |
+Zeige Untersumme: $(@bind show_lower CheckBox(default=true)) |
+Zeige exaktes Integral: $(@bind show_exact CheckBox(default=true))
+"""
+
+# ╔═╡ 436b3889-a170-4bcb-91e8-e83970d7bbcd
+md"""
+Wir betrachten ``x`` aus dem geschlossenen Intervall von $(@bind int_x_min Scrubbable(-20:0, default=-10)) bis $(@bind int_x_max Scrubbable(1:20, default=10)).\
+Wir betrachten ``y`` aus dem geschlossenen Intervall von $(@bind int_y_min Scrubbable(-10:0, default=-5)) bis $(@bind int_y_max Scrubbable(1:20, default=5)).
+"""
+
+# ╔═╡ c15de1c9-56e5-400b-90b1-7f821b11a8b6
+md"""
+Integrationsbereich ist das geschlossene Intervall von ``a`` $(@bind interval_a Scrubbable(int_x_min:0.1:int_x_max, default=max(-5,int_x_min))) bis ``b`` $(@bind interval_b Scrubbable(int_x_min:0.1:int_x_max, default=min(5,int_x_max))) in $(@bind n_intervals Scrubbable(1:100, default=4)) Teilintervallen.
+
+zu integrierende Funktion $(@bind int_selected_function Select([sin, cos, exp, poly_deg5])).
+
+"""
+
+# ╔═╡ d078dfa1-07ef-485d-ba7e-d166d0075740
+begin
+	"""
+    antiderivative(f, x)
+
+	Evaluate the antiderivative of the function `f` at position `x` with a constant of integration assumed to be zero. This function is used to compute the integral inside the `integrate` function. To support more functions, add a new method that dispatches on the function type.
+	"""
+	function antiderivative(f, x) end
+	antiderivative(::typeof(cos), x) = sin(x)
+	antiderivative(::typeof(sin), x) = -cos(x)
+	antiderivative(::typeof(exp), x) = exp(x)
+	function antiderivative(::typeof(poly_deg5), x)
+		result = (x^6/6 + 3x^5/5 - 11x^4/4 - 27x^3/3 + 10x^2/2 + 64x)/20
+		return result
+	end
+	"""
+    function integrate(f, a, b)
+
+	Compute the integral of function `f` in the interval ``[a, b]``. Uses `antiderivative(f, x)` to evaluate the antiderivative of `f` at `a` and `b`, thus a 	corresponding method must exist.
+	"""
+	function integrate(f, a, b)
+		result = antiderivative(f, b) - antiderivative(f, a)
+		return result
+	end
+	nothing
+end
+
+# ╔═╡ 8d9277b4-b3b4-4f61-baf8-62db58b6caa4
+begin
+	# Compute Riemann sum
+	f = Figure(size=(600,400))
+	ax = Axis(f[1,1], aspect=1)
+	xlims!(int_x_min,int_x_max)
+	ylims!(int_y_min,int_y_max)
+	
+	n_bars = n_intervals
+	bar_width = (interval_b - interval_a)/n_bars
+	if n_bars == 1
+		positions = [(interval_a + interval_b)/2]
+	else
+		positions = range(interval_a + bar_width/2, interval_b - bar_width/2, n_bars)
+	end
+
+	# Compute lower and upper sum
+	n_subintervals = floor(Int, 1000 / n_intervals)
+	n_subpositions = n_intervals * n_subintervals + 1
+	subpositions = LinRange(interval_a, interval_b, n_subpositions)
+	lowervalues = similar(positions)
+	uppervalues = similar(positions)
+	for i in 1:n_bars
+		@views sp = subpositions[((i-1)*n_subintervals+1):(i*n_subintervals+1)]
+		lowervalues[i] = minimum(int_selected_function.(sp))
+		uppervalues[i] = maximum(int_selected_function.(sp))
+	end
+	lower_sum = sum(lowervalues)*bar_width
+	upper_sum = sum(uppervalues)*bar_width
+	
+	# Compute "exact" integral
+	integration_result = integrate(int_selected_function, interval_a, interval_b)
+	# Plot exact function
+	xvalues = range(int_x_min, int_x_max, 1001)
+	
+	if show_upper
+		barplot!(positions, uppervalues; color=magenta50, width=bar_width, gap=0.0)
+	end
+	if show_lower
+		barplot!(positions, lowervalues; color=gold20, width=bar_width, gap=0.0)
+	end
+	if show_exact
+		barplot!(xvalues, int_selected_function.(xvalues); color=indigo50, alpha=0.3, gap=0.0)
+	end
+    lines!(xvalues, int_selected_function.(xvalues), color=indigo50)
+	vlines!([interval_a,interval_b], color=:black)
+	f
+end
+
+# ╔═╡ 5d3652b8-1687-41f3-a96d-e1c4a63a9fd9
+md"""
+| Integration method | Value |
+|:-- | --: |
+| Upper sum  | $(round(upper_sum, digits=2)) |
+| Exact | $(round(integration_result, digits=2)) |
+| Lower sum  | $(round(lower_sum, digits=2)) |
+"""
+
+# ╔═╡ 81e04c16-4fd5-4225-be72-a0086d729ea0
+md"""
+##### Bemerkung:
+1. Es gibt eine Verallgemeinerung, das sogenannte "Lebesgue-Integral".
+2. Es ist auch möglich über Folgen von Zerlegungen $Z_n$ mit $\lim\limits_{n\to\infty}$ "Feinheit von $Z_n$" = 0 zu definieren.
+3. Nicht jede Funktion ist Riemann-integrierbar, z.B. $f(x) = \begin{cases}1&x\in\mathbb{Q}\\0&x\notin\mathbb{Q}\end{cases}\quad$ auf $[0,1].$
+    $O(f)=1$, $U(f)=0$.
+
+Welche Funktionen sind Riemann-integrierbar?
+
+##### Hilfssatz:
+Eine beschränkte Funktion $f$ ist Riemann-integrierbar auf $[a,b]$ genau dann, wenn
+
+$\forall\varepsilon\,\exists Z_\varepsilon\in\mathcal{Z}:\quad O(f,Z_\varepsilon)-U(f,Z_\varepsilon)<\varepsilon.$
+
+##### Beweis:
+Wir beginnen mit der Rückrichtung: Es gilt also $O(f,Z_\varepsilon)-U(f,Z_\varepsilon)<\varepsilon$, zu zeigen ist $O(f) = U(f)$ bzw. $O(f)-U(f) < \varepsilon$ für beliebige $\varepsilon>0$. Was gilt, da $O(f) - U(f) \leq O(f,Z_\varepsilon)-U(f,Z_\varepsilon)<\varepsilon$, da $O(f)$ kleinste Obersumme.
+
+Für die Hinrichtung gilt $O(f)=U(f)$, d.h. $\exists \,Z_\varepsilon:\,O(f,Z_\varepsilon)<O(f)+\frac{\varepsilon}{2}$ und $U(f,Z_\varepsilon)>U(f)-\frac{\varepsilon}{2}$ für beliebiges $\varepsilon > 0.$
+
+ $\Rightarrow O(f,Z_\varepsilon)-U(f,Z_\varepsilon)=(O(f,Z_\varepsilon)-O(f))-(U(f,Z_\varepsilon)-O(f))< \frac{\varepsilon}{2} + \frac{\varepsilon}{2}=\varepsilon.$
+"""
+
+# ╔═╡ 8cd56a50-51bc-43aa-80de-6c5f74c152e8
+md"""
+##### Satz:
+Sei $f$ auf $[a,b]$ stetig. Dann ist $f$ Riemann-integrierbar.
+
+##### Beweis:
+Ansatz: Wir wollen zeigen, dass $\forall\tilde{\varepsilon}>0\,\exists Z_\varepsilon$ mit
+
+ $O(f,Z_\varepsilon)=\sum\limits_{i=1}^n\underbrace{\underset{[x_{i-1},x_i]}{\max}f(\xi)}_{=:M_i}(x_i,x_{i-1}),$
+
+ $U(f,Z_\varepsilon)=\sum\limits_{i=1}^n\underbrace{\underset{[x_{i-1},x_i]}{\min}f(\xi)}_{=:m_i}(x_i-x_{i-1})$ und $O(f,Z_\varepsilon)-U(f,Z_\varepsilon) = \sum\limits_{i=1}^n(M_i-m_i)(x_i-x_{i-1}))<\tilde{\varepsilon}.$
+
+Idee: Wir müssen also $M_i-m_i$ "kontrollieren".
+
+Stetigkeit auf $[a,b] \Rightarrow$ gleichmäßig stetig, also
+
+$\forall\varepsilon>0\,\exists\delta_\varepsilon>0:\quad |f(x)-f(y)|<\varepsilon = \frac{\tilde{\varepsilon}}{b-a}\quad \text{ für }|x-y|<\delta_\varepsilon.$
+Sei $Z_\varepsilon$ eine Zerlegung mit $x_i-x_{i-1}<\delta_\varepsilon,\quad \forall i=1,\dots,n$.
+
+Dann variiert $f$ in $[x_{i-1},x_i]$ maximal um $\varepsilon=\frac{\tilde{\varepsilon}}{b-a}$ für $|x-y|<\delta_\varepsilon$.\
+Insbesondere $\sum_{i=1}^n\underbrace{(M_i-m_i)}_{<\frac{\tilde{\varepsilon}}{b-a}}(x_i-x_{i-1})<\frac{\tilde{\varepsilon}}{b-a}\underbrace{\sum_{i=1}^n(x_i-x_{i-1})}_{=b-a} = \tilde{\varepsilon}$
+"""
+
+# ╔═╡ 341cd2aa-549d-4a74-9f3a-79209008f533
+md"""
+##### Bemerkung:
+Präzise gilt $f$ ist Riemann-integrierbar, falls es endlich viele Unstetigkeiten hat (oder maximal abzählbar unendlich viele). Wir sprechen dabei von "stückweise stetig".
+
+Für stetige $f$ dürfen wir also eine Zerlegung wählen und per Grenzwert das Integral ausrechenen.
+
+##### Beispiel:
+ $f(x)=x^2\quad$ auf $[0,b].$
+
+Wähle $x_i=i\frac{b}{n}$ (äquidistant)$,\,i=0,1,\dots,n$.
+
+ $\begin{align*}O(f,Z_n)&=\sum_{i=1}^nf(x_i)(x_i-x_{i-1})=\sum_{i=1}^n\left(i\frac{b}{n}\right)^2\frac{b}{n}\\&=(\frac{b}{n})^3\underbrace{\sum_{i=1}^n i^2}_{=\frac{n(n+1)(2n+1)}{6}} = b^3\frac{n(n+1)(2n+1)}{6n^3}=b^3\frac{(1+\frac{1}{n})(2+\frac{1}{n})}{6}\\\lim_{n\to\infty} O(f,Z_n) &= \frac{1}{3}b^3\Rightarrow \int_0^b x^2 dx = \frac{1}{3}b^3.\end{align*}$
+"""
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
-Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 PlutoTeachingTools = "661c6b06-c737-4d37-b85c-46df65de6f69"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
-Makie = "~0.24.6"
+CairoMakie = "~0.15.6"
 PlutoTeachingTools = "~0.4.6"
 PlutoUI = "~0.7.71"
 """
@@ -665,7 +1583,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.7"
 manifest_format = "2.0"
-project_hash = "27eb42511040ed88fae37348c3844a6b86ca021d"
+project_hash = "839ad8f85e939996be75648f0cce995fc4682f34"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -778,6 +1696,18 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "e329286945d0cfc04456972ea732551869af1cfc"
 uuid = "4e9b3aee-d8a1-5a3d-ad8b-7d824db253f0"
 version = "1.0.1+0"
+
+[[deps.Cairo]]
+deps = ["Cairo_jll", "Colors", "Glib_jll", "Graphics", "Libdl", "Pango_jll"]
+git-tree-sha1 = "71aa551c5c33f1a4415867fe06b7844faadb0ae9"
+uuid = "159f3aea-2a34-519c-b102-8c37f9878175"
+version = "1.1.1"
+
+[[deps.CairoMakie]]
+deps = ["CRC32c", "Cairo", "Cairo_jll", "Colors", "FileIO", "FreeType", "GeometryBasics", "LinearAlgebra", "Makie", "PrecompileTools"]
+git-tree-sha1 = "f8caabc5a1c1fb88bcbf9bc4078e5656a477afd0"
+uuid = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+version = "0.15.6"
 
 [[deps.Cairo_jll]]
 deps = ["Artifacts", "Bzip2_jll", "CompilerSupportLibraries_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "JLLWrappers", "LZO_jll", "Libdl", "Pixman_jll", "Xorg_libXext_jll", "Xorg_libXrender_jll", "Zlib_jll", "libpng_jll"]
@@ -1095,6 +2025,12 @@ deps = ["Artifacts", "GettextRuntime_jll", "JLLWrappers", "Libdl", "Libffi_jll",
 git-tree-sha1 = "50c11ffab2a3d50192a228c313f05b5b5dc5acb2"
 uuid = "7746bdde-850d-59dc-9ae8-88ece973131d"
 version = "2.86.0+0"
+
+[[deps.Graphics]]
+deps = ["Colors", "LinearAlgebra", "NaNMath"]
+git-tree-sha1 = "a641238db938fff9b2f60d08ed9030387daf428c"
+uuid = "a2bd30eb-e257-5431-a919-1863eab51364"
+version = "1.1.3"
 
 [[deps.Graphite2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -1524,6 +2460,12 @@ version = "0.3.4"
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
 version = "2023.12.12"
 
+[[deps.NaNMath]]
+deps = ["OpenLibm_jll"]
+git-tree-sha1 = "9b8215b1ee9e78a293f99797cd31375471b2bcae"
+uuid = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
+version = "1.1.3"
+
 [[deps.Netpbm]]
 deps = ["FileIO", "ImageCore", "ImageMetadata"]
 git-tree-sha1 = "d92b107dbb887293622df7697a2223f9f8176fcd"
@@ -1633,6 +2575,12 @@ deps = ["OffsetArrays"]
 git-tree-sha1 = "0fac6313486baae819364c52b4f483450a9d793f"
 uuid = "5432bcbf-9aad-5242-b902-cca2824c8663"
 version = "0.5.12"
+
+[[deps.Pango_jll]]
+deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "FriBidi_jll", "Glib_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "1f7f9bbd5f7a2e5a9f7d96e51c9754454ea7f60b"
+uuid = "36c8627f-9965-5494-a995-c6b170f724f3"
+version = "1.56.4+0"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
@@ -2189,7 +3137,7 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.59.0+0"
 
 [[deps.oneTBB_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
+deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
 git-tree-sha1 = "d5a767a3bb77135a99e433afe0eb14cd7f6914c3"
 uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
 version = "2022.0.0+0"
@@ -2251,5 +3199,52 @@ version = "4.1.0+0"
 # ╟─b5a979ca-f35b-47ec-b460-287022148faf
 # ╟─bb566e84-1ba2-411f-8d1a-895453dd6e43
 # ╟─c79d2e6d-88fa-4e26-93ba-e05bd4a483f4
+# ╟─2cbe1d61-6048-45c9-8c6d-719ff647d8a1
+# ╟─8cf5fc18-879e-4cd5-8cd4-e07dada54684
+# ╟─fb5a6f17-fdda-4f8b-90df-0896f04e0311
+# ╟─be62c9f6-cd2c-470e-af41-f03486f07a7b
+# ╟─c7555deb-f940-479b-a3cd-d3ced4213db6
+# ╟─3a0fe81e-2f5a-47f0-9f73-e6497290ed5d
+# ╟─c7e9cffb-2fdd-4ca3-926b-da7a95b64b09
+# ╟─a44ddf76-a7f8-4e6f-9d26-47b85d593e20
+# ╟─414521f9-7c60-472d-a844-cfee979c5c9a
+# ╟─26cc2470-dca2-4e18-94c8-6b2b9d6b1706
+# ╟─31c3216b-aca6-4c6b-bc61-f2455de9ac77
+# ╟─2fc93fad-76b0-480a-a636-6a913559b609
+# ╟─beb04ead-d386-4d24-b787-70f8679f6125
+# ╟─24975dda-9ce3-4d50-8004-50564309d2eb
+# ╟─3ca46888-3700-47a0-868b-e66c97fd25b8
+# ╟─dbe2e33f-91ff-4c47-bad3-cc6c8d4c9ad2
+# ╟─b61d62c4-b6be-457c-b336-1b80956e7860
+# ╟─a5fc080e-d356-4290-960f-8c295aa714b7
+# ╟─f0c132db-3821-4557-9525-4c02d9370bf1
+# ╟─de17e260-42e3-4d67-a196-e5ca78aee6ff
+# ╟─0750a5f7-e01c-4127-b12d-30dad617af36
+# ╟─2b396a1a-5922-4597-aa3f-6adf1c762b17
+# ╟─9658f505-a331-4e4b-bac9-c894ef2e0476
+# ╟─1f92a719-9af8-46b8-9214-1bd9a8904844
+# ╟─f4c0a98b-07cf-478e-b9cb-eccc4c44a7bc
+# ╟─96c6d8cc-b8d4-4819-bd0b-b34b3d5ce696
+# ╟─022df025-f076-4551-b10c-735f8144c56d
+# ╟─ad561de0-a2ad-4030-8543-ba5e253f3e71
+# ╟─c3779634-cf79-4b3b-b724-c2d6a7ed9e98
+# ╟─cc9f5089-7bba-4c2a-8163-914a572e4cdd
+# ╟─703e6fb5-9dd6-47df-abde-3861a8039e61
+# ╟─8223202c-a921-4909-add3-9c338004538b
+# ╟─8cd3a268-d8c8-45f8-87a1-429376013887
+# ╟─ef93403f-26b6-4176-a051-ae76a1eb8b43
+# ╟─c2ce741c-d0f0-413a-99c5-4b149e702ea3
+# ╟─5f815d22-80a3-48a8-acbc-04c5ebd736dc
+# ╟─8a9b9e48-28b6-49bf-8b9c-916ec198d121
+# ╟─725e22e0-6e67-4fbb-8225-d3aa0ff32d5a
+# ╟─8d9277b4-b3b4-4f61-baf8-62db58b6caa4
+# ╟─942c21fe-8b95-432f-83d9-17ccd38c8067
+# ╟─5d3652b8-1687-41f3-a96d-e1c4a63a9fd9
+# ╟─c15de1c9-56e5-400b-90b1-7f821b11a8b6
+# ╟─436b3889-a170-4bcb-91e8-e83970d7bbcd
+# ╟─d078dfa1-07ef-485d-ba7e-d166d0075740
+# ╟─81e04c16-4fd5-4225-be72-a0086d729ea0
+# ╟─8cd56a50-51bc-43aa-80de-6c5f74c152e8
+# ╟─341cd2aa-549d-4a74-9f3a-79209008f533
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
