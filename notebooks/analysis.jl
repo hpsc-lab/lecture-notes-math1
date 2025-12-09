@@ -336,7 +336,7 @@ Die Reihe $\sum_{k=1}^\infty a_k$ ist absolut konvergent, falls eine der folgend
 3. Es existiert ein $q<1: \, \left|\frac{a_{k+1}}{a_k}\right| \leq q \quad$ ab $k\geq N \quad$ "Quotientenkriterium"
 
 ##### Beweis:
-1. wie oben: Cauchy für $\sum c_k \Rightarrow $Cauchy für $\sum|a_k|$)
+1. wie oben: Cauchy für $\sum c_k \Rightarrow$ Cauchy für $\sum|a_k|$)
 2. wegen $|a_k|\leq q^k$ ist $\sum_{k=1}^\infty q^k$ eine Majorante
 3. Es ist $|a_{k+1}|\leq q\,|a_k|\leq q^2\,|a_{k-1}\leq \dots \leq q^{k+1}\,|a_0|\Rightarrow |a_0|\sum_{k=1}^\infty q^k$ ist Majorante
 
@@ -1487,7 +1487,7 @@ begin
 		barplot!(positions, lowervalues; color=gold20, width=bar_width, gap=0.0)
 	end
 	if show_exact
-		barplot!(xvalues, int_selected_function.(xvalues); color=indigo50, alpha=0.3, gap=0.0)
+		barplot!(xvalues, int_selected_function.(xvalues); color=indigo50, alpha=0.5, gap=0.0)
 	end
     lines!(xvalues, int_selected_function.(xvalues), color=indigo50)
 	vlines!([interval_a,interval_b], color=:black)
@@ -1561,7 +1561,466 @@ Für stetige $f$ dürfen wir also eine Zerlegung wählen und per Grenzwert das I
 
 Wähle $x_i=i\frac{b}{n}$ (äquidistant)$,\,i=0,1,\dots,n$.
 
- $\begin{align*}O(f,Z_n)&=\sum_{i=1}^nf(x_i)(x_i-x_{i-1})=\sum_{i=1}^n\left(i\frac{b}{n}\right)^2\frac{b}{n}\\&=(\frac{b}{n})^3\underbrace{\sum_{i=1}^n i^2}_{=\frac{n(n+1)(2n+1)}{6}} = b^3\frac{n(n+1)(2n+1)}{6n^3}=b^3\frac{(1+\frac{1}{n})(2+\frac{1}{n})}{6}\\\lim_{n\to\infty} O(f,Z_n) &= \frac{1}{3}b^3\Rightarrow \int_0^b x^2 dx = \frac{1}{3}b^3.\end{align*}$
+ $\begin{align*}O(f,Z_n)&=\sum_{i=1}^nf(x_i)(x_i-x_{i-1})=\sum_{i=1}^n\left(i\frac{b}{n}\right)^2\frac{b}{n}\\&=(\frac{b}{n})^3\underbrace{\sum_{i=1}^n i^2}_{=\frac{n(n+1)(2n+1)}{6}} = b^3\frac{n(n+1)(2n+1)}{6n^3}=b^3\frac{(1+\frac{1}{n})(2+\frac{1}{n})}{6}\\\lim_{n\to\infty} O(f,Z_n) &= \frac{1}{3}b^3\Rightarrow \int_0^b x^2\,dx = \frac{1}{3}b^3.\end{align*}$
+"""
+
+# ╔═╡ 5eef606d-d1e1-4977-b0a0-fcb3a860cf31
+md"""
+### 2.5.2 Rechenregeln für Integrale
+
+Seien $f$ und $g$ Riemann-integrierbar auf $I=[a,b]$. Dann gilt
+1.  $\int_a^bf(x)\,dx=\int_a^cf(x)\,dx+\int_c^bf(x)\,dx,\quad c\in (a,b).$
+
+
+2.  $\int_a^b(\alpha f(x) + \beta g(x))\,dx = \alpha\int_a^bf(x)\,dx + \beta\int_a^bg(x)\,dx.$
+
+
+3.  $f(x)\leq g(x)$ auf $[a,b] \Rightarrow \int_a^bf(x)\,dx \leq \int_a^bg(x)\,dx.$
+
+
+4.  $\left|\int_a^bf(x)\,dx\right|\leq \int_a^b|f(x)|\,dx\leq \lVert f \rVert_\infty \cdot (b-a)\quad$ mit $\lVert f\rVert_\infty = \underset{x\in I}{\max}|f(x)|.$
+
+5.  $\text{ Sei } g\geq 0,\, m\leq f(x)\leq M:\, m\int_a^bg(x)\,dx\leq \int_a^bf(x)g(x)\,dx\leq M\int_a^bg(x)\,dx.$
+
+##### Definition:
+Sei $B=[a,b]\subset\mathbb{R}$. Dann heißt die Funktion $\lVert\cdot\rVert_\infty:C(B)\to\mathbb{R}$ mit $\lVert f\rVert_\infty:=\underset{x\in B}{\max}|f(x)|$ die _Maximumsnorm_.
+
+##### Bemerkung:
+1.  $\int_a^af(x)\,dx = 0\quad$ und $\int_a^bf(x)\,dx = - \int_b^af(x)\,dx.$
+2. Regel 1 von oben bleibt gültig für beliebige $c\in\mathbb{R}$, falls $f$ Riemann-integrierbar auf $\mathbb{R}$ ist.
+3.  $\int_a^bf(x)\,dx = \int_a^bf(t)\,dt.$
+"""
+
+# ╔═╡ 340b86f9-6234-4847-a97e-fa21bd03bcca
+md"""
+##### Satz:
+Sei $f:[a,b]\to\mathbb{R}$ stetig. Dann existiert ein $\xi\in(a,b)$ mit $\int_a^bf(x)\,dx= f(\xi)(b-a)$.
+
+##### Beweis:
+Zu zeigen: $\exists \xi\in(a,b)$ mit $\mu=f(\xi)$ für den Mittelwert $\frac{1}{b-a}\int_a^bf(x)\,dx=\mu.$
+
+Es existiert ein Maximum/Minimum, da $f$ stetig ist, seien $m\leq f(x)\leq M$.
+
+Mit $g\equiv1$ folgt $m\underbrace{\int_a^bg(x)\,dx}_{=b-a}\leq\int_a^bf(x)g(x)\,dx\leq M\underbrace{\int_a^bg(x)\,dx}_{=b-a}$ und damit $m\leq \mu\leq M$.
+
+Nach Zwischenwertsatz nimmt $f$ jeden Wert zwischen $m$ und $M$ an, also auch $\mu$. $\xi$ liegt im Inneren.
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/integral_mws.svg","./assets/integral_mws.svg"))
+"""
+
+# ╔═╡ e8a0fc4b-757c-4b0c-be50-36ce81cb56a0
+md"""
+Wie lässt sich ein Integral ohne Ober-/Untersumme berechnen?
+##### Satz (Hauptsatz der Differential- und Integralrechnung):
+1. Sei $f:[a,b]\to\mathbb{R}$ stetig, $x,x_0\in[a,b]$ und $F(x):=\int_{x_0}^xf(t)\,dt$.\
+   Dann ist $F$ differenzierbar und es gilt
+
+   $F'(x) = \frac{d}{dx}\int_{x_0}^xf(t)\,dt = f(x)\quad\quad x\in[a,b]$
+
+2. Sei $F:[a,b]\to\mathbb{R}$ und $F\in C^1([a,b])$ mit $F'(x)=f(x)$ für $x\in[a,b]$. Dann ist
+
+   $\int_a^bf(x)\,dx = F(x)\bigg|_a^b:=F(b)-F(a).$
+
+##### Beweis:
+
+Den ersten Teil beweisen wir mittels Differenzen-Quotient:
+
+$F(x+h)-F(x) = \int_{x_0}^{x+h}f(t)\,dt-\int_{x_0}^xf(t)\,dt = \int_x^{x+h}f(t)\,dt = f(\xi_h)h$
+mit $\xi_h\in[x,x+h].$ Es gilt $\lim\limits_{h\to0}\xi_h=x$.
+
+Also $\lim\limits_{h\to0}\frac{F(x+h)-F(x)}{h} = \lim\limits_{h\to0}f(\xi_h)=f(x)$.
+
+Für den zweiten Teil der Aussage definiere $G(x):=\int_a^xf(t)\,dt$ mit $G(a)=0,\,G(b)\overset{*}{=}\int_a^bf(t)\,dt$ und $G'(x)=f(x).$
+Also $F'(x)-G'(x)=(F-G)'(x)=0$
+
+ $\Rightarrow F-G= $ const $\quad (\text{z.B. } F(a)-G(a) = F(b)-G(b))$\
+$\Rightarrow \underbrace{\int_a^bf(t)\,dt=G(b)}_{*}-\underbrace{G(a)}_{=0} = F(b)-F(a).$
+"""
+
+# ╔═╡ 3cbf73dc-48fe-4fe4-8cd0-f89b819d4a73
+md"""
+##### Bemerkung:
+1.  $F\in C$ mit $F'=f$ heißt _Stammfunktion_ von $f$ oder das _unbestimmte Integral_ $\int f(x)\,dx$.
+2. Stammfunktionen sind nur bis auf eine Konstante bestimmt. Das heißt $F(x)$ Stammfunktion $\Rightarrow \tilde{F}(x) = F(X)+c,\quad c\in\mathbb{R}.$
+
+Merke: Differenzieren ist Arbeit. Integrieren ist Kunst!
+"""
+
+
+# ╔═╡ e180527b-3f8d-41b2-8f06-d1eb0484eb48
+md"""
+##### Beispiel
+Einige Standard-Stammfunktionen:
+1.  $\displaystyle \int x^\alpha\,dx = \frac{1}{\alpha+1}x^{\alpha+1}+c\quad \alpha \neq -1$
+2.  $\displaystyle \int \frac{1}{x}\,dx=\ln(|x|)+c$
+3.  $\displaystyle \int e^x\,dx=e^x+c$
+4.  $\displaystyle \int\sin(x)\,dx = -\cos(x)+c$
+5.  $\displaystyle \int\cos(x)\,dx=\sin(x)+c$
+6.  $\displaystyle \int\frac{1}{1+x^2}\,dx=\arctan(x)+c$
+7.  $\displaystyle \int\frac{1}{\sqrt{1-x^2}}\,dx=\arcsin(x)+c$
+"""
+
+# ╔═╡ bb35c873-4bab-4d15-9d19-c75618215d2c
+md"""
+Es gibt zwei Standard-Techniken (Partielle Integration und Substitution) zur Umformung.
+### 2.5.3 Partielle Integration
+Aus $(f\cdot g)'=f'g+fg'$ (Produktregel für Ableitungen) folgt
+
+$\begin{align*}\int(f\cdot g)'\,dx &= f(x)g(x) = \int f'(x)g(x)\,dx + \int f(x)g'(x)\,dx\\\Rightarrow\;\, \int f(x)g'(x)\,dx &= f(x)g(x)-\int f'(x)g(x)\,dx\\\Rightarrow \int_a^b f(x)g'(x)\,dx &= f(x)g(x)\bigg|_a^b-\int_a^bf'(x)g(x)\,dx\end{align*}.$
+
+##### Beispiel:
+1.  $\displaystyle\int\underbrace{t^2}_{f(t)}\underbrace{e^t}_{g'(t)\,}dt = \underbrace{t^2}_{f(t)}\underbrace{e^t}_{g(t)}-\int\underbrace{\underbrace{2t}_{f'(t)}\underbrace{e^t}_{g(t)}}_{f(t)g'(t)}\,dt$\
+    $\displaystyle\hphantom{\int\underbrace{t^2}_{f(t)}\underbrace{e^t}_{g'(t)}\,dt}=t^2e^t-[2te^t-\underbrace{\int2e^t\,dt}_{2e^t}] = (t^2-2t+2)e^t$.
+
+
+2.  $\displaystyle\int\underbrace{1}_{g'(x)}\cdot\underbrace{\ln(x)}_{f(x)}\,dx = \underbrace{x}_{g(x)}\underbrace{\ln(x)}_{f(x)}- \int\underbrace{x}_{g(x)}\underbrace{\frac{1}{x}}_{f'(x)}\,dx = x\ln(x)-x$
+
+
+3.  $\displaystyle \int \underbrace{e^x}_{g'(x)}\underbrace{\cos(x)}_{f(x)}\,dx = e^x\cos(x) - \int\underbrace{e^x}_{g'(x)}\underbrace{(-\sin(x))}_{f(x)}\,dx$\
+    $\displaystyle\hphantom{\int \underbrace{e^x}_{g'(x)}\underbrace{\cos(x)}_{f(x)}\,dx} = e^x\cos(x)+e^x\sin(x)-\underbrace{\int e^x\cos(x)}_{:= I}$\
+    $\displaystyle\hphantom{\int \underbrace{e^x}_{g'(x)}\underbrace{\cos(x)}_{f(x)}\,dx}\!\!\! I = e^x(\cos(x)+\sin(x))-I$\
+    $\displaystyle\hphantom{\int \underbrace{e^x}_{g'(x)}\underbrace{\cos(x)}_{f(x)}\,dx} \Rightarrow \int e^x\cos(x)\,dx = \frac{1}{2}e^x(\cos(x)+\sin(x)).$
+"""
+
+# ╔═╡ e0778981-d933-47a2-ac73-a541afe52570
+md"""
+### 2.5.4 Substitution
+Sei $F'=f$. Für $F(\phi(t))$ gilt $\frac{d}{dt}F(\phi(t))\overset{\text{Kettenregel}}{=}F'(\phi(t))\phi'(t)=f(\phi(t))\phi'(t)$. Also
+
+$\underbrace{\int f(\phi(t))\phi'(t)dt}_{\int\frac{d}{dt}Fdt=F}=\underbrace{\int f(x)dx}_{=F}\bigg|_{x=\phi(t)}+c\in \mathbb{R}$
+
+Zwei Möglichkeiten der Anwendung:
+
+1. Gegeben $\int f(\underbrace{\phi(t)}_{x})\phi'(t)\underbrace{dt}_{\frac{1}{\phi'(x)}dx} \Rightarrow $ Ersetze $\phi(t) = x \Rightarrow \frac{dx}{dt}=\phi'(t) \Rightarrow dt = \frac{dx}{\phi'(t)}$
+2. Gegeben $\int f(\underbrace{x}_{\phi(t)})\underbrace{dx}_{\phi'(t)dt} \Rightarrow$ Ersetze $x=\phi(t)\Rightarrow\frac{dx}{dt}=\phi'(t)\Rightarrow dx=\phi'(t)dt$
+
+Achtung: Grenzen müssen immer mit substituiert werden!
+
+$\int_{t=a}^{t=b}f(\phi(t))\phi'(t)dt = \int_{x=\phi(a)}^{x=\phi(b)}f(x)dx \quad \text{bzw.}$
+$\int_{x=x_0}^{x=x_1}f(x)dx=\int_{t=\phi^{-1}(x_0)}^{t=\phi^{-1}(x_1)}f(\phi(t))\phi'(t)dt.$
+"""
+
+# ╔═╡ f11a05a5-69f9-4d31-93f7-f7bc2afa46d1
+md"""
+##### Beispiel:
+1.  $\displaystyle \phantom{=}\; \int\left(\sin^3(t)+e^{\sin(t)}\right)\cos(t)\,dt\quad\quad (x=\phi(t)=\sin(t),\, dx=\cos(t)\,dt)$\
+    $\displaystyle =\int(x^3+e^x)\,dx = \frac{1}{4}x^4+e^x+c\bigg|_{x=\sin(t)} = \frac{1}{4}\sin^4(t)+e^{\sin(t)}+c$
+
+   Mit Grenzen:
+
+    $\displaystyle \int_0^{\frac{\pi}{2}}(\sin^3(t)+e^{\sin(t)})\cos(t)\,dt \quad\quad(x=\sin(t);\, t=0\Leftrightarrow x= 0;\, t=\frac{\pi}{2}\Leftrightarrow x=1)$\
+    $\displaystyle\qquad\qquad = \int_0^1(x^3+e^x)\,dx = \left[\frac{1}{4}x^4+e^x\right]\Bigg|_0^1  = \frac{1}{4}+e-1 = e-\frac{3}{4}.$
+
+2.  $\displaystyle \int\sin(\underbrace{\sqrt{x}}_{t})\,\underbrace{dx}_{2t\,dt} = \int\sin(t)2t\,dt = -2t\cos(t)+2\sin(t)+c$\
+    $\displaystyle\hphantom{\int\sin(\underbrace{\sqrt{x}}_{t})\,\underbrace{dx}_{2t\,dt}} = 2(\sin(\sqrt{x})-\sqrt{x}\cos(\sqrt{x}))+c.$
+"""
+
+# ╔═╡ 214518e7-e33d-46cf-94ca-044da60db06f
+md"""
+Es gibt einige Standardsubstitutionen:
+1. Potenzen von $e^x,\quad t=e^x,\, dt = e^x\,dx,\, dx=\frac{1}{t}\,dt$
+
+
+2. Potenzen von $x$ und $\sqrt[n]{ax+b},\quad t=\sqrt[n]{ax+b},\,dx=\frac{n}{a}t^{n-1}\,dt$
+
+
+3. Potenzen von $x$ und $\underbrace{\sqrt{1-x^2}}_{\cos(t)},\quad x=\sin(t),\,dx=\cos(t)\,dt$
+
+
+4. Potenzen von $x$ und $\underbrace{\sqrt{x^2-1}}_{\sinh(t)},\quad x=\cosh(t),\,dx=\sinh(t)\,dt$
+
+
+5. Potenzen von $x$ und $\underbrace{\sqrt{x^2+1}}_{\cosh(t)},\quad x=\sinh(t),\,dx=\cosh(t)\,dt$
+"""
+
+# ╔═╡ 725db376-0766-44fc-9fce-d514cfb595d2
+md"""
+##### Beispiel:
+1. zu 1: $t = e^x$, $\frac{dt}{dx}=e^x$, $dx = \frac1{e^x}\,dt = \frac{dt}t$
+
+   $\begin{align*}\int\frac{e^x}{1+e^{2x}}\,dx &=\int\frac{t}{1+t^2}\frac{1}{t}\,dt=\int\frac{1}{1+t^2}\,dt\\[2pt]&=\arctan(t)+c\big|_{t=e^x}=\arctan(e^x)+c.\end{align*}$
+
+
+2. zu 2: $t = \sqrt{x - 1}$, $x = t^2 + 1$, $dx = 2t\,dt$
+
+   $\begin{align*}\int_{x=5}^{x=10}\frac{x}{\sqrt{x-1}}\,dx &= \int_{t=2}^{t=3}\frac{t^2+1}{t}2t\,dt\\&=2\int_2^3(t^2+1)\,dt=2(\frac{1}{3}t^3+t)\bigg|_2^3=\frac{44}{3}.\end{align*}$
+
+
+3. zu 3: $x = \sin t$, $dx = \cos t\, dt$
+
+   $\begin{align*}\int\underbrace{\sqrt{1-x^2}}_{\cos(t)}\,dx &= \int\cos(t)\cos(t)\,dt = \int\cos^2(t)\,dt\\&\overset{\text{part.Int.}}{=} \cos(t)\sin(t) +\int\underbrace{\sin^2(t)}_{1-\cos^2(t)}\,dt = \cos(t)\sin(t)+t-\int\cos^2(t)\,dt\\&\Rightarrow \int\sqrt{1-x^2}\,dx=\frac{1}{2}(t+\cos(t)\sin(t))+c\bigg|_{t=\arcsin(x)}\\&= \frac{1}{2}(\arcsin(x)+\underbrace{\cos(\arcsin(x))}_{\sqrt{1-x^2}})+c.\end{align*}$
+
+
+4. zu 5: $x = \sinh t$, $dx = \cosh t\,dt$; $\quad y = e^t$, $dy = e^t\,dt$, $dt = \frac{dy}y$
+
+   $\begin{align*}2\int\sqrt{1+\frac{1}{x^2}}\,dx &= 2\int\frac{\sqrt{1+x^2}}{x}\,dx = 2\int\frac{\cosh(t)}{\sinh(t)}\cosh(t)\,dt\\&=2\int\frac{(\frac{1}{2}(e^t+e^{-t}))^2}{\frac{1}{2}(e^t-e^{-t})}\,dt = \int\frac{e^{2t}+2+e^{-2t}}{e^t-e^{-t}}\,dt\\&=\int\frac{y^2+2+\frac{1}{y^2}}{y-\frac{1}{y}}\frac{1}{y}\,dy=\int\frac{y^4+2y^2+1}{y^4-y^2}\,dy\\&=\int(\frac{y^4-y^2}{y^4-y^2}+\frac{3y^2+1}{y^4-y^2})\,dy = y +\underbrace{\int\frac{3y^2+1}{y^4-y^2}\,dy}_{???}.\end{align*}$
+"""
+
+# ╔═╡ bbd6dd32-06d3-4d34-b007-c214d38845f3
+md"""
+### 2.5.5 Partialbruchzerlegung
+
+Idee. Schreibe eine rationale Funktion $\frac{p(x)}{q(x)}$ mit Polynomen $p,q$ als Summe einfacher Brüche (typischerweise grad$(p)<$grad$(q)$).
+
+##### Beispiel:
+$\frac{1}{y^4-y^2}=\frac{1}{y^2(y^2-1)}=\frac{1}{y^2(y-1)(y+1)}\overset{?}{=}\frac{A}{y^2}+\frac{B}{y-1}+\frac{C}{y+1}$
+$=\frac{A(y-1)(y+1)+By^2(y+1)+Cy^2(y-1)}{y^4-y^2}=\frac{\overbrace{(B+C)}^{\overset{!}{=}0}y^3+\overbrace{(A+B-C)}^{\overset{!}{=}0}y^2-\overbrace{A}^{\overset{!}{=}1}}{y^4-y^2}$
+
+Über Koeffizienten-Vergleich erlangen wir $A=-1,\,B=\frac{1}{2},\,C=-\frac{1}{2}$. Somit lässt sich das Integral aus dem vorherigen Beispiel fertig berechnen.
+
+$\begin{align*} 2\int \sqrt{1+\frac{1}{x^2}}dx &= y + \int \frac{3y^2+1}{y^4-y^2}dy\\&=y + \int \frac{-1}{y^2}dy + \int \frac{2}{y-1}dy + \int \frac{-2}{y-1}dy\\&= y + \frac{1}{y} + 2 \ln(y-1) - 2 \ln(y+1) + c\big|_{y=e^t}\Big|_{t=\text{arcsinh}(x)}=\dots\end{align*}$
+"""
+
+# ╔═╡ b7b6ad15-89cb-4aa5-9372-8fc4490a7f13
+md"""
+##### Bemerkung:
+1. Potenzreihen $f(x)=\sum_{i=0}^\infty a_i\,x^i$ dürfen im Konvergenzbereich gliedweise integriert werden, d.h.
+
+$\int f(x)\,dx = \sum_{i=0}^\infty a_i\int x^i\,dx = \sum_{i=0}^\infty\frac{a_i}{i+1}x^{i+1}+c$
+2. Es gibt Integrale, die können nicht "elementar" gelöst werden, so etwa $\int_0^a e^{-t^2}\,dt$. Per Potenzreihe wird die "Fehlerfunktion" definiert
+
+$\mathrm{erf}(x) := \frac{2}{\sqrt{\pi}} \int _0^x e^{-t^2}\,dt = \frac{2}{\sqrt{\pi}}\sum_{k=0}^\infty\frac{(-1)^k\,x^{2k+1}}{(2k+1)\,k!}.$
+"""
+
+# ╔═╡ 459175f5-93ef-46ea-a58d-b29eab96175a
+md"""
+### 2.5.6 Uneigentliche Integrale
+
+##### Definition:
+1. Es sei $f:[a,\infty)\to\mathbb{R}$ auf jedem Intervall $[a,b]$ Riemann-integrierbar. Wir definieren
+
+   $\int_a^\infty f(x)\,dx := \lim_{b\to\infty}\int_a^b f(x)\,dx$
+   als uneigentliches Integral von $f$ über $[a,\infty)$.
+
+2. Es sei $f:[a,b]\setminus\{x_0\}\to\mathbb{R}$ bei $x_0\in[a,b]$ unbeschränkt und integrierbar auf jedem Intervall, welches $x_0$ nicht enthält. Wir definieren
+
+   $\int_a^bf(x)\,dx := \lim_{t\to x_0^-}\int_a^tf(x)\,dx+\lim_{t\to x_0^+}\int_t^bf(x)\,dx$
+   als uneigentliches Integral von $f$.
+"""
+
+# ╔═╡ f5304dcc-aa9b-4bce-a349-4d322d17f088
+md"""
+##### Bemerkung:
+1. Uneigentliche Integrale sind entweder konvergent (wenn der Grenzwert existiert) oder divergent.
+2. Es lässt sich analog $\int_{-\infty}^bf(x)\,dx$ definieren und
+$\int_{-\infty}^\infty f(x)\,dx=\int_{-\infty}^0f(x)\,dx + \int_0^{\infty}f(x)\,dx.$
+3. Ist $F$ eine Stammfunktion von $f$, so gilt bei 1. in der Definition $\int_a^\infty f(x)\,dx = \lim\limits_{b\to\infty}F(b)-F(a)$.
+4. In 2. der Definition ist die typische Situation eine Singularität am Rand, d.h. $x_0=a$ oder $x_0=b$, z.B.
+
+   $\int_{x_0}^bf(x)\,dx = \lim_{t\to x_0^+}\int_t^b f(x)\,dx = F(b)-\lim_{t\to x_0^+}F(t).$
+"""
+
+# ╔═╡ 014e2078-5127-4066-a12e-e53c25b3207b
+md"""
+##### Beispiel:
+
+1.  $\displaystyle \int_0^\infty e^{-x\,}dx = \lim_{b\to\infty} (-e^{-x})\bigg|_0^b = \underbrace{\lim_{b\to\infty}(-e^{-b})}_{=0} - \underbrace{(-e^0)}_{=-1}=1.$
+
+    $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/integral_e_fkt.svg","./assets/integral_e_fkt.svg"))
+
+2.  $\displaystyle \int_{-\infty}^\infty\frac{1}{1+x^2}\,dx = \int_{-\infty}^0\frac{1}{1+x^2}\,dx + \int_0^\infty \frac{1}{1+x^2}\,dx$\
+    $\displaystyle\hphantom{\int_{-\infty}^\infty\frac{1}{1+x^2}\,dx} = 2\int_0^\infty\frac{1}{1+x^2}\,dx = \lim\limits_{b\to\infty}(2\arctan(x))\bigg|_0^b$\
+    $\displaystyle\hphantom{\int_{-\infty}^\infty\frac{1}{1+x^2}\,dx} = 2\lim\limits_{b\to\infty}\arctan(b)=\pi.$
+
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/integral_bruch.svg","./assets/integral_bruch.svg"))
+
+3.  $\displaystyle \int_0^1\ln(x)\,dx=\lim_{a\to0}\;(x\ln(x)-x)\bigg|_a^1=-1-\lim_{a\to0}(a\ln(a)-a)=-1.$
+
+4. Betrachte $f(x) = x^\alpha,\quad \alpha\in\mathbb{R}$\
+
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/potenzen.svg","./assets/potenzen.svg"))
+
+   $\int_a^b x^\alpha dx = \begin{cases}\frac{1}{\alpha+1}x^{\alpha + 1}\big|_a^b&\alpha \neq -1,\\\ln(x)\big|_a^b&\alpha=-1.\\\end{cases}$
+
+   (i) $\displaystyle \int_1^\infty x^\alpha\,dx = \begin{cases}\frac{1}{\alpha +1} (\lim\limits_{b\to\infty}b^{\alpha+1}-1)&\alpha\neq-1,\\[2pt]\lim\limits_{b\to\infty}\ln(b)-0&\alpha=-1.\end{cases}$
+
+    da $\lim\limits_{b\to\infty} \ln(b) = \infty$ und $\lim\limits_{b\to0} b^{\alpha+1} = \begin{cases} \infty & \alpha > -1 \\[2pt] 0 & \alpha < -1, \end{cases}$\
+    folgt Konvergenz, falls $\displaystyle \alpha<-1,\quad \int_1^\infty x^\alpha\,dx = -\frac{1}{\alpha+1}.$
+
+   (ii) $\displaystyle \int_0^1 x^\alpha\,dx = \begin{cases} \frac{1}{\alpha +1}(1-\lim\limits_{b\to0}b^{\alpha+1})&\alpha\neq -1\\[2pt]0-\lim\limits_{b\to0}\ln(b)&\alpha=-1\end{cases}$
+
+    da $\lim\limits_{b\to\infty} \ln(b) = \infty$ und $\lim\limits_{b\to0} b^{\alpha+1} = \begin{cases} \infty & \alpha < -1 \\[2pt] 0 & \alpha > -1, \end{cases}$\
+    folgt Konvergenz, falls $\displaystyle \alpha > -1,\quad \int_0^1 x^\alpha\,dx = \frac{1}{\alpha+1}.$
+"""
+
+
+# ╔═╡ 618661ef-0f21-4b49-96f4-643dff2e148e
+md"""
+##### Satz:
+Sei $f$ stetig in $[a,b]\setminus\{x_0\}$ und bei $x_0\in[a,b]$ unbeschränkt. Gilt in einer Umgebung von $x_0$
+1.  $|f(x)|\leq c\frac{1}{|x-x_0|^p},\quad$ mit $p<1,\,c>0,\,$ so konvergiert $\int_a^bf(x)dx.$
+2.  $|f(x)|\geq c\frac{1}{|x-x_0|^p},\quad$ mit $p\geq1,\,c>0,\,$ so divergiert $\int_a^bf(x)dx.$
+
+Bild: $f$ hat Singularität von algebraischem Typ mit Ordnung $p$. Das heißt $\lim\limits_{x\to x_0} |x-x_0|^p\,|f(x)|\leq C < \infty.$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/singularitaet.svg","./assets/singularitaet.svg"))
+"""
+
+# ╔═╡ 6ab7bf41-937e-4d35-8e8e-87f1e93ae93b
+md"""
+##### Bemerkung:
+Analog: Falls $|f(x)|\leq g(x),\quad x\in [a,\infty)$ und $\int_a^\infty g(x)\,dx$ existiert, dann folgt $\left|\int_0^\infty f(x)\,dx\right|\leq\int_0^\infty|f(x)|\,dx\leq \int_a^\infty g(x)\,dx$. Also existiert $\int_0^\infty f(x)\,dx.$ ($g$ heißt "Majorante")
+##### Beispiel:
+ $\int_1^\infty(1+\sin(t))e^{-1}\,dt$ existiert, denn $|(1+\sin(t)e^{-t}|\leq \underbrace{2e^{-t}}_{g(t)}$
+"""
+
+# ╔═╡ 84f2fc4b-bfb6-4309-ab04-dbe3cb846400
+md"""
+##### Satz:
+Sei $f:[1,\infty)\to\mathbb{R}^+$ stetig und monoton fallend. Dann gilt
+
+ $\displaystyle \sum_{n=1}^\infty f(n)$ konvergiert $\displaystyle\Leftrightarrow \int_1^\infty f(x)\,dx$ existiert.
+
+##### Beweis:
+Auf dem Intervall $I=[n-1,n]$ gilt $\underset{x\in I}{\max}f(x) = f(n-1)>0$ und $\underset{x\in I}{\min}f(x)=f(n)>0$, also
+
+$f(n)\leq \int_{n-1}^nf(x)\,dx\leq f(n-1).$
+
+Summiere über $n=2,\ldots,N$: $\begin{align*}\sum_{n=2}^Nf(n)\leq \int_1^Nf(x)dx\leq\sum_{n=2}^Nf(n-1)=\sum_{n=1}^{N-1}f(n)\end{align*}.$
+
+Für die Hinrichtung haben wir, für $N$ beliebig, da $f(n) \geq 0$
+
+$\int_1^Nf(x)\,dx\leq\sum_{n=1}^{N-1}f(n)\leq \sum_{n=1}^\infty f(n)\Rightarrow \lim_{N\to\infty}\int_1^Nf(x)\,dx<\infty$
+
+Für die Rückrichtung gilt, für $N$ beliebig, da $f(x) \geq 0$
+
+$\sum_{n=2}^Nf(n)\leq \int_1^Nf(x)\,dx\leq\int_1^\infty f(x)\,dx\Rightarrow \lim_{N\to\infty}\sum_{n=1}^Nf(n)<\infty$
+
+##### Beispiel:
+ $\displaystyle \sum_{n=1}^\infty \frac{1}{n^\alpha} \begin{cases} \text{konvergiert}&\alpha > 1,\\\text{divergiert}&\alpha \leq 1.\end{cases}$
+"""
+
+# ╔═╡ 02d9df1c-1289-4025-800b-a13763ba63bd
+md"""
+### 2.5.7 Parameter-Integrale
+
+##### Definition:
+Sei $f:[a,b]\times\mathbb{R}\to\mathbb{R}, \,(x,t)\mapsto f(x,t)$ eine Funktion in $x$ mit Parameter $t$. Für ein festes $t$ sei $f(\cdot,t):\mathbb{R}\to\mathbb{R}$ Riemann-integrierbar. Das Integral $g(t)=\int_a^bf(x,t)\,dx$ heißt Parameter-Integral und ist eine Funktion $g:\mathbb{R}\to\mathbb{R}.$
+"""
+
+# ╔═╡ f8d430f5-35f6-4a6e-80ca-769f18bef648
+md"""
+##### Beispiel:
+Betrachte $I(n)=\int_0^\infty t^ne^{-t}\,dt,\quad f(t,n)=t^ne^{-t}$ mit $n\in\mathbb{N}$ als Parameter.
+
+$\begin{align*}n&=0:\quad I(0)=\int_0^\infty e^{-t}\,dt=1\\[2pt]n&=1:\quad I(1)=\int_0^\infty te^{-t}\,dt = -te^{-t}\bigg|_0^\infty +\int_0^\infty e^{-t}\,dt = 1\\[2pt]
+I(n)&=\int_0^\infty t^ne^{-t}\,dt=\underbrace{-t^ne^{-t}\bigg|_0^\infty}_{=0} + n \int_0^\infty t^{n-1}e^{-t}\,dt\\[2pt]
+ &= n\,I(n-1)= n\,(n-1)\,I(n-2)\dots=n!\quad \forall n\in\mathbb{N}\end{align*}$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/integral_fakultaet.svg","./assets/integral_fakultaet.svg"))
+
+Beachte $I(n)$ ist auch für $n\in\mathbb{R}^+$ definiert. Und für $n<0$?
+
+In der Nähe von $t=0$ gilt
+
+$|t^ne^{-t}|\leq c\,t^n \Rightarrow I(n)\;\begin{cases}\text{divergiert}&n\leq-1,\\\text{konvergiert}&n>-1.\end{cases}$
+"""
+
+# ╔═╡ 936879c3-c85f-4dbc-ad38-0069bd16f786
+md"""
+##### Definition:
+ $\Gamma:(0,\infty)\to\mathbb{R},\,x\mapsto\int_0^\infty t^{x-1}e^{-t}\,dt \quad$ heißt Gamma-Funktion.
+Es gilt
+
+ $\begin{align*}\underbrace{\Gamma(x+1)}_{\int t^xe^{-t}}&=\underbrace{x\Gamma(x)}_{x\int t^{x-1}e^{-t}},\quad x\in(0,\infty),\\\Gamma(n+1)&=n!=I(n),\quad n\in\mathbb{N}.\end{align*}$
+
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/gamma_funktion.svg","./assets/gamma_funktion.svg"))
+"""
+
+# ╔═╡ 83277f80-2358-4912-9c43-c2ad8bb3b5aa
+md"""
+##### Bemerkung:
+1. Die Funktion $\Gamma$ ist die Verallgemeinerung der Fakultät $n!$ für reelle Zahlen.
+2. Es gibt viele Funktionen, die $f(n+1)=nf(n)$ für $n\in\mathbb{N}$ gilt, aber nur $\Gamma$ ist _konvex_.
+3.  $\Gamma$ kann fortgesetzt werden für $x<0$ durch $\Gamma(x)=\frac{\Gamma(x+1)}{x}.$
+4. Faszinierend: $\Gamma(\frac{1}{2}) = \sqrt{\pi},\quad \sin(\pi x) = \frac{\pi}{\Gamma(x)\Gamma(1-x)}$.
+
+
+5.  $\displaystyle \Gamma'(x_0) =\lim_{x\to x_0}\frac{\Gamma(x)-\Gamma(x_0)}{x-x_0}=\lim_{n\to\infty}\frac{\Gamma(x_n)-\Gamma(x_0)}{x_n-x_0}$
+
+    $\displaystyle\hphantom{\Gamma'(x_0)}=\lim_{n\to\infty}\int_0^\infty\underbrace{\frac{t^{x_n-1}e^{-t}-t^{x_0-1}e^{-t}}{x_n-x_0}}_{f_n(t)}\,dt.$
+"""
+
+# ╔═╡ 2659d0a0-1e6b-4121-bbfc-4d12e4452e94
+md"""
+### 2.5.8 Funktionenfolgen
+
+Wir hatten bisher Folgen von Zahlen $(a_n)_{n\in\mathbb{N}}\subset\mathbb{R}$.
+
+##### Definition:
+Sei $D\subset\mathbb{R}$ und $\mathcal{F}(D,\mathbb{R})$ die Menge der Funktionen $f:D\to\mathbb{R}$. Dann heißt die Folge der Funktionen $(f_n)_{n\in\mathbb{N}}\subset\mathcal{F}$ _Funktionenfolge_.
+
+##### Beispiel:
+1.  $f_n(x)=x^n,\quad\quad f_n:[0,1]\to\mathbb{R}$\
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/funktionenfolge_xhochn.svg","./assets/funktionenfolge_xhochn.svg"))
+
+   Als Grenzwert entsteht
+
+    $f(x)= \lim\limits_{n\to\infty}f_n(x)=\begin{cases}0&x\in[0,1),\\1&x=1.\end{cases}\quad$(unstetig!)
+
+2.  $f_n:[0,1]\to\mathbb{R},\,f_n(x)=x-\frac{1}{n}x^n$\
+   $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/funktionenfolge_beispiel.svg","./assets/funktionenfolge_beispiel.svg"))
+
+    $f(x)=\lim\limits_{n\to\infty}f_n(x)=x,\quad x\in[0,1]$\
+   Aber: $f_n'(x)=1-x^{n-1},\quad \lim\limits_{n\to\infty}f_n'(x)=\begin{cases}1&x\in[0,1),\\0&x=1\end{cases}\neq f'(x).$
+
+Das Beispiel zeigt uns, dass die Vertauschbarkeit von Grenzwerten offenbar nicht immer gegeben ist!
+"""
+
+# ╔═╡ e5838aca-0d93-4e57-898e-9ed25832b84a
+md"""
+##### Definition:
+Die Folge $(f_n)_{n\in\mathbb{N}}\subset\mathcal{F}(D,\mathbb{R})$ _konvergiert punktweise_ gegen eine Funktion $f\in\mathcal{F}(D,\mathbb{R})$, falls für jedes $x\in D$ gilt
+
+$\forall \varepsilon>0\,\exists n(x,\varepsilon): |f_n(x)-f(x_0)|\leq \varepsilon\quad n\geq n(x,\varepsilon)$
+
+##### Bemerkung:
+Dies ist die direkte Verallgemeinerung von Konvergenz für Folgen. Die Grenzwerte in Beispiel 1 und 2 waren _punktweise_ Grenzwerte.
+
+"""
+
+# ╔═╡ feb4e44d-4dc2-477e-a1a4-b0d5f0bb8495
+md"""
+##### Definition:
+Sei $f:D\to\mathbb{R}$ der punktweise Grenzwert von $(f_n)_{n\in\mathbb{N}}\subset\mathcal{F}(D,\mathbb{R}). (f_n)$ _konvergiert gleichmäßig_, falls
+
+$\forall\varepsilon>0\,\exists n_\varepsilon: |f_n(x)-f(x)|\leq\varepsilon\quad\forall n\geq n_\varepsilon\quad \forall x\in D.$
+
+##### Bemerkung:
+1. Bei gleichmäßger Konvergenz lässt sich ein "$\varepsilon$-Schlauch" um den Grenzwert $f$ legen, in dem alle übrigen Folgenglieder liegen.
+ $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/68c6f1ba9a12fee79c5d75bbcc94725d22b0573d/notebooks/assets/funktionenfolge_gleichmaessig.svg","./assets/funktionenfolge_gleichmaessig.svg"))
+2. Jedes gleichmäßig konvergente $f_n$ konvergiert auch punktweise.
+3.  $(f_n)$ konvergiert gleichmäßig, falls $\lim\limits_{n\to\infty}\lVert f_n-f\rVert_\infty = 0$, wobei $\|f_n - f\|_\infty := \max\limits_{x\in D} \left| f_n(x) - f(x)\right|$.
+
+"""
+
+# ╔═╡ e2b720d8-b644-4407-8331-ec5ca02bae05
+md"""
+##### Beispiel:
+1. Für $x\in[0,1]$ konvergiert $f_n=x^n$ nicht gleichmäßig.
+2. Für $x\in[0,1]$ konvergiert $f_n=x-\frac{1}{n}x^n$ gleichmäßig
+
+##### Satz:
+Falls $(f_n)_{n\in\mathbb{N}}\subset C^0(D,\mathbb{R})$, d.h. jedes $f_n$ ist stetig in $D$ und $(f_n)$ gleichmäßig konvergent gegen $f$, dann ist $f$ auch stetig in $D$, also $f\in C^0(D,\mathbb{R})$.
+
+##### Beispiel:
+1.  $f_n=x^n \Rightarrow f$ nicht stetig.
+2.  $f_n=x-\frac{1}{n}x^n\Rightarrow f$ stetig.
+"""
+
+# ╔═╡ e7071a4d-3950-4ca1-af05-2aca227ea119
+md"""
+##### Satz:
+Sei $D=[a,b]\subset\mathbb{R}$ und $(f_n)_{n\in\mathbb{N}}\subset C^0(D,\mathbb{R})$ gleichmäßig konvergent gegen $f$. Dann gilt:
+
+$\lim_{n\to\infty}\int_a^bf_n(x)\,dx=\int_a^b\lim_{n\to\infty}f_n(x)\,dx=\int_a^bf(x)\,dx.$
+
+Der Limes und das Integral dürfen also vertauscht werden.
+
+##### Bemerkung:
+Damit lässt sich für die Gamma Funktion zeigen
+
+$\Gamma'(x)=\int_0^\infty\underbrace{\frac{\partial}{\partial x}(\overbrace{t^{x-1}}^{e^{(x-1)\ln(t)}}}_{\text{Ableitung nach } x}\cdot e^{-t})\,dt=\int_0^\infty t^{x-1}\ln(t)e^{-t}\,dt.$
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -3246,5 +3705,32 @@ version = "4.1.0+0"
 # ╟─81e04c16-4fd5-4225-be72-a0086d729ea0
 # ╟─8cd56a50-51bc-43aa-80de-6c5f74c152e8
 # ╟─341cd2aa-549d-4a74-9f3a-79209008f533
+# ╟─5eef606d-d1e1-4977-b0a0-fcb3a860cf31
+# ╟─340b86f9-6234-4847-a97e-fa21bd03bcca
+# ╟─e8a0fc4b-757c-4b0c-be50-36ce81cb56a0
+# ╟─3cbf73dc-48fe-4fe4-8cd0-f89b819d4a73
+# ╟─e180527b-3f8d-41b2-8f06-d1eb0484eb48
+# ╟─bb35c873-4bab-4d15-9d19-c75618215d2c
+# ╟─e0778981-d933-47a2-ac73-a541afe52570
+# ╟─f11a05a5-69f9-4d31-93f7-f7bc2afa46d1
+# ╟─214518e7-e33d-46cf-94ca-044da60db06f
+# ╟─725db376-0766-44fc-9fce-d514cfb595d2
+# ╟─bbd6dd32-06d3-4d34-b007-c214d38845f3
+# ╟─b7b6ad15-89cb-4aa5-9372-8fc4490a7f13
+# ╟─459175f5-93ef-46ea-a58d-b29eab96175a
+# ╟─f5304dcc-aa9b-4bce-a349-4d322d17f088
+# ╟─014e2078-5127-4066-a12e-e53c25b3207b
+# ╟─618661ef-0f21-4b49-96f4-643dff2e148e
+# ╟─6ab7bf41-937e-4d35-8e8e-87f1e93ae93b
+# ╟─84f2fc4b-bfb6-4309-ab04-dbe3cb846400
+# ╟─02d9df1c-1289-4025-800b-a13763ba63bd
+# ╟─f8d430f5-35f6-4a6e-80ca-769f18bef648
+# ╟─936879c3-c85f-4dbc-ad38-0069bd16f786
+# ╟─83277f80-2358-4912-9c43-c2ad8bb3b5aa
+# ╟─2659d0a0-1e6b-4121-bbfc-4d12e4452e94
+# ╟─e5838aca-0d93-4e57-898e-9ed25832b84a
+# ╟─feb4e44d-4dc2-477e-a1a4-b0d5f0bb8495
+# ╟─e2b720d8-b644-4407-8331-ec5ca02bae05
+# ╟─e7071a4d-3950-4ca1-af05-2aca227ea119
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
