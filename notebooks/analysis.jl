@@ -1316,15 +1316,27 @@ Mit Satz von Rolle (Mittelwertsatz) können wir folgern, dass $g(x)=g(x_0)=0\Rig
 
 md"""
 ##### Beispiel:
- $f(x) = \sin(x).$ Es gilt $r_5(x)= f(x)-T_5(x) = \frac{f^{(n)}(\xi)}{6!}x^6 = \frac{-x^6}{720}\sin(\xi).$
+1.  $f(x) = \sin(x).$ Es gilt $r_5(x)= f(x)-T_5(x) = \frac{f^{(n)}(\xi)}{6!}x^6 = \frac{-x^6}{720}\sin(\xi).$
 
- $T_5(x)=x-\frac{1}{6}x^3+\frac{1}{120}x^5\quad$ mit $\xi\in(0,x).$
+    $T_5(x)=x-\frac{1}{6}x^3+\frac{1}{120}x^5\quad$ mit $\xi\in(0,x).$
 
- $|r_5(x)|=\frac{1}{720}|x^6\sin(\xi)|\leq \frac{1}{720}|x^6|=\begin{cases}\approx 10^{-3}&x=1\\\approx1&x=3.\end{cases}$
+    $|r_5(x)|=\frac{1}{720}|x^6\sin(\xi)|\leq \frac{1}{720}|x^6|=\begin{cases}\approx 10^{-3}&x=1\\\approx1&x=3.\end{cases}$
 
-Die Abschätzung ist dabei sehr konservativ, der tatsächlicher Fehler ist $\begin{cases}\approx2\cdot 10^{-4}&x=1\\\approx0.4&x=3.\end{cases}$
+   Die Abschätzung ist dabei sehr konservativ, der tatsächlicher Fehler ist $\begin{cases}\approx2\cdot 10^{-4}&x=1\\\approx0.4&x=3.\end{cases}$
 
-Für $f\in C^\infty(I)$ dürfen wir in der Taylorentwicklung $n\to\infty$ schreiben.
+   Für $f\in C^\infty(I)$ dürfen wir in der Taylorentwicklung $n\to\infty$ schreiben.
+
+2. Ausblick auf Numerik:
+
+    $(RobustLocalResource("https://github.com/hpsc-lab/lecture-notes-math1/raw/9dc891dec5fd9c0f40cda127f4150188b87e318a/notebooks/assets/taylor.svg","./assets/taylor.svg"))
+
+   Entwicklung um $x$, Auswertung bei $x+h$: 
+
+    $\begin{align*}&f(x+h)=f(x)+f'(x)\,h+\underbrace{\frac{1}{2}f''(\xi)\,h^2}_{\mathcal{o}(h^2)}\\&\Leftrightarrow f'(x)=\frac{f(x+h)-f(x)}{h}+\mathcal{o}(h)\\&\Rightarrow f_h(x_i)=\frac{f(x_{i+1})-f(x_i)}{h}+\mathcal{o}(h),\quad h=x_{i+1}-x_i.\end{align*}$
+
+   Subtrahiere Auswertung bei $x-h$:
+
+    $\begin{align*}f(x+h)-f(x-h)&=2f'(x)h+\mathcal{o}(h^3)\\\Leftrightarrow f'_h(x) &= \frac{f(x+h)-f(x-h)}{2h}+\mathcal{o}(h^2).\end{align*}$
 """
 
 # ╔═╡ c2ce741c-d0f0-413a-99c5-4b149e702ea3
