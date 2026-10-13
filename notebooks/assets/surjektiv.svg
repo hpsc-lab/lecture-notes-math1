@@ -49,24 +49,14 @@
 <g clip-path="url(#clip-4)">
 <path fill="none" stroke-width="1.19553" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(86.274719%, 14.901733%, 49.804688%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0018125 -0.000125 L 0.0018125 261.10925 " transform="matrix(1, 0, 0, -1, 13.256, 161.203)"/>
 </g>
-<<<<<<< HEAD
-<path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 16.84375 36.042969 L 28.882812 36.042969 L 28.882812 25.25 L 16.84375 25.25 Z M 16.84375 36.042969 "/>
-<g fill="rgb(86.274719%, 14.901733%, 49.804688%)" fill-opacity="1">
-<use xlink:href="#glyph-0-0" x="18.835" y="34.053"/>
-=======
 <path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 16.84375 37.542969 L 32.222656 37.542969 L 32.222656 23.753906 L 16.84375 23.753906 Z M 16.84375 37.542969 "/>
 <g fill="rgb(86.274719%, 14.901733%, 49.804688%)" fill-opacity="1">
 <use xlink:href="#glyph-0-0" x="18.835" y="35.551"/>
->>>>>>> 3c161f1 (adds pictures and changes to safe colours)
 </g>
 <g clip-path="url(#clip-5)">
 <path fill="none" stroke-width="1.19553" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%, 69.018555%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0018125 -0.000125 L 238.634625 -0.000125 " transform="matrix(1, 0, 0, -1, 13.256, 161.203)"/>
 </g>
 <g fill="rgb(100%, 69.018555%, 0%)" fill-opacity="1">
-<<<<<<< HEAD
-<use xlink:href="#glyph-0-1" x="128.836" y="154.296"/>
-=======
 <use xlink:href="#glyph-0-1" x="127.306" y="154.296"/>
->>>>>>> 3c161f1 (adds pictures and changes to safe colours)
 </g>
 </svg>
